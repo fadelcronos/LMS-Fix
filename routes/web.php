@@ -24,3 +24,6 @@ Route::get('/login', 'accountController@login');
 //Registerpage routing
 Route::get('/register', 'accountController@register');
 
+//Register account to DB
+Route::post('/register', 'accountController@store');
+

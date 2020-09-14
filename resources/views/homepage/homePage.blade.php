@@ -17,127 +17,18 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<style>
-.fontApple{
-    font-family: SFUIDisplay,Helvetica Neue,sans-serif; 
-
-}
-
-.card {
-  position: relative;
-  min-width: 300px;
-  height: auto;
-  overflow: hidden;
-  border-radius: 15px;
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
-  transition: .5s;
-}
-.card:hover {
-  transform:scale(1.1);
-  cursor: pointer;
-}
-.card_red, .card_red .title .fa {
-  background: linear-gradient(-45deg, #ffec61, #f321d7);
-}
-.card_violet, .card_violet .title .fa  {
-  background: linear-gradient(-45deg, #f403d1, #64b5f6);
-}
-.card_three, .card_three .title .fa  {
-  background: linear-gradient(-45deg, #24ff72, #9a4eff);
-}
-
-.card:before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background: rgba(255, 255, 255, .1);
-  z-index: 1;
-  transform: skewY(-5deg) scale(1.5);
-}
-
-.title .fa {
-  color: #fff;
-  font-size: 60px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 100px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, .1);
-}
-.title h2 {
-  position: relative;
-  margin: 20px 0 0;
-  padding: 0;
-  color: #fff;
-  font-size: 28px;
-  z-index: 2;
-}
-.price {
-  position: relative;
-  z-index: 2;
-}
-.price h4 {
-  margin: 0;
-  padding: 20px 0;
-  color: #fff;
-  font-size: 60px;
-}
-.option {
-  position: relative;
-  z-index: 2;
-}
-.option ul {
-  margin: 0;
-  padding: 0;
-}
-.option ul li {
-  margin: 0 0 10px;
-  padding: 0;
-  list-style: none;
-  color: #fff;
-  font-size: 16px;
-}
-.card a {
-  display: block;
-  position: relative;
-  z-index: 2;
-  background-color: #fff;
-  color: #262ff;
-  width: 150px;
-  height: 40px;
-  text-align: center;
-  margin: 20px auto 0;
-  line-height: 40px;
-  border-radius: 40px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 5px 10px rgba(0,0,0, .1);
-}
-.card a:hover {
-  
-}
-.bg-tit{
-    color: white;
-    background: linear-gradient(-45deg, #ffec61, #f321d7);
-}
-</style>
+  <link href="css/customCss.css" rel="stylesheet">
+  <link href="css/home-css.css" rel="stylesheet">
 </head>
 
-<body id="page-top" class="fontstyle">
+<body id="page-top" class="fontstyle bg-abstract-black">
     
       <!-- Main Content -->
-      <div id="content" class="bg-white">
+      <div id="content">
 
       <div id="content-wrapper" class="d-flex flex-column">
            <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-dark topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
 
             <!-- Topbar Title -->
             <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
@@ -187,9 +78,9 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:auto;" alt="" src="https://media-exp1.licdn.com/dms/image/C5603AQGJ2oTm-Ma0vA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jPcctvt-ce7Q7WuWvRmPjg71qUbrjdWrrLhS5uPWq7c">
-               <h2 class="text-dark fontApple" style="font-weight: 600;">Hello, User</h2>
+               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, User</h2>
                 <div class="inline">
-                  <a href="{{ url('/details') }}" class="text-primary">Account Settings</a>
+                  <a href="{{ url('/details') }}" class="text-white">Account Settings</a>
                   <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
                 </div>
               </div>
@@ -200,7 +91,7 @@
           <!-- Section for button home -->
          
             <div class="row mt-4">
-              <div class="col-sm-4">
+              <div class="col-sm-4 mt-2">
                 <div class="card card_violet text-center" onclick="goWeb(1)">
                   <div class="title">
                     <i class="fa fa-chart-line" aria-hidden="true"></i>
@@ -208,7 +99,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-4 mt-2">
                 <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-file-alt" aria-hidden="true"></i>
@@ -216,7 +107,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-4 mt-2">
                 <div class="card card_red text-center">
                   <div class="title">
                     <i class="fa fa-users" aria-hidden="true"></i>

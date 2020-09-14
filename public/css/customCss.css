@@ -23,5 +23,42 @@
     background: #1488CC;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
+
+.bg-abstract-black{
+    background-image: url('../img/pic6.jpg'); 
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+.bg-abstract-yel{
+    background-image: url('../img/pic2.jpg'); 
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+.yel{
+    color:#FBB117;
+}
+
+.blk{
+    color:#000;
+}
+
+.btn-customyel{
+    background-color:black;
+    color:#FBB117;
+}
+
+.btn-customyel:hover{
+    background-color:#FBB117;
+    color:black;
+}
+
+.btn-customblk{
+    background-color:#FBB117;
+    color:black;
+}
+.btn-customblk:hover{
+    background-color:black;
+    color:#FBB117;
+}
+

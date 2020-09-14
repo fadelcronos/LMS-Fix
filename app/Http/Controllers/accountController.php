@@ -42,7 +42,24 @@ class accountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $acc = new Account;
+
+        $request->validate([
+            'kpknum' => 'unique:accounts,kpkNum',
+            'emailAdd' => 'unique:accounts,email',            
+         ]);
+         
+
+        $acc->fName = $request->fName;
+        $acc->lName = $request->lName;
+        $acc->email= $request->emailAdd;
+        $acc->kpkNum = $request->kpknum;
+        $acc->department = $request->department;
+        $acc->pass = $request->pass;
+
+
+        $acc->save();
+        return redirect('/register')->with('status', 'Account Created');
     }
 
     /**

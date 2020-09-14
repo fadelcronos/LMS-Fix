@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>LMS - Register</title>
+  <title>LMS - Sign Up</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -17,24 +17,66 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="css/customCss.css" rel="stylesheet">
 </head>
 
-<body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5" style="background-image: url('img/pic6.jpg'); background-repeat: no-repeat; background-size: cover;">
+<body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5 bg-abstract-black">
 
   <div class="container mt-4 mt-md-5">
-
+      @if (session('status'))
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 text-center">
+          <div class="alert alert-success">
+              {{ session('status') }}
+          </div>
+        </div>
+      </div>
+      @endif
     <div class="card o-hidden border-0 shadow-lg">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block" style="background-image: url('img/pic2.jpg')"></div>
+          <div class="col-lg-5 d-none d-lg-block" style="background-image: url('img/pic2.jpg')">
+            <div class="row d-flex justify-content-center mt-2">
+              <div class="col d-flex justify-content-center mt-5">
+                <i class="fas fa-globe-asia fa-5x blk"></i>
+              </div>
+            </div>
+            <hr class="mt-5 ml-3">
+          <div class="row ml-3">
+            <div class="col">
+              <h3 class="text blk"><em>Quotes of The Day</em></h3>
+            </div>
+          </div>
+            <div class="row ml-3">
+              <div class="col">
+                <em class="text blk">“The message of the Kaizen strategy is that not a day 
+                  should go by without some kind of improvement being made somewhere in the company.”
+                </em>
+                <hr>
+                <em class="text text-white">
+                – Masaaki Imai
+                </em>
+              </div>
+            </div> 
+            <div class="row mt-3 ml-3">
+              <div class="col-10">
+                
+              </div>
+            </div> 
+            <div class="row ml-5">
+              <div class="col">
+                
+              </div>
+            </div> 
+          </div>
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4 text-uppercase">Create an Account!</h1>
+                <h1 class="h4 text-gray-900 mb-4 text-uppercase">SIGN UP</h1>
               </div>
-              <form class="user">
+              <form class="user" method="post" action="{{ url('/register') }}">
+                @csrf
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input required type="text" class="form-control form-control-user" id="fName" name="fName" placeholder="First Name">
@@ -81,13 +123,12 @@
                     <div class="invalid-feedback" id="msgErrPass"></div>
                   </div>
                 </div>
-                <button class="btn btn-user text-white text-uppercase btn-block" style="background-color:#FBB117;">Register Account</button>
-                
+                <button class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">Register Account</button> 
               </form>
-              <hr>
-              <div class="text-center">
-                <a class="small" href="{{ url('/login') }}">Already have an account? Login!</a>
-              </div>
+              <hr class="d-md-none">
+              <!-- <div class="text-center d-md-none">
+                <a class="small text-dark" href="{{ url('/login') }}">Already have an account? Login!</a>
+              </div> -->
             </div>
           </div>
         </div>
