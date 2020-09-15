@@ -27,3 +27,8 @@ Route::get('/register', 'accountController@register');
 //Register account to DB
 Route::post('/register', 'accountController@store');
 
+//LoginCHeck routing
+Route::post('/login', 'accountController@signinAcc');
+
+//Logout
+Route::get('/logout', 'accountController@logOut');

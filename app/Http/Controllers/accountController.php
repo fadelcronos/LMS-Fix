@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 
 class accountController extends Controller
 {
@@ -13,6 +16,27 @@ class accountController extends Controller
 
     public function register(){
         return view('registration.registerPages');
+    }
+
+    public function signinAcc(Request $req){
+        $user = $req->user;
+        $pass = $req->pass;
+        // $data = Auth::attempt(['email'=> $user, 'pass' => $pass]);
+        $data = Account::where('email', $user)->where('pass', $pass)->first();
+        if($data){
+            Session::put('name',$data->fName);
+            Session::put('kpknum',$data->kpkNum);
+            Session::put('login',TRUE);
+            return redirect('/homepage')->with('alert-success','Login Successfull');
+            // dump($data);
+        }else{
+            return redirect('/login')->with('alert','Incorrect Password or Email !');
+        }
+    }
+
+    public function logOut(){
+        Session::flush();
+        return redirect('/login')->with('alert-success', 'Logout Succesfull');
     }
     /**
      * Display a listing of the resource.

@@ -61,15 +61,12 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
 
   <div class="container">
 
+  
+
     <!-- Outer Row -->
     <div class="row justify-content-center pt-3 pt-md-5">
-
-      <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-                @if(\Session::has('alert'))
+      <div class="col-md-6">
+        @if(\Session::has('alert'))
                       <div class="alert alert-danger">
                           <div>{{Session::get('alert')}}</div>
                       </div>
@@ -79,6 +76,13 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
                           <div>{{Session::get('alert-success')}}</div>
                       </div>
                 @endif
+      </div>
+      <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                
               <div class="col-lg-6 d-none d-lg-block" style="background-image: url('img/pic6.jpg'); background-size:cover;">
                 <div class="row d-flex justify-content-center mt-2">
                   <div class="col d-flex justify-content-center mt-5">
@@ -114,13 +118,13 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-2">Sign In</h1>
                   </div>
-                  <form class="user mt-4" method="post">
+                  <form class="user mt-4" method="post" action="{{ url('/login') }}">
                     @csrf
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input required type="email" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input required type="password" class="form-control form-control-user" name="pass" id="pass" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -128,9 +132,9 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a data-toggle="modal" data-target="#modalAlert" href="" class="btn btn-user btn-block btn-customblk">
+                    <button class="btn btn-user btn-block btn-customblk">
                       LOGIN
-                    </a>
+                    </button>
                     
                   </form>
                   <hr>

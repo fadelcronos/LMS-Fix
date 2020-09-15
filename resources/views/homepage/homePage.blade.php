@@ -19,12 +19,47 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/customCss.css" rel="stylesheet">
   <link href="css/home-css.css" rel="stylesheet">
+
+  <!-- <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        $("#modalAlert").modal('show');
+    });
+</script> -->
 </head>
 
 <body id="page-top" class="fontstyle bg-abstract-black">
     
       <!-- Main Content -->
-      <div id="content">
+  <div id="content">
+
+      <!-- <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAlertLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAlertLabel">Message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                @if(\Session::has('alert'))
+                      <div class="alert alert-danger">
+                          <div>{{Session::get('alert')}}</div>
+                      </div>
+                @endif
+                @if(\Session::has('alert-success'))
+                      <div class="text blk">
+                          <div>{{Session::get('alert-success')}}</div>
+                      </div>
+                @endif
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-customyel" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+    </div> -->
 
       <div id="content-wrapper" class="d-flex flex-column">
            <!-- Topbar -->
@@ -44,7 +79,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle" style="width:30px; height:auto;" src="https://media-exp1.licdn.com/dms/image/C5603AQGJ2oTm-Ma0vA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jPcctvt-ce7Q7WuWvRmPjg71qUbrjdWrrLhS5uPWq7c">
-                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">User</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{Session::get('name')}}</span>
                         <i class="fas fa-caret-down ml-1 text-white"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -54,7 +89,7 @@
                             Profile Settings
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="{{ url('/logout') }}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
@@ -78,7 +113,7 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:auto;" alt="" src="https://media-exp1.licdn.com/dms/image/C5603AQGJ2oTm-Ma0vA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jPcctvt-ce7Q7WuWvRmPjg71qUbrjdWrrLhS5uPWq7c">
-               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, User</h2>
+               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, {{Session::get('name')}}</h2>
                 <div class="inline">
                   <a href="{{ url('/details') }}" class="text-white">Account Settings</a>
                   <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
