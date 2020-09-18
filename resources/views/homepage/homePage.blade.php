@@ -78,15 +78,25 @@
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="img-profile rounded-circle" style="width:30px; height:auto;" src="https://media-exp1.licdn.com/dms/image/C5603AQGJ2oTm-Ma0vA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jPcctvt-ce7Q7WuWvRmPjg71qUbrjdWrrLhS5uPWq7c">
-                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{Session::get('name')}}</span>
+                        <img class="img-profile rounded-circle img-forprof" src="userimg/{{ $acc->image }}">
+                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{ $acc->fName }}</span>
                         <i class="fas fa-caret-down ml-1 text-white"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/details') }}">
+                        <a class="dropdown-item" href="{{ url('/user/details') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Profile Settings
+                            My Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('/user/edit') }}">
+                        <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Edit Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('/user/changepassword') }}">
+                            <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Change Password
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/logout') }}">
@@ -112,10 +122,10 @@
           <div class="row justify-content-md-center">
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
-              <img class="rounded-circle z-depth-2" style="width: 150px; height:auto;" alt="" src="https://media-exp1.licdn.com/dms/image/C5603AQGJ2oTm-Ma0vA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jPcctvt-ce7Q7WuWvRmPjg71qUbrjdWrrLhS5uPWq7c">
-               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, {{Session::get('name')}}</h2>
+              <img class="rounded-circle z-depth-2" style="width: 150px; height:auto;" alt="" src="userimg/{{ $acc->image }}">
+               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, {{ $acc->fName }}</h2>
                 <div class="inline">
-                  <a href="{{ url('/details') }}" class="text-white">Account Settings</a>
+                  <a href="{{ url('/user/details') }}" class="text-white">Account Settings</a>
                   <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
                 </div>
               </div>
@@ -127,7 +137,7 @@
          
             <div class="row mt-4">
               <div class="col-sm-4 mt-2">
-                <div class="card card_violet text-center" onclick="goWeb(1)">
+                <div class="card card_three text-center" onclick="goWeb(1)">
                   <div class="title">
                     <i class="fa fa-chart-line" aria-hidden="true"></i>
                     <h2 class="fontApple" style="font-weight:400;">Kaizen Form</h2>
@@ -143,7 +153,7 @@
                 </div>
               </div>
               <div class="col-sm-4 mt-2">
-                <div class="card card_red text-center">
+                <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-users" aria-hidden="true"></i>
                     <h2 class="fontApple" style="font-weight:400;">Kerja Bersama</h2>

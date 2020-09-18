@@ -1,9 +1,10 @@
 //FUnction to Check password must be at least 6 Character
 var p1 = document.getElementById('pass');
 const button = document.querySelector('button')
+
 function checkChar(){
     var pwMsg = document.getElementById('pwMsg');
-    if(p1.value.length < 5){
+    if(p1.value.length < 6){
         p1.classList.add("is-invalid");
         pwMsg.innerHTML = "Password must be at least 6 character";
         button.disabled = true;
@@ -48,4 +49,34 @@ function minmax(value, min, max)
     else if(parseInt(value) > max) 
         return 100; 
     else return value;
+}
+
+var pw1 = document.getElementById('new_password');
+function checkChar2(){
+    var pwMsg = document.getElementById('pwMsg');
+    if(pw1.value.length < 6){
+        pw1.classList.add("is-invalid");
+        pwMsg.innerHTML = "Password must be at least 6 character";
+        button.disabled = true;
+    }else{
+        pw1.classList.remove("is-invalid");
+        pwMsg.innerHTML = "";
+        button.disabled = false;
+    }
+}
+//Function to Check Password and Re-type Password
+function checkPw2(){
+    
+    var pw2 = document.getElementById('renew_password');
+    var msgErr = document.getElementById('msgErrPass');
+    
+    if(pw1.value != pw2.value){
+        pw2.classList.add("is-invalid");
+        msgErr.innerHTML = "Password Not Match";
+        button.disabled = true;
+    }else{
+        pw2.classList.remove("is-invalid");
+        msgErr.innerHTML = "";
+        button.disabled = false;
+    }
 }

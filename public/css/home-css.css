@@ -25,7 +25,8 @@
   background: linear-gradient(-45deg, #f403d1, #64b5f6);
 }
 .card_three, .card_three .title .fa  {
-  background: linear-gradient(-45deg, #24ff72, #9a4eff);
+  /* background: linear-gradient(-45deg, #24ff72, #9a4eff); */
+  background-image: url('../img/pic2.jpg');
 }
 
 .card:before {
@@ -41,7 +42,7 @@
 }
 
 .title .fa {
-  color: #fff;
+  color: #000;
   font-size: 60px;
   width: 100px;
   height: 100px;
@@ -54,7 +55,7 @@
   position: relative;
   margin: 20px 0 0;
   padding: 0;
-  color: #fff;
+  color: #000;
   font-size: 28px;
   z-index: 2;
 }

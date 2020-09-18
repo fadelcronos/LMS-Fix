@@ -12,23 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Homepage routing
-Route::get('/homepage', 'homepageCont@index');
 
-//Detailpage routing
-Route::get('/details', 'detailprofileCont@detailpage');
+Route::get('/homepage', 'homepageCont@index'); //Homepage routing
+Route::get('/user/details','user\detailprofileCont@detailpage'); //Detailpage routing
+Route::get('/login', 'accountController@login'); //Loginpage routing
 
-//Loginpage routing
-Route::get('/login', 'accountController@login');
+Route::post('/register', 'accountController@store'); //Register account to DB
+Route::post('/login', 'accountController@signinAcc'); //LoginCHeck routing
+Route::get('/logout', 'accountController@logOut'); //Logout
 
-//Registerpage routing
-Route::get('/register', 'accountController@register');
+//Admin Page
+Route::get('/admin-homepage', 'homepageCont@index');
+Route::get('/register', 'accountController@register'); //Registerpage routing
 
-//Register account to DB
-Route::post('/register', 'accountController@store');
-
-//LoginCHeck routing
-Route::post('/login', 'accountController@signinAcc');
-
-//Logout
-Route::get('/logout', 'accountController@logOut');
+//User Page
+Route::get('/user/edit','user\detailprofileCont@editpage'); //Detailpage routing
+Route::get('/user/changepassword','user\detailprofileCont@changepass'); //Detailpage routing
+Route::post('/user/changepassword','user\detailprofileCont@updatepass'); //Update Password routing
+Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image routing

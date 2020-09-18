@@ -62,3 +62,8 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
     color:#FBB117;
 }
 
+.img-forprof{
+    width:30px; 
+    height:auto;
+}
+

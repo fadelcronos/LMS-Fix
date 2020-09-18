@@ -21,22 +21,34 @@ class accountController extends Controller
     public function signinAcc(Request $req){
         $user = $req->user;
         $pass = $req->pass;
-        // $data = Auth::attempt(['email'=> $user, 'pass' => $pass]);
-        $data = Account::where('email', $user)->where('pass', $pass)->first();
-        if($data){
-            Session::put('name',$data->fName);
-            Session::put('kpknum',$data->kpkNum);
-            Session::put('login',TRUE);
-            return redirect('/homepage')->with('alert-success','Login Successfull');
-            // dump($data);
+        
+        $checkusername = Account::where('kpkNum', $user)->first();
+
+        if($checkusername){
+            $data = Account::where('kpkNum', $user)->where('pass', $pass)->first();
+            if($data){
+                Session::flush();
+                Session::put('name',$data->fName);
+                Session::put('kpknum',$data->kpkNum);
+                Session::put('id', $data->id);
+                Session::put('login',TRUE);
+                if($data->roles == "admin"){
+                    return redirect('/admin-homepage')->with('alert-success','Login Successfull');
+                }else{
+                    return redirect('/homepage')->with('alert-success','Login Successfull');
+                }
+            }else{
+                
+                return redirect('/login')->with('alert','Incorrect Password')->with('showModal', 'a')->withInput($req->except('pass'));
+            }
         }else{
-            return redirect('/login')->with('alert','Incorrect Password or Email !');
+            return redirect('/login')->with('alert','Incorrect Username')->with('showModal', 'a')->withInput($req->except('pass'));
         }
     }
 
     public function logOut(){
         Session::flush();
-        return redirect('/login')->with('alert-success', 'Logout Succesfull');
+        return redirect('/login')->with('showModal', 'a')->with('alert-success', 'Logout Succesfull');
     }
     /**
      * Display a listing of the resource.
@@ -80,7 +92,7 @@ class accountController extends Controller
         $acc->kpkNum = $request->kpknum;
         $acc->department = $request->department;
         $acc->pass = $request->pass;
-
+        $acc->roles = "user"; 
 
         $acc->save();
         return redirect('/register')->with('status', 'Account Created');

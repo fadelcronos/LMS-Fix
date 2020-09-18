@@ -21,36 +21,39 @@
 <style>
   .colorA{
     background: #0f0c29;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
 </style>
+
+
 </head>
 
 <body class="bg-abstract-yel">
 
 <!-- Modal -->
-<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAlertLabel" aria-hidden="true">
+@if(Session::has('showModal'))
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalAlertLabel">Message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Message</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      @if(\Session::has('alert'))
-                      <div class="alert alert-danger">
-                          <div>{{Session::get('alert')}}</div>
-                      </div>
-                @endif
-                @if(\Session::has('alert-success'))
-                      <div class="alert alert-success">
-                          <div>{{Session::get('alert-success')}}</div>
-                      </div>
-                @endif
+        @if(Session('alert'))
+          <div class="alert alert-danger">
+            <div>{{Session('alert')}}</div>
+          </div>
+        @endif
+        @if(Session('alert-success'))
+          <div class="alert alert-success">
+            <div>{{Session('alert-success')}}</div>
+          </div>
+        @endif
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-customyel" data-dismiss="modal">OK</button>
@@ -58,26 +61,14 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
     </div>
   </div>
 </div>
+@endif
+
 
   <div class="container">
-
-  
-
     <!-- Outer Row -->
     <div class="row justify-content-center pt-3 pt-md-5">
-      <div class="col-md-6">
-        @if(\Session::has('alert'))
-                      <div class="alert alert-danger">
-                          <div>{{Session::get('alert')}}</div>
-                      </div>
-                @endif
-                @if(\Session::has('alert-success'))
-                      <div class="alert alert-success">
-                          <div>{{Session::get('alert-success')}}</div>
-                      </div>
-                @endif
-      </div>
-      <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
+      
+      <div class="col-xl-10 col-lg-12 col-md-9 mt-2 mt-md-5">
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -121,7 +112,7 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
                   <form class="user mt-4" method="post" action="{{ url('/login') }}">
                     @csrf
                     <div class="form-group">
-                      <input required type="email" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input required type="text" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}">
                     </div>
                     <div class="form-group">
                       <input required type="password" class="form-control form-control-user" name="pass" id="pass" placeholder="Password">
@@ -165,6 +156,8 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <script src="js/modal/showModal.js"></script>
 
 </body>
 

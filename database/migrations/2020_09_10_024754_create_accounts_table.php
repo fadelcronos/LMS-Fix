@@ -21,7 +21,8 @@ class CreateAccountsTable extends Migration
             $table->string('email')->unique();
             $table->string('department');
             $table->string('pass');
-
+            $table->string('roles');
+            $table->binary('image');
             $table->timestamps();
         });
     }
