@@ -49,7 +49,7 @@
                 </div>
               </div>
               <div class="col-sm-4 mt-2">
-                <div class="card card_three text-center">
+                <div class="card card_three text-center" onclick="goWeb(4)">
                   <div class="title">
                     <i class="fa fa-user-friends" aria-hidden="true"></i>
                     <h2 class="fontApple" style="font-weight:400;">List User</h2>
@@ -79,6 +79,8 @@ var i;
   function goWeb(i){
     if(i == 1){
       window.open("{{ url('/kaiform') }}","_self");
+    }else if(i == 4){
+      window.open("{{ url('/admin-listuser') }}","_self");
     }else if(i == 5){
       window.open("{{ url('/register') }}","_self");
     }
