@@ -17,21 +17,23 @@ class detailprofileCont extends Controller
      
         // return $acc;
         
-        return view('user.user-detail.user-detailPage', compact('acc'));
+        return view('user.user-detailPage', compact('acc'));
+
+        // return $acc->created_at->format('d-m-Y');
     }
 
     public function editpage(Account $acc){
         $id = Session::get('id');
         $acc = Account::where('id', '=', $id)->first();
 
-        return view('user.user-edit.user-editPage', compact('acc'));
+        return view('user.user-editPage', compact('acc'));
     }
 
     public function changepass(Account $acc){
         $id = Session::get('id');
         $acc = Account::where('id', '=', $id)->first();
 
-        return view('user.user-changepassword.user-changepassPage', compact('acc'));
+        return view('user.user-changepassPage', compact('acc'));
     }
 
     public function updatepass(Request $req, Account $acc){
@@ -43,7 +45,7 @@ class detailprofileCont extends Controller
                 ->update([
                     'pass' => $req->new_password
                 ]);
-        return redirect()->back()->with('alert-success','Pasword Changed');
+        return redirect()->back()->with('showModal', 'a')->with('alert-success','Pasword Changed');
         // return view('user.user-changepassword.user-changepassPage', compact('acc'))->with('alert-success', 'Password Changed');
 
     }
@@ -61,10 +63,10 @@ class detailprofileCont extends Controller
                 ->update([
                     'image' => $req->image = $filename
                 ]);
-                return redirect()->back()->with('alert-success','Image Updated');
+                return redirect()->back()->with('showModal', 'a')->with('alert-success','Image Updated');
         }
         else{
-            return redirect()->back()->with('alert','No Image');
+            return redirect()->back()->with('showModal', 'a')->with('alert','No Image Selected');
             
         }
         // $name = $req->image->getClientOriginalName();

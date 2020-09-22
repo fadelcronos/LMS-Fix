@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>LMS - Sign Up</title>
+  <title>LMS - Create User Account</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,16 +22,37 @@
 
 <body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5 bg-abstract-black">
 
-  <div class="container mt-4 mt-md-5">
-      @if (session('status'))
-      <div class="row d-flex justify-content-center">
-        <div class="col-6 text-center">
-          <div class="alert alert-success">
-              {{ session('status') }}
+    @if(Session::has('showModal'))
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            @if(Session('alert'))
+              <div class="alert alert-danger">
+                <div>{{Session('alert')}}</div>
+              </div>
+            @endif
+            @if(Session('alert-success'))
+              <div class="alert alert-success">
+                <div>{{Session('alert-success')}}</div>
+              </div>
+            @endif
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-customyel" data-dismiss="modal">OK</button>
           </div>
         </div>
       </div>
-      @endif
+    </div>
+    @endif
+
+  <div class="container mt-4 mt-md-5">
     <div class="card o-hidden border-0 shadow-lg">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
@@ -73,27 +94,27 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4 text-uppercase">SIGN UP</h1>
+                <h1 class="h4 text-gray-900 mb-4 text-uppercase">Create Account</h1>
               </div>
               <form class="user" method="post" action="{{ url('/register') }}">
                 @csrf
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input required type="text" class="form-control form-control-user" id="fName" name="fName" placeholder="First Name">
+                    <input required type="text" class="form-control form-control-user" id="fName" name="fName" placeholder="First Name" value="{{ old('fName') }}">
                   </div>
                   <div class="col-sm-6">
-                    <input required type="text" class="form-control form-control-user" id="lName" name="lName" placeholder="Last Name">
+                    <input required type="text" class="form-control form-control-user" id="lName" name="lName" placeholder="Last Name" value="{{ old('lName') }}">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input required type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address">
+                  <input required type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address" value="{{ old('emailAdd') }}">
                   @error('emailAdd')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="number" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" class="form-control form-control-user @error('kpknum') is-invalid @enderror" id="kpknum" name="kpknum" placeholder="KPK Number">
+                    <input type="number" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" class="form-control form-control-user @error('kpknum') is-invalid @enderror" id="kpknum" name="kpknum" placeholder="KPK Number" value="{{ old('kpknum') }}">
                     @error('kpknum')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -126,6 +147,7 @@
                 <button class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">Register Account</button> 
               </form>
               <hr class="d-md-none">
+              <a href="{{ url('/admin-homepage') }}" class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">go to homepage</a> 
               <!-- <div class="text-center d-md-none">
                 <a class="small text-dark" href="{{ url('/login') }}">Already have an account? Login!</a>
               </div> -->
@@ -147,6 +169,7 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
   <script src="js/validation/validate.js"></script>
+  <script src="js/modal/showModal.js"></script>
 
 </body>
 

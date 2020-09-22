@@ -33,8 +33,10 @@ class accountController extends Controller
                 Session::put('id', $data->id);
                 Session::put('login',TRUE);
                 if($data->roles == "admin"){
+                    Session::put('admin',TRUE);
                     return redirect('/admin-homepage')->with('alert-success','Login Successfull');
                 }else{
+                    Session::put('user',TRUE);
                     return redirect('/homepage')->with('alert-success','Login Successfull');
                 }
             }else{
@@ -94,8 +96,11 @@ class accountController extends Controller
         $acc->pass = $request->pass;
         $acc->roles = "user"; 
 
-        $acc->save();
-        return redirect('/register')->with('status', 'Account Created');
+        if($acc->save()){   
+            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Account Created')->withInput($request->except('pass'));
+        }else{
+            return redirect()->back()->with('showModal', 'a')->with('alert', 'Failed To Create Account');
+        }
     }
 
     /**

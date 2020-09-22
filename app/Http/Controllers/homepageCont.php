@@ -14,6 +14,6 @@ class homepageCont extends Controller
         $id = Session::get('id');
         $acc = Account::where('id', '=', $id)->first();
 
-        return view('homepage.homePage', compact('acc'));
+        return view('user.user-homePage', compact('acc'));
     }
 }
