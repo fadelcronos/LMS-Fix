@@ -22,8 +22,12 @@
           </div>
           
 
-          <!-- Section for button home -->
-            <div class="row mt-4">
+          <div class="row mt-4">
+            <div class="col">
+              <h2 class="text text-light text-center">Main Menu</h2>
+            </div>
+          </div>
+            <div class="row">
               <div class="col-sm-4 mt-2">
                 <div class="card card_three text-center" onclick="goWeb(1)">
                   <div class="title">
@@ -48,22 +52,29 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col text-center">
+                <h2 class="text text-light">Admin Menu</h2>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-sm-4 mt-2">
-                <div class="card card_three text-center" onclick="goWeb(4)">
-                  <div class="title">
-                    <i class="fa fa-user-friends" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">List User</h2>
+                  <div class="card card_three text-center" onclick="goWeb(4)">
+                    <div class="title">
+                      <i class="fa fa-user-friends" aria-hidden="true"></i>
+                      <h2 class="fontApple" style="font-weight:400;">List User</h2>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-4 mt-2">
-                <div class="card card_three text-center" onclick="goWeb(5)">
-                  <div class="title">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Add User</h2>
+                <div class="col-sm-4 mt-2">
+                  <div class="card card_three text-center" onclick="goWeb(5)">
+                    <div class="title">
+                      <i class="fa fa-user-plus" aria-hidden="true"></i>
+                      <h2 class="fontApple" style="font-weight:400;">Add User</h2>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
         </div>
         <!-- /.container-fluid -->

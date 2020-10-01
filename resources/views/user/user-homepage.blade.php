@@ -28,7 +28,7 @@
 </script> -->
 </head>
 
-<body id="page-top" class="fontstyle bg-abstract-black">
+<body id="page-top" class="fontstyle">
     
       <!-- Main Content -->
   <div id="content">
@@ -68,7 +68,7 @@
             <!-- Topbar Title -->
             <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
                 <div class="text">
-                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/homepage') }}" class="text-white">L E A N</a></h3>
+                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/homepage') }}" class="text-red">L E A N</a></h3>
                 </div>
             </form>
 
@@ -79,8 +79,8 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{ $acc->fName }}</span>
-                        <i class="fas fa-caret-down ml-1 text-white"></i>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -123,9 +123,9 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="userimg/{{ $acc->image }}">
-               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, {{ $acc->fName }}</h2>
+               <h2 class="fontApple" style="font-weight: 600; color:#D12421">Hello, {{ $acc->fName }}</h2>
                 <div class="inline">
-                  <a href="{{ url('/user/details') }}" class="text-white">Account Settings</a>
+                  <a href="{{ url('/user/details') }}" class="text-red">Account Settings</a>
                   <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
                 </div>
               </div>

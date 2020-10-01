@@ -14,10 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/test', 'accountController@test'); //Loginpage routing
+
 Route::get('/login', 'accountController@login'); //Loginpage routing
 Route::get('/logout', 'accountController@logOut'); //Logout
 Route::post('/register', 'accountController@store'); //Register account to DB
 Route::post('/login', 'accountController@signinAcc'); //LoginCHeck routing
+Route::get('/forgot-password', 'forgotPassword@forgotpage'); //Forgotpass routing
+Route::post('/forgot-password', 'forgotPassword@getotp'); //Forgotpass routing
+Route::post('/forgot-changepassword', 'forgotPassword@checkotp'); //OTP Checking routing
+Route::post('/changepass', 'forgotPassword@updatepass'); //ChangePass Forgot routing
 
 //Admin Page
 Route::get('/admin-homepage', 'admin\adminPageController@index');

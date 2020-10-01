@@ -15,13 +15,13 @@
   <link href="../css/customCss.css" rel="stylesheet">
   <link href="../css/home-css.css" rel="stylesheet">
 </head>
-<body id="page-top" class="fontstyle bg-abstract-black">
+<body id="page-top" class="fontstyle">
     <div id="content">
     <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
 
             <!-- Topbar Title -->
             <div class="d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
-            <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/homepage') }}" class="text-white">L E A N</a></h3>
+            <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/homepage') }}" class="text-red">L E A N</a></h3>
             </div>
 
             <!-- Topbar Navbar -->
@@ -31,8 +31,8 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{ $acc->fName }}</span>
-                        <i class="fas fa-caret-down ml-1 text-white"></i>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -62,16 +62,16 @@
             </ul>
 
         </nav>
-        <div class="container bg-white rounded mt-5">
+        <div class="container rounded mt-5">
             <div class="row justify-content-md-center mt-3 mb-2">
-                <div class="col justify-content-md-center">
+                <div class="col justify-content-md-center bg-red rounded pb-2">
                     <div class="title text-center">
-                        <h2 class="text-uppercase text-dark">My Profile</h2>
+                        <h2 class="text-uppercase text-white">My Profile</h2>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-md-center mt-3 align-items-center">
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6 mb-md-0 mb-4 mt-md-0 mt-2">
                     <div class="title text-center">
                         <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="../userimg/{{ $acc->image }}"
                         data-holder-rendered="true">
@@ -151,9 +151,9 @@
               
                 </div>
             </div>
-              <div class="row d-flex justify-content-center">
+              <div class="row d-flex justify-content-center mt-5">
                 <div class="col-sm-8 text-center">
-                  <a href="{{ url('/homepage') }}" class="btn btn-customyel mt-3 mb-5 text-uppercase"><i class="fas fa-angle-left fa-sm fa-fw mr-2 text-white"></i>Back to Homepage</a>
+                  <a href="{{ url('/homepage') }}" class="btn btn-customyel mt-3 mb-5 text-uppercase"><i class="fas fa-angle-left fa-sm fa-fw mr-2"></i>Back to Homepage</a>
                 </div>
               </div>
         </div>

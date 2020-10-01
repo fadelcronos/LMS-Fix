@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 
+use Illuminate\Support\Facades\DB;
+
 class accountController extends Controller
 {
+    public function test(){
+        return view('mail.forgotmail');
+        
+    }
     public function login(){
         return view('login.loginPages');
+        
     }
 
     public function register(){
@@ -32,7 +39,7 @@ class accountController extends Controller
                 Session::put('kpknum',$data->kpkNum);
                 Session::put('id', $data->id);
                 Session::put('login',TRUE);
-                if($data->roles == "admin"){
+                if($data->level == "admin"){
                     Session::put('admin',TRUE);
                     return redirect('/admin-homepage')->with('alert-success','Login Successfull');
                 }else{
@@ -93,7 +100,7 @@ class accountController extends Controller
         $acc->email= $request->emailAdd;
         $acc->kpkNum = $request->kpknum;
         $acc->department = $request->department;
-        $acc->pass = $request->pass;
+        $acc->pass = md5($request->pass);
         $acc->roles = "user"; 
 
         if($acc->save()){   

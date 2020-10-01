@@ -31,9 +31,10 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
     background-size: cover;
 }
 .bg-abstract-yel{
-    background-image: url('../img/pic2.jpg'); 
-    background-repeat: no-repeat; 
-    background-size: cover;
+    /* background-image: url('../img/bg.jpg');  */
+    /* background-repeat: no-repeat; 
+    background-size: cover; */
+    background-color: #EDF2F4;
 }
 .yel{
     color:#FBB117;
@@ -44,26 +45,33 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
 }
 
 .btn-customyel{
-    background-color:black;
-    color:#FBB117;
+    background-color:#D12421;
+    color:#EDF2F4;
 }
 
 .btn-customyel:hover{
-    background-color:#FBB117;
-    color:black;
+    background-color:#EDF2F4;
+    color:#D12421;
 }
 
 .btn-customblk{
-    background-color:#FBB117;
-    color:black;
+    background-color:#EDF2F4;
+    color:#D12421;
 }
 .btn-customblk:hover{
-    background-color:black;
-    color:#FBB117;
+    background-color:#D12421;
+    color:#EDF2F4;
 }
 
 .img-forprof{
     width:30px; 
     height:auto;
+}
+
+.bg-red{
+    background-color:#D12421;
+}
+.text-red{
+    color:#D12421;
 }
 

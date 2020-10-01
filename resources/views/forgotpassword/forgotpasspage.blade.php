@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>LMS - Sign In</title>
+  <title>LMS - Forgot Password</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -63,6 +63,37 @@
 </div>
 @endif
 
+@if(Session::has('showOtp'))
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">OTP Verification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @if(Session('getotp'))
+        <form action="{{ url('forgot-changepassword')}}" method="post">
+            @csrf
+            <div class="modal-body">
+                <div class="text-dark">OTP Already Sent to Your Email</div>
+                <input type="number" class="form-control" name="otp">
+                @if(session()->has('error'))
+                  <div class="text-danger">{{ Session('msg') }}</div>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-customyel" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-customyel">Submit</button>
+            </div>
+        </form>
+       @endif
+    </div>
+  </div>
+</div>
+@endif
+
 
   <div class="container">
     <!-- Outer Row -->
@@ -91,16 +122,6 @@
                     <p class="text text-white">Please log in to keep us connected!</p>
                   </div>
                 </div>
-                <!-- <div class="row justify-content-center">
-                  <div class="col d-flex justify-content-center">
-                    <p class="text text-white">Not Registered ?</p>
-                  </div>
-                </div>
-                <div class="row justify-content-center mb-5">
-                  <div class="col d-flex justify-content-center">
-                    <a href="{{ url('/register') }}" class="btn btn-customblk rounded-pill pl-4 pr-4 text-uppercase">Register Here</a>
-                  </div>
-                </div> -->
               </div>
               <div class="col-lg-6">
                 <div class="p-5">
@@ -108,30 +129,24 @@
                     <i class="fas fa-user fa-3x text-red"></i>
                   </div>
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-2">Sign In</h1>
+                    <h1 class="h4 text-gray-900 mb-2">Forgot Password</h1>
                   </div>
-                  <form class="user mt-4" method="post" action="{{ url('/login') }}">
+                  <form class="user mt-4" method="post" action="{{ url('/forgot-password') }}">
                     @csrf
                     <div class="form-group">
                       <input required type="text" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}">
                     </div>
                     <div class="form-group">
-                      <input required type="password" class="form-control form-control-user" name="pass" id="pass" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
+                      <input required type="email" class="form-control form-control-user" name="mail" id="mail" placeholder="Email">
                     </div>
                     <button class="btn btn-user btn-block btn-customblk">
-                      LOGIN
+                      Get New Password
                     </button>
                     
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small text-dark" href="{{ url('/forgot-password') }}">Forgot Password?</a>
+                    <a class="small text-dark" href="{{ url('/login') }}">Already registered? Login Here!</a>
                   </div>
                   <!-- <div class="text-center">
                     <a  class="small d-lg-none d-sm-block text-dark" href="{{ url('/register') }}">Create an Account!</a>
