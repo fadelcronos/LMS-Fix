@@ -22,14 +22,14 @@
 
 </head>
 
-<body id="page-top" class="fontstyle bg-abstract-black">
+<body id="page-top" class="fontstyle">
     
         <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
 
             <!-- Topbar Title -->
             <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
                 <div class="text">
-                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/admin-homepage') }}" class="text-white">L E A N</a></h3>
+                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/admin-homepage') }}" class="text-red">L E A N</a></h3>
                 </div>
             </form>
 
@@ -40,8 +40,8 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="adminimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-white-600 small">{{ $acc->fName }}</span>
-                        <i class="fas fa-caret-down ml-1 text-white"></i>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

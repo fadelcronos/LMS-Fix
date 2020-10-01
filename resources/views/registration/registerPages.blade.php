@@ -20,7 +20,7 @@
   <link href="css/customCss.css" rel="stylesheet">
 </head>
 
-<body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5 bg-abstract-black">
+<body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5">
 
     @if(Session::has('showModal'))
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,21 +57,21 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block" style="background-image: url('img/pic2.jpg')">
+          <div class="col-lg-5 d-none d-lg-block bg-red">
             <div class="row d-flex justify-content-center mt-2">
               <div class="col d-flex justify-content-center mt-5">
-                <i class="fas fa-globe-asia fa-5x blk"></i>
+                <i class="fas fa-globe-asia fa-5x text-white"></i>
               </div>
             </div>
             <hr class="mt-5 ml-3">
           <div class="row ml-3">
             <div class="col">
-              <h3 class="text blk"><em>Quotes of The Day</em></h3>
+              <h3 class="text-light"><em>Quotes of The Day</em></h3>
             </div>
           </div>
             <div class="row ml-3">
               <div class="col">
-                <em class="text blk">“The message of the Kaizen strategy is that not a day 
+                <em class="text-light">“The message of the Kaizen strategy is that not a day 
                   should go by without some kind of improvement being made somewhere in the company.”
                 </em>
                 <hr>
@@ -107,7 +107,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <input required type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address" value="{{ old('emailAdd') }}">
+                  <input required pattern=".+@mattel.com" type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address" value="{{ old('emailAdd') }}">
                   @error('emailAdd')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -147,7 +147,14 @@
                 <button class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">Register Account</button> 
               </form>
               <hr class="d-md-none">
+              @if(Session::has('admin'))
               <a href="{{ url('/admin-homepage') }}" class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">go to homepage</a> 
+              @else
+              <div class="text-center mt-0 mt-md-4 mb-md-2">
+                <a href="{{ url('/login') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
+              </div>
+              @endif
+              
               <!-- <div class="text-center d-md-none">
                 <a class="small text-dark" href="{{ url('/login') }}">Already have an account? Login!</a>
               </div> -->

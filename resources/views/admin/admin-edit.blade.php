@@ -72,14 +72,8 @@
                         <input type="text" class="form-control text-center" id="validationCustom01" placeholder="First name" readonly value="{{ $acc->fName }}">
                         </div>
                         <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Last name</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->lName }}" readonly>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-4 mb-3">
-                        <label for="validationCustom01">E-mail</label>
-                        <input type="email" class="form-control text-center" id="validationCustom01" placeholder="email" readonly value="{{ $acc->email }}">
+                        <label for="validationCustom02">Email</label>
+                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->email }}" readonly>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">

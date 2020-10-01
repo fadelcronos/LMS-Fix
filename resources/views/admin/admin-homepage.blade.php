@@ -13,9 +13,9 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="adminimg/{{ $acc->image }}">
-               <h2 class="text-white fontApple" style="font-weight: 600;">Hello, {{ $acc->fName }}</h2>
+               <h2 class="text-primary fontApple" style="font-weight: 600;">Hello, {{ $acc->fName }}</h2>
                 <div class="inline">
-                  <a href="{{ url('/admin-profile') }}" class="text-white">Account Settings</a>
+                  <a href="{{ url('/admin-profile') }}" class="text-red">Account Settings</a>
                 </div>
               </div>
             </div>
