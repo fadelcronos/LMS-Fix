@@ -32,7 +32,7 @@
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->fName }}</div>
+                        <div class="text text-dark">{{ $acc->Fullname}}</div>
                       </div>
                     </div>
                     <div class="row d-flex">
@@ -71,20 +71,20 @@
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->department }}</div>
+                        <div class="text text-dark">{{ $acc->Dept }}</div>
                       </div>
                     </div>
                     <div class="row d-flex">
                       <div class="col-4 col-md-3">
                           <div class="text">
-                            Roles
+                            Section
                           </div>      
                       </div>
                       <div class="col-1 col-md-1">
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->level }}</div>
+                        <div class="text text-dark">{{ $acc->Section }}</div>
                       </div>
                     </div>  
                   </form>

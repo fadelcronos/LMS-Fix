@@ -68,8 +68,8 @@
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-4 mb-3">
-                        <label for="validationCustom01">First name</label>
-                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="First name" readonly value="{{ $acc->fName }}">
+                        <label for="validationCustom01">Name</label>
+                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="First name" readonly value="{{ $acc->Fullname }}">
                         </div>
                         <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Email</label>
@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Department</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="department" value="{{ $acc->department }}" readonly>
+                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="department" value="{{ $acc->Dept }}" readonly>
                         </div>
                     </div>
                     

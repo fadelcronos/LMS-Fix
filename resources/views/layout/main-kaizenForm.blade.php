@@ -9,38 +9,40 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>LMS - @yield('title')</title>
+  <title>Kaizen Form - @yield('title')</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="css/customCss.css" rel="stylesheet">
-  <link href="css/home-css.css" rel="stylesheet">
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/customCss.css" rel="stylesheet">
+  <link href="../css/home-css.css" rel="stylesheet">
 
 </head>
 
-<body id="page-top" class="fontstyle">
-    
-        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
+<body id="page-top">
 
-            <!-- Topbar Title -->
-            <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
-                <div class="text">
-                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/admin-homepage') }}" class="text-red">L E A N</a></h3>
-                </div>
-            </form>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
-            <!-- Topbar Navbar -->
-            <ul class="navbar-nav ml-auto">
+    @yield('sidebar')
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars text-red"></i>
+          </button>
+          <ul class="navbar-nav ml-auto">
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="img-profile rounded-circle img-forprof" src="adminimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
+                        <img class="img-profile rounded-circle img-forprof" src="">
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">aaa</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -69,12 +71,21 @@
                 </li>
 
             </ul>
-
         </nav>
-
-      @yield('container')
-
-
+        <!-- End of Topbar -->
+        @yield('container')
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->   
+    </div>
+ 
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -82,18 +93,14 @@
   </a>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-  @yield('script')
-
-
+  <script src="../js/sb-admin-2.min.js"></script>
+  <script src="../js/kaiform.js"></script>
 </body>
-
 </html>

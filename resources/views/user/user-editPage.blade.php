@@ -63,7 +63,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -128,27 +128,27 @@
                     <div class="row d-flex justify-content-center">
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom01">First name</label>
-                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="First name" readonly value="{{ $acc->fName }}">
+                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="First name" readonly value="{{ $acc->Fullname }}">
                       </div>
                       <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Last name</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->lName }}" readonly>
-                      </div>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                      <div class="col-md-4 mb-3">
-                        <label for="validationCustom01">E-mail</label>
-                        <input type="email" class="form-control text-center" id="validationCustom01" placeholder="email" readonly value="{{ $acc->email }}">
+                        <label for="validationCustom02">E-mail</label>
+                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->email }}" readonly>
                       </div>
                     </div>
                     <div class="row d-flex justify-content-center">
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom01">KPK ID</label>
-                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="KPK ID" readonly value="{{ $acc->kpkNum }}">
+                        <input type="email" class="form-control text-center" id="validationCustom01" placeholder="email" readonly value="{{ $acc->kpkNum }}">
+                      </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">Department</label>
+                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="KPK ID" readonly value="{{ $acc->Dept }}">
                       </div>
                       <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Department</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="department" value="{{ $acc->department }}" readonly>
+                        <label for="validationCustom02">Section</label>
+                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="department" value="{{ $acc->Section }}" readonly>
                       </div>
                     </div>
                     

@@ -31,7 +31,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -91,7 +91,7 @@
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->fName }} {{ $acc->lName }}</div>
+                        <div class="text text-dark">{{ $acc->Fullname }}</div>
                       </div>
                     </div>
                     <div class="row d-flex">
@@ -130,20 +130,20 @@
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->department }}</div>
+                        <div class="text text-dark">{{ $acc->Dept }}</div>
                       </div>
                     </div>
                     <div class="row d-flex">
                       <div class="col-4 col-md-3">
                           <div class="text">
-                            Member Since
+                            Section
                           </div>      
                       </div>
                       <div class="col-1 col-md-1">
                               :
                       </div>
                       <div class="col-7 col-md-8">
-                        <div class="text text-dark">{{ $acc->created_at->format('d-m-Y') }}</div>
+                        <div class="text text-dark">{{ $acc->Section }}</div>
                       </div>
                     </div>  
                   </form>

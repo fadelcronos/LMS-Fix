@@ -18,7 +18,9 @@ Route::get('/test', 'accountController@test'); //Loginpage routing
 
 Route::get('/login', 'accountController@login'); //Loginpage routing
 Route::get('/logout', 'accountController@logOut'); //Logout
+Route::get('/register', 'accountController@register'); //Registerpage routing
 Route::post('/register', 'accountController@store'); //Register account to DB
+Route::post('/check-kpk', 'accountController@checkKpk'); //Register account to DB
 Route::post('/login', 'accountController@signinAcc'); //LoginCHeck routing
 Route::get('/forgot-password', 'forgotPassword@forgotpage'); //Forgotpass routing
 Route::post('/forgot-password', 'forgotPassword@getotp'); //Forgotpass routing
@@ -27,7 +29,6 @@ Route::post('/changepass', 'forgotPassword@updatepass'); //ChangePass Forgot rou
 
 //Admin Page
 Route::get('/admin-homepage', 'admin\adminPageController@index');
-Route::get('/register', 'accountController@register'); //Registerpage routing
 Route::get('/admin-profile', 'admin\adminPageController@profilepage'); 
 Route::get('/admin-edit', 'admin\adminPageController@editpage'); 
 Route::get('/admin-changepassword', 'admin\adminPageController@changepwpage'); 
@@ -43,3 +44,7 @@ Route::get('/user/changepassword','user\detailprofileCont@changepass'); //Detail
 Route::get('/user/details','user\detailprofileCont@detailpage'); //Detailpage routing
 Route::post('/user/changepassword','user\detailprofileCont@updatepass'); //Update Password routing
 Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image routing
+
+//Kaizen User
+Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
+Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@check'); //Add Kai user routing

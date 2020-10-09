@@ -64,7 +64,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -21,7 +22,7 @@ class forgotPassword extends Controller
         $email = $req->mail;
         $fourRandomDigit = mt_rand(1000,9999);
         
-        $checkuser = Account::where('kpkNum', $user)->where('email', $email)->first();
+        $checkuser = User::where('kpkNum', $user)->where('email', $email)->first();
         
         // dd($checkuser, $fourRandomDigit);
 
@@ -29,12 +30,12 @@ class forgotPassword extends Controller
             Session::put('kpk', $user);
             Session::put('otp', $fourRandomDigit);
             Mail::send('mail/forgotmail', ['checkuser' => $checkuser, 'code' => $fourRandomDigit], function ($m) use ($checkuser) {    
-                $m->to($checkuser->email, $checkuser->fName)->subject('<No Reply>Forgot Password OTP CODE');
+                $m->to($checkuser->email, $checkuser->Fullname)->subject('<b><No Reply>Forgot Password OTP CODE</b>');
             });
             
             return redirect('/forgot-password')->with('getotp','OTP Already sent to your email')->with('showOtp', 'a');
         }else{
-            return redirect()->back()->with('alert','No Account Match')->with('showModal', 'a');
+            return redirect()->back()->with('alert','No User Match')->with('showModal', 'a');
 
         }
         
@@ -59,7 +60,7 @@ class forgotPassword extends Controller
 
         Account::where('kpkNum', $kpk)
                 ->update([
-                    'pass' => $req->new_password
+                    'pass' => md5($req->new_password)
                 ]);
         return redirect('/forgot-password')->with('showModal', 'a')->with('alert-success','Pasword Updated, Please Login');
         // return view('user.user-changepassword.user-changepassPage', compact('acc'))->with('alert-success', 'Password Changed');

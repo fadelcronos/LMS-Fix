@@ -79,7 +79,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->fName }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -123,7 +123,7 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="userimg/{{ $acc->image }}">
-               <h2 class="fontApple" style="font-weight: 600; color:#D12421">Hello, {{ $acc->fName }}</h2>
+               <h2 class="fontApple" style="font-weight: 600; color:#D12421">Hello, {{ $acc->Fullname }}</h2>
                 <div class="inline">
                   <a href="{{ url('/user/details') }}" class="text-red">Account Settings</a>
                   <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
@@ -190,7 +190,7 @@
 var i;
   function goWeb(i){
     if(i == 1){
-      window.open("/kaiform","_self");
+      window.open("/kaizen-form/add-kaizen","_self");
     }
   }
 </script>

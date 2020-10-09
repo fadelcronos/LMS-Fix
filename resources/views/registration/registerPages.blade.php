@@ -22,7 +22,7 @@
 
 <body class="pt-0 pt-md-5 mt-5 mt-md-3 mb-4 mb-md-5">
 
-    @if(Session::has('showModal'))
+  @if(Session::has('showModal'))
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -50,12 +50,45 @@
         </div>
       </div>
     </div>
-    @endif
+  @endif
 
   <div class="container mt-4 mt-md-5">
+    
+      <div class="card o-hidden border-0 shadow-lg"  style="@if(Session::has('none'))display:none;@endif">
+        <div class="card-body p-0">
+          <div class="row rounded justify-content-center">
+            <div class="col-md-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-dark mb-4 text-uppercase">Register</h1>
+                </div>
+                <form class="user" method="post" action="{{ url('/check-kpk') }}">
+                  @csrf
+                  
+                  <div class="form-group">
+                    <input onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" required type="number" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="kpkNum" name="kpkNum" placeholder="Insert Your KPK Number..." value="">
+                  </div>
+
+                
+                  <button class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">Check KPK</button> 
+                </form>
+                <hr class="d-md-none">
+                @if(Session::has('admin'))
+                <a href="{{ url('/admin-homepage') }}" class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">go to homepage</a> 
+                @else
+                <div class="text-center mt-0 mt-md-4 mb-md-2">
+                  <a href="{{ url('/login') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
+                </div>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    @if(Session::has('data')) 
     <div class="card o-hidden border-0 shadow-lg">
       <div class="card-body p-0">
-        <!-- Nested Row within Card Body -->
         <div class="row">
           <div class="col-lg-5 d-none d-lg-block bg-red">
             <div class="row d-flex justify-content-center mt-2">
@@ -80,16 +113,7 @@
                 </em>
               </div>
             </div> 
-            <div class="row mt-3 ml-3">
-              <div class="col-10">
-                
-              </div>
-            </div> 
-            <div class="row ml-5">
-              <div class="col">
-                
-              </div>
-            </div> 
+            
           </div>
           <div class="col-lg-7">
             <div class="p-5">
@@ -99,28 +123,27 @@
               <form class="user" method="post" action="{{ url('/register') }}">
                 @csrf
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input required type="text" class="form-control form-control-user" id="fName" name="fName" placeholder="First Name" value="{{ old('fName') }}">
-                  </div>
-                  <div class="col-sm-6">
-                    <input required type="text" class="form-control form-control-user" id="lName" name="lName" placeholder="Last Name" value="{{ old('lName') }}">
+                  <div class="col">
+                    <input readonly required type="text" class="form-control form-control-user" id="fName" name="fName" placeholder="Fullname" value="{{ Session('Fullname') }}">
                   </div>
                 </div>
-                <div class="form-group">
-                  <input required pattern=".+@mattel.com" type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address" value="{{ old('emailAdd') }}">
-                  @error('emailAdd')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                <div class="form-group row">
+                  <div class="col">
+                    <input required pattern=".+@mattel.com" type="email" class="form-control form-control-user @error('emailAdd') is-invalid @enderror" id="emailAdd" name="emailAdd" placeholder="Email Address" value="{{ old('emailAdd') }}">
+                    @error('emailAdd')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="number" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" class="form-control form-control-user @error('kpknum') is-invalid @enderror" id="kpknum" name="kpknum" placeholder="KPK Number" value="{{ old('kpknum') }}">
+                    <input readonly type="number" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" class="form-control form-control-user @error('kpknum') is-invalid @enderror" id="kpknum" name="kpknum" placeholder="KPK Number" value="{{ Session('kpkno') }}">
                     @error('kpknum')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     </div>
                     <div class="col-sm-6">
-                      <select class="form-control custom-select align-self-center" style="font-size: 0.8rem; border-radius: 10rem; height: 100%;" name="department" id="department">
+                      <!-- <select class="form-control custom-select align-self-center" style="font-size: 0.8rem; border-radius: 10rem; height: 100%;" name="department" id="department">
                         <option value="" selected hidden>Select Department</option>
                         <option value="EHS" >EHS</option>
                         <option value="Engineering" >Engineering</option>
@@ -131,7 +154,8 @@
                         <option value="Quality" >Quality</option>
                         <option value="Product Development" >Product Development</option>
                         <option value="Materials" >Materials</option>
-                      </select>
+                      </select> -->
+                    <input readonly type="text" class="form-control form-control-user" id="dept" name="dept" placeholder="Department" value="{{ Session('dept') }}">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -154,15 +178,12 @@
                 <a href="{{ url('/login') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
               </div>
               @endif
-              
-              <!-- <div class="text-center d-md-none">
-                <a class="small text-dark" href="{{ url('/login') }}">Already have an account? Login!</a>
-              </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
+    @endif
 
   </div>
 
@@ -178,6 +199,13 @@
   <script src="js/validation/validate.js"></script>
   <script src="js/modal/showModal.js"></script>
 
+  <script>
+    $(document).ready(function(){
+      if ($('#mylogo').css('display') == 'block') {
+          $('#sign_up_now').css('display', 'none');
+      }
+    });
+  </script>
 </body>
 
 </html>

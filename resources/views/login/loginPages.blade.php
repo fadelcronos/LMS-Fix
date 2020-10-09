@@ -133,6 +133,9 @@
                   <div class="text-center">
                     <a class="small text-dark" href="{{ url('/forgot-password') }}">Forgot Password?</a>
                   </div>
+                  <div class="text-center">
+                    <a class="small text-red" href="{{ url('/register') }}">Not Registered? Register Here!</a>
+                  </div>
                   <!-- <div class="text-center">
                     <a  class="small d-lg-none d-sm-block text-dark" href="{{ url('/register') }}">Create an Account!</a>
                   </div> -->

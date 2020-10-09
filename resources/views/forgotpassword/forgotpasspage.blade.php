@@ -114,12 +114,12 @@
                 </div>
                 <div class="row mt-5 pt-5">
                   <div class="col">
-                    <h3 class="text text-white text-center">Welcome Back!</h3>
+                    <h3 class="text text-white text-center">FORGOT PASSWORD</h3>
                   </div>
                 </div>
                 <div class="row justify-content-center">
                   <div class="col d-flex justify-content-center">
-                    <p class="text text-white">Please log in to keep us connected!</p>
+                    <p class="text text-white">The OTP Code Will Be Sent To Your Email</p>
                   </div>
                 </div>
               </div>

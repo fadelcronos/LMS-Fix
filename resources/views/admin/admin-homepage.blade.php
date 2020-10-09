@@ -13,7 +13,7 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="adminimg/{{ $acc->image }}">
-               <h2 class="text-primary fontApple" style="font-weight: 600;">Hello, {{ $acc->fName }}</h2>
+               <h2 class="text-primary fontApple" style="font-weight: 600;">Hello, {{ $acc->Fullname }}</h2>
                 <div class="inline">
                   <a href="{{ url('/admin-profile') }}" class="text-red">Account Settings</a>
                 </div>
@@ -24,7 +24,7 @@
 
           <div class="row mt-4">
             <div class="col">
-              <h2 class="text text-light text-center">Main Menu</h2>
+              <h2 class="text text-red text-center">Main Menu</h2>
             </div>
           </div>
             <div class="row">
@@ -55,7 +55,7 @@
             </div>
             <div class="row mt-5">
               <div class="col text-center">
-                <h2 class="text text-light">Admin Menu</h2>
+                <h2 class="text text-red">Admin Menu</h2>
               </div>
             </div>
             <div class="row">

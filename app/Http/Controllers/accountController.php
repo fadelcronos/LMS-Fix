@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Employee;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\DB;
 
@@ -14,11 +17,9 @@ class accountController extends Controller
 {
     public function test(){
         return view('mail.forgotmail');
-        
     }
     public function login(){
         return view('login.loginPages');
-        
     }
 
     public function register(){
@@ -27,15 +28,15 @@ class accountController extends Controller
 
     public function signinAcc(Request $req){
         $user = $req->user;
-        $pass = $req->pass;
+        $pass = md5($req->pass);
         
-        $checkusername = Account::where('kpkNum', $user)->first();
+        $checkusername = User::where('kpkNum', $user)->first();
 
         if($checkusername){
-            $data = Account::where('kpkNum', $user)->where('pass', $pass)->first();
+            $data = User::where('kpkNum', $user)->where('pass', $pass)->first();
             if($data){
                 Session::flush();
-                Session::put('name',$data->fName);
+                Session::put('name',$data->Fullname);
                 Session::put('kpknum',$data->kpkNum);
                 Session::put('id', $data->id);
                 Session::put('login',TRUE);
@@ -89,26 +90,35 @@ class accountController extends Controller
     {
         $acc = new Account;
 
-        $request->validate([
-            'kpknum' => 'unique:accounts,kpkNum',
-            'emailAdd' => 'unique:accounts,email',            
-         ]);
+            // $request->validate([
+            //     'emailAdd' => 'unique:lms_accounts,email',            
+            //  ]);
+         $validator = Validator::make($request->all(), [
+            'emailAdd' => 'unique:lms_accounts,email',            
+        ]);
+        if ($validator->fails()) {
+            return redirect('/register')
+                        ->withErrors($validator)
+                        ->with('none', 'a')->with('data', 'a');
+        }
          
-
-        $acc->fName = $request->fName;
-        $acc->lName = $request->lName;
-        $acc->email= $request->emailAdd;
-        $acc->kpkNum = $request->kpknum;
-        $acc->department = $request->department;
+        $acc->email = $request->emailAdd;
+        $acc->kpkNum = Session::get('kpkno');
         $acc->pass = md5($request->pass);
-        $acc->roles = "user"; 
+        $acc->level = "user";
 
         if($acc->save()){   
-            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Account Created')->withInput($request->except('pass'));
+            Session::forget('Fullname');
+            Session::forget('kpkno');
+            Session::forget('dept');
+            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Account Created');
         }else{
-            return redirect()->back()->with('showModal', 'a')->with('alert', 'Failed To Create Account');
+            return redirect()->back()->with('showModal', 'a')->with('alert', 'Failed To Create Account')->withInput($request->except('pass'));
         }
     }
+
+    
+
 
     /**
      * Display the specified resource.
@@ -153,5 +163,28 @@ class accountController extends Controller
     public function destroy(Account $account)
     {
         //
+    }
+
+    public function checkKPK(Request $req)
+    {
+        $kpk = $req->kpkNum;
+        $userAcc = Account::where('kpkNum', $kpk)->first();
+        $employeeAcc = Employee::where('KPK', $kpk)->first();
+
+        // dd($employeeAcc);
+
+        if($userAcc){
+            // return "back to register send account sudah teregister";
+            return redirect()->back()->with('showModal', 'a')->with('alert', 'User Already Registered, Please Login!')->withInput($req->except('pass'));
+        }else{
+            if($employeeAcc){
+                Session::put('Fullname',$employeeAcc->Fullname);
+                Session::put('kpkno',$employeeAcc->KPK);
+                Session::put('dept',$employeeAcc->Dept);
+                return redirect('/register')->with('showModal', 'a')->with('alert-success', 'Employee Data Found! Please Fill The Data.')->with('none', 'a')->with('data', 'a');
+            }else{
+                return redirect()->back()->with('showModal', 'a')->with('alert', 'No Employee Data Found! Can not Register.')->withInput($req->except('pass'));
+            }
+        }
     }
 }

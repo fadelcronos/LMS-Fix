@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Account;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Session;
 
 class detailprofileCont extends Controller
 {
-    public function detailpage(Account $acc){
+    public function detailpage(User $acc){
         $id = Session::get('id');
-        $acc = Account::where('id', '=', $id)->first();
+        $acc = User::where('id', '=', $id)->first();
      
         // return $acc;
         
@@ -22,16 +23,16 @@ class detailprofileCont extends Controller
         // return $acc->created_at->format('d-m-Y');
     }
 
-    public function editpage(Account $acc){
+    public function editpage(User $acc){
         $id = Session::get('id');
-        $acc = Account::where('id', '=', $id)->first();
+        $acc = User::where('id', '=', $id)->first();
 
         return view('user.user-editPage', compact('acc'));
     }
 
-    public function changepass(Account $acc){
+    public function changepass(User $acc){
         $id = Session::get('id');
-        $acc = Account::where('id', '=', $id)->first();
+        $acc = User::where('id', '=', $id)->first();
 
         return view('user.user-changepassPage', compact('acc'));
     }
@@ -43,7 +44,7 @@ class detailprofileCont extends Controller
 
         Account::where('id', $id)
                 ->update([
-                    'pass' => $req->new_password
+                    'pass' => md5($req->new_password)
                 ]);
         return redirect()->back()->with('showModal', 'a')->with('alert-success','Pasword Changed');
         // return view('user.user-changepassword.user-changepassPage', compact('acc'))->with('alert-success', 'Password Changed');
