@@ -19,7 +19,11 @@ class accountController extends Controller
         return view('mail.forgotmail');
     }
     public function login(){
-        return view('login.loginPages');
+        if(!Session::get('login')){
+            return view('login.loginPages');
+        }else{
+            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'You already logged in'); 
+        }
     }
 
     public function register(){

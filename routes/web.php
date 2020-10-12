@@ -38,7 +38,7 @@ Route::post('/admin-edit','admin\adminPageController@editImageAdmin'); //Update 
 Route::post('/admin-changepassword','admin\adminPageController@updatepw'); //Update Password routing
 
 //User Page
-Route::get('/homepage', 'homepageCont@index'); //Homepage routing
+Route::get('/homepage', 'user\detailprofileCont@index'); //Homepage routing
 Route::get('/user/edit','user\detailprofileCont@editpage'); //Detailpage routing
 Route::get('/user/changepassword','user\detailprofileCont@changepass'); //Detailpage routing
 Route::get('/user/details','user\detailprofileCont@detailpage'); //Detailpage routing

@@ -11,10 +11,5 @@ use Illuminate\Support\Facades\Session;
 
 class homepageCont extends Controller
 {
-    public function index(User $acc){
-        $id = Session::get('id');
-        $acc = User::where('id', '=', $id)->first();
-
-        return view('user.user-homePage', compact('acc'));
-    }
+    
 }

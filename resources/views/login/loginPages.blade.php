@@ -66,7 +66,7 @@
 
   <div class="container">
     <!-- Outer Row -->
-    <div class="row justify-content-center pt-3 pt-md-5">
+    <div class="row justify-content-center pt-3 pt-md-5 mt-md-1 mt-5">
       
       <div class="col-xl-10 col-lg-12 col-md-9 mt-2 mt-md-5">
         <div class="card o-hidden border-0 shadow-lg my-5">

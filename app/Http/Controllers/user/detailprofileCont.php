@@ -12,29 +12,66 @@ use Illuminate\Support\Facades\Session;
 
 class detailprofileCont extends Controller
 {
-    public function detailpage(User $acc){
-        $id = Session::get('id');
-        $acc = User::where('id', '=', $id)->first();
-     
-        // return $acc;
-        
-        return view('user.user-detailPage', compact('acc'));
+    public function index(User $acc){
 
-        // return $acc->created_at->format('d-m-Y');
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+        
+                return view('user.user-homePage', compact('acc'));
+            }
+        }
+
+    }
+
+    public function detailpage(User $acc){
+
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+                return view('user.user-detailPage', compact('acc'));
+            }
+        }    
     }
 
     public function editpage(User $acc){
-        $id = Session::get('id');
-        $acc = User::where('id', '=', $id)->first();
 
-        return view('user.user-editPage', compact('acc'));
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+                return view('user.user-editPage', compact('acc'));
+            }
+        }
     }
 
     public function changepass(User $acc){
-        $id = Session::get('id');
-        $acc = User::where('id', '=', $id)->first();
-
-        return view('user.user-changepassPage', compact('acc'));
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+                return view('user.user-changepassPage', compact('acc'));
+            }
+        }
+        
     }
 
     public function updatepass(Request $req, Account $acc){
