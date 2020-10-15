@@ -11,6 +11,9 @@ class kaizenCont extends Controller
     public function userkaipage(){
         return view('kaizenform-user.addkaizen-page');
     }
+    public function listkaipage(){
+        return view('kaizenform-user.listallkaizen-page');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -89,7 +92,7 @@ class kaizenCont extends Controller
 
     public function check(Request $req){
         $tot=$req->totRow;
-
+        echo $req->kzid;
         for ($i=1; $i<=$tot; $i++){
             $role = $req->{'role'.$i};
             $kpk = $req->{'kpk'.$i};

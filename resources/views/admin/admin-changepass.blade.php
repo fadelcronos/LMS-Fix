@@ -58,7 +58,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group row justify-content-center">
+                    <div class="form-group row justify-content-center"> 
                       <div class="col-12 col-md-6 align-self-center">
                         <label for="current_password">New Password</label>
                         <input onkeyup="checkChar2()" type="password" class="form-control form-control-user" id="new_password" name="new_password" required placeholder="Enter New Password...">

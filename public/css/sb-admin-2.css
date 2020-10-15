@@ -1862,7 +1862,7 @@ pre code {
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
   color: #6e707e;
@@ -1975,7 +1975,7 @@ select.form-control:focus::-ms-value {
   width: 100%;
   padding: 0.375rem 0;
   margin-bottom: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 1.5;
   color: #858796;
   background-color: transparent;
@@ -10852,13 +10852,13 @@ form.user .custom-checkbox.small label {
 }
 
 form.user .form-control-user {
-  font-size: 0.8rem;
+  font-size: 1.25rem;
   border-radius: 10rem;
   padding: 1.5rem 1rem;
 }
 
 form.user .btn-user {
-  font-size: 0.8rem;
+  font-size: 1.25rem;
   border-radius: 10rem;
   padding: 0.75rem 1rem;
 }
@@ -11242,7 +11242,7 @@ footer.sticky-footer {
 
 footer.sticky-footer .copyright {
   line-height: 1;
-  font-size: 0.8rem;
+  font-size: 1.25rem;
 }
 
 body.sidebar-toggled footer.sticky-footer {

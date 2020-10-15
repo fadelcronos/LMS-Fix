@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class accountController extends Controller
 {
     public function test(){
-        return view('mail.forgotmail');
+        return redirect('/login');
     }
     public function login(){
         if(!Session::get('login')){
@@ -185,7 +185,7 @@ class accountController extends Controller
                 Session::put('Fullname',$employeeAcc->Fullname);
                 Session::put('kpkno',$employeeAcc->KPK);
                 Session::put('dept',$employeeAcc->Dept);
-                return redirect('/register')->with('showModal', 'a')->with('alert-success', 'Employee Data Found! Please Fill The Data.')->with('none', 'a')->with('data', 'a');
+                return redirect('/register')->with('none', 'a')->with('data', 'a');
             }else{
                 return redirect()->back()->with('showModal', 'a')->with('alert', 'No Employee Data Found! Can not Register.')->withInput($req->except('pass'));
             }

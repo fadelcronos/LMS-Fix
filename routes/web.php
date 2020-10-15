@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/test', 'accountController@test'); //Loginpage routing
+Route::get('/', 'accountController@test'); //Loginpage routing
 
 Route::get('/login', 'accountController@login'); //Loginpage routing
 Route::get('/logout', 'accountController@logOut'); //Logout
@@ -47,4 +47,5 @@ Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image rou
 
 //Kaizen User
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
+Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //Add Kai user routing
 Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@check'); //Add Kai user routing

@@ -95,7 +95,7 @@
 var i;
   function goWeb(i){
     if(i == 1){
-      window.open("{{ url('/kaiform') }}","_self");
+      window.open("{{ url('/kaizen-form/add-kaizen') }}","_self");
     }else if(i == 4){
       window.open("{{ url('/admin-listuser') }}","_self");
     }else if(i == 5){

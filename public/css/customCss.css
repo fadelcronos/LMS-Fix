@@ -75,3 +75,13 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
     color:#D12421;
 }
 
+.form-control{
+    font-size: 1.1rem !important;
+    color: #000 !important;
+}
+
+.no-und{
+    text-decoration: none !important;
+}
+
+

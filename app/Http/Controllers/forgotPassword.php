@@ -30,7 +30,7 @@ class forgotPassword extends Controller
             Session::put('kpk', $user);
             Session::put('otp', $fourRandomDigit);
             Mail::send('mail/forgotmail', ['checkuser' => $checkuser, 'code' => $fourRandomDigit], function ($m) use ($checkuser) {    
-                $m->to($checkuser->email, $checkuser->Fullname)->subject('<b><No Reply>Forgot Password OTP CODE</b>');
+                $m->to($checkuser->email, $checkuser->Fullname)->subject('<No Reply>Forgot Password OTP CODE');
             });
             
             return redirect('/forgot-password')->with('getotp','OTP Already sent to your email')->with('showOtp', 'a');

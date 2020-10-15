@@ -37,6 +37,23 @@
 
 <hr class="sidebar-divider my-0">
 
+<li class="nav-item">
+  <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+    <i class="fas fa-edit"></i>
+    <span>Update Kaizen</span></a>
+</li>
+
+<hr class="sidebar-divider my-0">
+
+<li class="nav-item">
+  <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+    <i class="fas fa-tachometer-alt"></i>
+    <span>Dashboard</span>
+  </a>
+</li>
+
+<hr class="sidebar-divider my-0">
+
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -78,36 +95,50 @@
 
           <form class="user" method="post" action="{{ url('/kaizen-form/add-kaizen') }}">
             @csrf
-              <div class="form-group row">
-                  <label for="exampleSelect1" class="bmd-label-floating">Kaizen Type</label>
-                  <select class="form-control" id="exampleSelect1">
-                      <option value="" selected disabled hidden>Kaizen Type</option>
-                      <option>BPK</option>
-                      <option>SFK</option>
-                      <option>DK</option>
-                      <option>555</option>
-                  </select>
-              </div>
-              <div class="form-group row">
-                  <label for="exampleInputEmail" class="bmd-label-floating">Title</label>
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Title here...">
-              </div>
-              <div class="form-group row">
-                  <label for="exampleSelect1" class="bmd-label-floating">Department</label>
-                  <select class="form-control" id="exampleSelect1">
-                      <option value="" selected disabled hidden>Select Department</option>
-                      <option>EHS</option>
-                      <option>Engineering</option>
-                      <option>Finance & IT</option>
-                      <option>Human Resources</option>
-                      <option>Manufacturing East</option>
-                      <option>Manufacturing West</option>
-                      <option>Quality</option>
-                      <option>Product Development</option>
-                      <option>Materials</option>
-                  </select>
+              <div class="row justify-content-center">
+                <div class="col-md-3 text-center">
+                  <p class="text text-light bg-red rounded" id="kzid">KZ ID: </p>
+                  <input type="text" name="kzid" id="kzidi" hidden value="">
+                </div>
               </div>
               <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="exampleSelect1" class="bmd-label-floating blk">Kaizen Type</label>
+                  <select class="form-control" id="exampleSelect1" name="kztype">
+                      <option value="" selected disabled hidden>Kaizen Type</option>
+                      <option value="BPK">BPK</option>
+                      <option value="SFK">SFK</option>
+                      <option value="DK">DK</option>
+                      <option value="555">555</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="exampleInputEmail" class="bmd-label-floating blk">Title</label>
+                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Title here...">
+                </div>
+              </div>
+              <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="exampleSelect1" class="bmd-label-floating blk">Department</label>
+                  <select class="form-control" id="exampleSelect1">
+                      <option value="None" selected disabled hidden>Select Department</option>
+                      <option value="EHS">EHS</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Finance & IT">Finance & IT</option>
+                      <option value="Human Resources">Human Resources</option>
+                      <option value="Manufacturing East">Manufacturing East</option>
+                      <option value="Manufacturing West">Manufacturing West</option>
+                      <option value="Quality">Quality</option>
+                      <option value="Product Development">Product Development</option>
+                      <option value="Materials">Materials</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row justify-content-center d-flex">
+                <div class="col-md-6">
+                <label for="myTab" class="bmd-label-floating blk">Members</label>
                       <table class="table text-center" id="myTab">
                           <thead class="text-center">
                               <th>Role</th>
@@ -117,25 +148,59 @@
                           </thead>
                           <tbody id="myRows" class="text-white">
                               <tr>
-                                  <td><input scope="col" id="role" type="text" name="role1" value="def" class="form-control"></td>
+                                  <td>
+                                    <select class="form-control" name="role1" id="role1" style="width:auto">
+                                      <option value="Sponsor">Sponsor</option>
+                                      <option value="Facilitator">Facilitator</option>
+                                      <option value="Leader">Leader</option>
+                                      <option value="Co-Leader">Co-Leader</option>
+                                      <option value="Participant">Participant</option>
+                                    </select>
+                                  </td>
                                   <td><input name="kpk1" scope="col" type="text" class="form-control"></td>
                                   <td><input name="name1" scope="col" type="text" class="form-control"></td>
-                                  <td><button  type="button" onclick="delRow()" class="btn btn-danger">Delete</button></td>
+                                  <td><button  type="button" onclick="delRow()" class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
                               </tr>
                           </tbody>
-                      </table>
+                        </table>
+                      
                       <input type="text" id="totRow" name="totRow" hidden value="1">
-                      <button onclick="addRow()" type="button" class="btn btn-danger"><i class="fas fa-plus"></i></button>
-                  
+                </div>
               </div>
-              <div class="form-group">
-                  <label for="exampleTextarea" class="bmd-label-floating">Details</label>
+              <div class="row mb-2">
+                <div class="col text-center">
+                <button onclick="addRow()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                </div>
+              </div>
+
+              <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="date" class="bmd-label-floating blk">Dates</label>
+                  <div id="date" class="row justify-content-center">
+                    <div class="col-md-4" id="dates">
+                      <label for="dat" class="bmd-label-floating blk">From</label>
+                      <input class="form-control" type="date">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="dat" class="bmd-label-floating blk">To</label>
+                      <input class="form-control" type="date">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="exampleTextarea" class="bmd-label-floating blk">Details</label>
                   <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                </div>
               </div>
-              
-              <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
-                  Submit
-              </button>
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
+                      Submit
+                  </button>
+                </div>
+              </div>
           </form>
                     
 

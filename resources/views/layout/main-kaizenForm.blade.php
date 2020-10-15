@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="getDate()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
