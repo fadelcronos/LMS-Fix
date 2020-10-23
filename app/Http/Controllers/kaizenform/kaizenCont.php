@@ -3,16 +3,47 @@
 namespace App\Http\Controllers\kaizenform;
 
 use App\Http\Controllers\Controller;
+use App\Account;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 
 class kaizenCont extends Controller
 {   
 
     public function userkaipage(){
-        return view('kaizenform-user.addkaizen-page');
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+        
+                return view('kaizenform-user.addkaizen-page', compact('acc'));
+            }
+            
+        }
     }
     public function listkaipage(){
-        return view('kaizenform-user.listallkaizen-page');
+
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            if(!Session::get('user')){
+                return redirect()->back()->with('alert', 'You are admin not user');
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+        
+                return view('kaizenform-user.listallkaizen-page', compact('acc'));
+
+            }
+            
+        }
     }
     /**
      * Display a listing of the resource.
