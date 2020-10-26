@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 class detailprofileCont extends Controller
 {
     public function index(User $acc){
-
+ 
         if(!Session::get('login')){
             return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{

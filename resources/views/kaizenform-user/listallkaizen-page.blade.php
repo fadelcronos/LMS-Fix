@@ -4,85 +4,10 @@
 @section('title', 'List Kaizen')
 @section('collapseClass', 'show')
 @section('formClass', 'active')
-
-
-@section('sidebar')
-<!-- Sidebar -->
-<ul class="navbar-nav bg-red sidebar sidebar-dark accordion" id="accordionSidebar">
-
-<!-- Sidebar - Brand -->
-<a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
-  <div class="sidebar-brand-icon rotate-n-15">
-    <img class="img-fluid" src="https://cdn.freebiesupply.com/logos/large/2x/mattel-logo-black-and-white.png" alt="">
-  </div>
-  <div class="sidebar-brand-text mx-3">kaizen form</div>
-</a>
-
-<!-- Divider -->
-<hr class="sidebar-divider my-0">
-
-<!-- Nav Item - Home -->
-<li class="nav-item active">
-  <a class="nav-link" href="{{url('/kaizen-form/list-kaizen')}}">
-    <i class="fas fa-list"></i>
-    <span>List Kaizen</span></a>
-</li>
-<hr class="sidebar-divider my-0">
-
-<li class="nav-item">
-  <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-    <i class="fas fa-plus"></i>
-    <span>Add Kaizen</span></a>
-</li>
-
-<hr class="sidebar-divider my-0">
-
-<li class="nav-item">
-  <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-    <i class="fas fa-edit"></i>
-    <span>Update Kaizen</span></a>
-</li>
-
-<hr class="sidebar-divider my-0">
-
-<li class="nav-item">
-  <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-    <i class="fas fa-tachometer-alt"></i>
-    <span>Dashboard</span>
-  </a>
-</li>
-
-<hr class="sidebar-divider my-0">
-
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-    <i class="fas fa-fw fa-cog"></i>
-    <span>Kaizen</span>
-  </a>
-  <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Menu</h6>
-      <a class="collapse-item " href="{{url('/kaiform')}}">Kaizen Form</a>
-      <a class="collapse-item " href="cards.html">Kaizen Updates</a>
-      <a class="collapse-item " href="cards.html">Kaizen Aprroval</a>
-      <a class="collapse-item " href="cards.html">Kaizen Dashboard</a>
-    </div>
-  </div>
-</li>
-
-<!-- Divider -->
-<hr class="sidebar-divider">
-
-<!-- Sidebar Toggler (Sidebar) -->
-<div class="text-center d-none d-md-inline">
-  <button class="rounded-circle border-0" id="sidebarToggle"></button>
-</div>
-
-</ul>
-<!-- End of Sidebar -->
-@endsection
-
+@section('addKaizen', '')
+@section('listKaizen', 'active')
+@section('updateKaizen', '')
+@section('dashboard', '')
 
 
 @section('container')

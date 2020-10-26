@@ -27,7 +27,62 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    @yield('sidebar')
+  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <img class="img-fluid" src="https://cdn.freebiesupply.com/logos/large/2x/mattel-logo-black-and-white.png" alt="">
+        </div>
+        <div class="sidebar-brand-text mx-3">kaizen form</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+      <!-- Nav Item - Home -->
+
+      <li class="nav-item @yield('listKaizen')">
+        <a class="nav-link" href="{{url('/kaizen-form/list-kaizen')}}">
+          <i class="fas fa-list"></i>
+          <span>List Kaizen</span></a>
+      </li>
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item @yield('addKaizen')">
+        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+          <i class="fas fa-plus"></i>
+          <span>Add Kaizen</span></a>
+      </li>
+
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item @yield('updateKaizen')">
+        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+          <i class="fas fa-edit"></i>
+          <span>Update Kaizen</span></a>
+      </li>
+
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item @yield('dashboard')">
+        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider my-0">
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+  </ul>
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- Topbar -->
@@ -72,8 +127,10 @@
 
             </ul>
         </nav>
+
+        
         <!-- End of Topbar -->
-        @yield('container')
+      @yield('container')
       </div>
       <!-- Footer -->
       <footer class="sticky-footer">
