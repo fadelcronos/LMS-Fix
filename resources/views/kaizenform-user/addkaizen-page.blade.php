@@ -1,6 +1,7 @@
 @extends('layout/main-kaizenForm')
 
 
+
 @section('title', 'Add Kaizen')
 @section('collapseClass', 'show')
 @section('formClass', 'active')
@@ -23,6 +24,7 @@
                   <input type="text" name="kzid" id="kzidi" hidden value="">
                 </div>
               </div>
+              
               <div class="form-group row justify-content-center ">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
                   <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
@@ -58,34 +60,48 @@
                   </select>
                 </div>
               </div>
+
               <div class="form-group row justify-content-center d-flex">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-2">
                 <label for="myTab" class="bmd-label-floating blk text-uppercase font-weight-bold">Members</label>
-                      <table class="table text-center" id="myTab">
-                        <thead class="text-center blk">
-                            <th>Role</th>
-                            <th>KPK</th>
-                            <th>Name</th>
-                        </thead>
-                        <tbody id="myRows" class="text-white">
-                          <tr>
-                              <td>
-                                <select class="form-control" name="role1" id="role1" style="width:auto">
-                                  <option value="Sponsor">Sponsor</option>
-                                  <option value="Facilitator">Facilitator</option>
-                                  <option value="Leader">Leader</option>
-                                </select>
-                              </td>
-                              <td><input readonly name="kpk1" scope="col" type="text" class="form-control" value="{{ $acc->kpkNum }}"></td>
-                              <td><input readonly name="name1" scope="col" type="text" class="form-control"  value="{{ $acc->Fullname }}"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="row mb-2">
-                        <div class="col text-center">
-                        <button onclick="addRow()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                      </div>
-              </div>
+                  <div class="row justify-content-center mb-3 mt-1">
+                    <div class="col-8 text-center">
+                      <select class="form-control" id="nameEmp" name="kztype">
+                          <option value="" selected disabled hidden></option>
+                          @foreach($employee as $emp)
+                            <option id="test1">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
+                          @endforeach
+                      </select>
+                    </div>
+                    <div class="col-4 text-center">
+                      <button onclick="addRow()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <table class="table text-center" id="myTab">
+                      <thead class="text-center blk">
+                          <th>Role</th>
+                          <th>KPK</th>
+                          <th>Name</th>
+                      </thead>
+                      <tbody id="myRows" class="text-white">
+                        <tr>
+                            <td>
+                              <select class="form-control" name="role1" id="role1" style="width:auto">
+                                <option value="Sponsor">Sponsor</option>
+                                <option value="Facilitator">Facilitator</option>
+                                <option value="Leader">Leader</option>
+                              </select>
+                            </td>
+                            <td><input readonly name="kpk1" scope="col" type="text" class="form-control" value="{{ $acc->kpkNum }}"></td>
+                            <td><input readonly name="name1" scope="col" type="text" class="form-control"  value="{{ $acc->Fullname }}"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                      
+                  
                       <input type="text" id="totRow" name="totRow" hidden value="1">
                 </div>
               </div>

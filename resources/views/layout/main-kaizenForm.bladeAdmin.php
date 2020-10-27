@@ -19,8 +19,6 @@
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <link href="../css/customCss.css" rel="stylesheet">
   <link href="../css/home-css.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -104,7 +102,7 @@
             <i class="fa fa-bars text-red"></i>
           </button>
           <ul class="navbar-nav ml-auto">
-              @if(Session::has('user'))
+
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -133,40 +131,9 @@
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
-                    </div>
-                </li>
-              @else
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="img-profile rounded-circle img-forprof" src="../adminimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
-                        <i class="fas fa-caret-down ml-1 text-red"></i>
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/admin-profile') }}">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            My Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/admin-edit') }}">
-                        <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Edit Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/admin-changepassword') }}">
-                            <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Change Password
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
                         
                     </div>
                 </li>
-              @endif
 
             </ul>
         </nav>
@@ -202,17 +169,5 @@
   <!-- Custom scripts for all pages-->
   <script src="../js/sb-admin-2.min.js"></script>
   <script src="../js/kaiform.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
-  <script type="text/javascript">
-
-        $("#nameEmp").select2({
-              placeholder: "Select a Name or KPK",
-              allowClear: true
-          });
-  </script>
-
-
 </body>
 </html>

@@ -1,8 +1,10 @@
 var i=2;
 
 
-
   function addRow(){
+    var names = $('#nameEmp option:selected').val();
+    var emp = names.split("- ");
+    // console.log(re[0]);
    
     var table = document.getElementById("myRows");
       
@@ -17,8 +19,8 @@ var i=2;
       
                                       
           cl1.innerHTML = "<select class='form-control' name='role"+z+"' style='width:auto'><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
-          cl2.innerHTML = "<input class='form-control' name='kpk"+z+"' type='text'></input>";
-          cl3.innerHTML = "<input class='form-control' name='name"+z+"' type='text'></input>";
+          cl2.innerHTML = "<input class='form-control' name='kpk"+z+"' type='text' value='"+ emp[1] +"' readonly></input>";
+          cl3.innerHTML = "<input class='form-control' name='name"+z+"' type='text' value='"+ emp[0] +"' readonly></input>";
           cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
           i+=1;
           
