@@ -28,7 +28,7 @@
               <div class="form-group row justify-content-center ">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
                   <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
-                  <select class="form-control" id="exampleSelect1" name="kztype">
+                  <select class="form-control" id="exampleSelect1" name="kztypes" required>
                       <option value="" selected disabled hidden>Kaizen Type</option>
                       <option value="BPK">BPK</option>
                       <option value="SFK">SFK</option>
@@ -40,14 +40,14 @@
               <div class="form-group row justify-content-center">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
                   <label for="exampleInputEmail" class="bmd-label-floating blk text-uppercase font-weight-bold">Title</label>
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Title here...">
+                  <input required type="text" class="form-control form-control-user" id="exampleInputEmail" name="kztitle" placeholder="Title here...">
                 </div>
               </div>
               <div class="form-group row justify-content-center">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
                   <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Department</label>
-                  <select class="form-control" id="exampleSelect1">
-                      <option value="None" selected disabled hidden>Select Department</option>
+                  <select class="form-control" name="kzdept" id="kzdept" required>
+                      <option value="" selected disabled hidden>Select Department</option>
                       <option value="EHS">EHS</option>
                       <option value="Engineering">Engineering</option>
                       <option value="Finance & IT">Finance & IT</option>
@@ -65,7 +65,7 @@
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-2">
                 <label for="myTab" class="bmd-label-floating blk text-uppercase font-weight-bold">Members</label>
                   <div class="row justify-content-center mb-3 mt-1">
-                    <div class="col-8 text-center">
+                    <div class="col-9 text-center">
                       <select class="form-control" id="nameEmp" name="kztype">
                           <option value="" selected disabled hidden></option>
                           @foreach($employee as $emp)
@@ -73,7 +73,7 @@
                           @endforeach
                       </select>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-3 text-center">
                       <button onclick="addRow()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                     </div>
                   </div>
@@ -113,11 +113,11 @@
                   <div id="date" class="row justify-content-center">
                     <div class="col-md-4" id="dates">
                       <label for="dat" class="bmd-label-floating blk">From</label>
-                      <input class="form-control" type="date">
+                      <input class="form-control" type="date" name="dateFrom" required>
                     </div>
                     <div class="col-md-4">
                       <label for="dat" class="bmd-label-floating blk">To</label>
-                      <input class="form-control" type="date">
+                      <input class="form-control" type="date" name="dateTo" required>
                     </div>
                   </div>
                 </div>
@@ -132,12 +132,11 @@
                       <table class="table" id="scopeTab">
                         <tbody id="scopeRow">
                           <tr class="text-dark">
-                            <td>
+                            <td class="text-center">
                               <p>Scope 1</p>
                             </td>
-                            <td>:</td>
                             <td>
-                              <input type="text" class="form-control" name="scope1">
+                              <textarea class="form-control" id="scope1" name="scope1" rows="1"></textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -145,7 +144,7 @@
                       </table>
                       <div class="row">
                         <div class="col text-center">
-                            <input type="text" id="totRowScope" hidden value="1">
+                            <input type="text" id="totRowScope" name="totRowScope" hidden value="1">
                           <button onclick="addScope()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>
@@ -157,12 +156,11 @@
                       <table class="table" id="backTab">
                         <tbody id="backRow">
                           <tr class="text-dark">
-                            <td>
+                            <td class="text-center">
                               <p>Background 1</p>
                             </td>
-                            <td>:</td>
                             <td>
-                              <input type="text" class="form-control" name="back1">
+                              <textarea class="form-control" id="back1" name="back1" rows="1"></textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -170,7 +168,7 @@
                       </table>
                       <div class="row">
                         <div class="col text-center">
-                            <input type="text" id="totRowBack" hidden value="1">
+                            <input type="text" id="totRowBack" name="totRowBack" hidden value="1">
                           <button onclick="addBack()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>
@@ -180,22 +178,48 @@
                     <div class="col border-0 shadow-lg rounded pt-2 pb-2">
                       <label for="exampleTextarea" class="bmd-label-floating blk">Baseline</label>
                       <table class="table" id="baseTab">
+                        <!-- <thead class="text-center blk">
+                            <th>NO</th>
+                            <th>KPI</th>
+                            <th>Sub KPI</th>
+                            <th>Value</th>
+                            <th>UM</th>
+                        </thead> -->
                         <tbody id="baseRow">
                           <tr class="text-dark">
-                            <td>
-                              <p>Baseline 1</p>
+                            <td class="text-center">
+                             <p class="text">Baseline 1</p>
                             </td>
-                            <td>:</td>
                             <td>
-                              <input type="text" class="form-control" name="base1">
+                              <textarea class="form-control" id="base1" name="base1" rows="1"></textarea>
                             </td>
+                            <!-- <td>
+                              <select name="kpi1" id="kpi1" onchange="changeInput()" class="form-control" style="width:120px">
+                                <option value="Quality">Quality</option>
+                                <option value="Cost">Cost</option>
+                                <option value="Environment Health Safety">Environment Health Safety</option>
+                                <option value="Delivery">Delivery</option>
+                                <option value="Moral">Moral</option>
+                                <option value="Product">Product</option>
+                                <option value="Others">Others</option>
+                              </select>
+                            </td>
+                            <td id="sub1">
+                              <input type="text" class="form-control" name="sub1" >
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" name="valueB1">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" name="um1">
+                            </td> -->
                           </tr>
                         </tbody>
                         
                       </table>
                       <div class="row">
                         <div class="col text-center">
-                            <input type="text" id="totRowBase" hidden value="1">
+                            <input type="text" id="totRowBase" name="totRowBase" hidden value="1">
                           <button onclick="addBase()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>
@@ -207,12 +231,11 @@
                       <table class="table" id="goalsTab">
                         <tbody id="goalsRow">
                           <tr class="text-dark">
-                            <td>
+                            <td class="text-center">
                               <p>Goals 1</p>
                             </td>
-                            <td>:</td>
                             <td>
-                              <input type="text" class="form-control" name="goals1">
+                              <textarea class="form-control" id="goals1" name="goals1" rows="1"></textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -220,7 +243,7 @@
                       </table>
                       <div class="row">
                         <div class="col text-center">
-                            <input type="text" id="totRowGoals" hidden value="1">
+                            <input type="text" id="totRowGoals" name="totRowGoals" hidden value="1">
                           <button onclick="addGoals()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>
@@ -232,12 +255,11 @@
                       <table class="table" id="delivTab">
                         <tbody id="delivRow">
                           <tr class="text-dark">
-                            <td>
+                            <td class="text-center">
                               <p>Deliverables 1</p>
                             </td>
-                            <td>:</td>
                             <td>
-                              <input type="text" class="form-control" name="deliv1">
+                              <textarea class="form-control" id="deliv1" name="deliv1" rows="1"></textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -245,7 +267,7 @@
                       </table>
                       <div class="row">
                         <div class="col text-center">
-                            <input type="text" id="totRowDeliv" hidden value="1">
+                            <input type="text" id="totRowDeliv" name="totRowDeliv" hidden value="1">
                           <button onclick="addDeliv()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>

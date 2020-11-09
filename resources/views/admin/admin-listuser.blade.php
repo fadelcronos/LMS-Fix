@@ -21,7 +21,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $user->fName }} {{ $user->lName }}</td>
                         <td>{{ $user->department }}</td>
-                        <td><a href="" class="btn btn-success">Edit</a> <a href="" class="btn btn-danger">Delete</a></td>
+                        <td><a href="" class="btn btn-success">Edit</a><a href="" class="btn btn-danger">Delete</a></td>
                     </tr>
                 @endforeach
                 </tbody>

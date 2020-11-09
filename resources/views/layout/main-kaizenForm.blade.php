@@ -29,7 +29,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion" id="accordionSidebar">
+  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
@@ -59,7 +59,7 @@
       <hr class="sidebar-divider my-0">
 
       <li class="nav-item @yield('updateKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+        <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
           <i class="fas fa-edit"></i>
           <span>Update Kaizen</span></a>
       </li>
@@ -90,9 +90,9 @@
       <hr class="sidebar-divider">
 
       <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
+      <!-- <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+      </div> -->
 
   </ul>
     <div id="content-wrapper" class="d-flex flex-column">

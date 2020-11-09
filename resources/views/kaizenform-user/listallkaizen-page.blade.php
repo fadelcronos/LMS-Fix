@@ -20,7 +20,7 @@
             <div id="allK">
                 <div class="row justify-content-center mb-4">
                     <div class="col text-center">
-                        <button class="p-3 bg-danger rounded-left text-light no-und" href="">All Kaizen</button><button class="p-3 bg-secondary rounded-right text-light no-und" onclick="changePage()">My Kaizen</button>
+                        <button class=" btn p-3 bg-danger rounded-left text-light no-und" href="">All Kaizen</button><button class="btn p-3 bg-secondary rounded-right text-light no-und" onclick="changePage()">My Kaizen</button>
                     </div>
                 </div>
                 <div class="row justify-content-center mb-2">

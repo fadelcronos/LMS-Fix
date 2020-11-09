@@ -48,4 +48,5 @@ Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image rou
 //Kaizen User
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
 Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //Add Kai user routing
-Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@check'); //Add Kai user routing
+Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@store'); //Add Kai user routing
+Route::get('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatelist'); //Add Kai user routing

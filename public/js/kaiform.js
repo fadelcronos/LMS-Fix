@@ -7,7 +7,9 @@ var i=2;
     // console.log(re[0]);
    
     var table = document.getElementById("myRows");
-      
+    var row = table.rows;
+
+    
      
     var z = document.getElementById("myRows").rows.length+1;
           
@@ -22,10 +24,18 @@ var i=2;
           cl2.innerHTML = "<input class='form-control' name='kpk"+z+"' type='text' value='"+ emp[1] +"' readonly></input>";
           cl3.innerHTML = "<input class='form-control' name='name"+z+"' type='text' value='"+ emp[0] +"' readonly></input>";
           cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-          i+=1;
+          
+          // if(z == 2){
+          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+          // }else{
+          //   row[z-2].deleteCell(3);
+          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+          // }
+
+          // console.log(z);
           
           var x = document.getElementById("myRows").rows.length;
-          console.log(x);
+          // console.log(x);
 
           document.getElementById("totRow").value=x;
       
@@ -37,6 +47,14 @@ var i=2;
     var x = document.getElementById("myRows").rows.length;
     console.log(x);
     document.getElementById("totRow").value=x;
+    
+    
+    // var table = document.getElementById("myRows");
+    // var row = table.rows;
+    // var z = document.getElementById("myRows").rows.length+1;
+    // var cl4 = row[z].insertCell(3);
+    // cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+
 
   }
 
@@ -73,13 +91,11 @@ function addScope(){
         var cl1 = rw.insertCell(0);
         var cl2 = rw.insertCell(1);
         var cl3 = rw.insertCell(2);
-        var cl4 = rw.insertCell(3);
     
                                     
-        cl1.innerHTML = "<p class='text-dark'>Scope "+z+"</p>";
-        cl2.innerHTML = ":";
-        cl3.innerHTML = "<input class='form-control' name='scope"+z+"' type='text'></input>";
-        cl4.innerHTML = "<button type='button' onclick='delScope()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        cl1.innerHTML = "<p class='text-dark text-center'>Scope "+z+"</p>";
+        cl2.innerHTML = "<textarea class='form-control' name='scope"+z+"' rows='1'></textarea>";
+        cl3.innerHTML = "<button type='button' onclick='delScope()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
         
         var x = document.getElementById("scopeRow").rows.length;
@@ -106,13 +122,11 @@ function addBack(){
         var cl1 = rw.insertCell(0);
         var cl2 = rw.insertCell(1);
         var cl3 = rw.insertCell(2);
-        var cl4 = rw.insertCell(3);
     
                                     
-        cl1.innerHTML = "<p class='text-dark'>Background "+z+"</p>";
-        cl2.innerHTML = ":";
-        cl3.innerHTML = "<input class='form-control' name='back"+z+"' type='text'></input>";
-        cl4.innerHTML = "<button type='button' onclick='delBack()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        cl1.innerHTML = "<p class='text-dark text-center'>Background "+z+"</p>";
+        cl2.innerHTML = "<textarea class='form-control' name='back"+z+"' rows='1'></textarea>";
+        cl3.innerHTML = "<button type='button' onclick='delBack()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
         
         var x = document.getElementById("backRow").rows.length;
@@ -139,13 +153,12 @@ function addBase(){
         var cl1 = rw.insertCell(0);
         var cl2 = rw.insertCell(1);
         var cl3 = rw.insertCell(2);
-        var cl4 = rw.insertCell(3);
-    
+
                                     
-        cl1.innerHTML = "<p class='text-dark'>Baseline "+z+"</p>";
-        cl2.innerHTML = ":";
-        cl3.innerHTML = "<input class='form-control' name='base"+z+"' type='text'></input>";
-        cl4.innerHTML = "<button type='button' onclick='delBase()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        cl1.innerHTML = "<p class='text-dark text-center'>Baseline"+z+"</p>";
+        cl2.innerHTML = "<textarea class='form-control' name='base"+z+"' id='base"+z+"' rows='1'></textarea>";
+        cl3.innerHTML = "<button type='button' onclick='delBase()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        
         i+=1;
         
         var x = document.getElementById("baseRow").rows.length;
@@ -172,13 +185,11 @@ function addGoals(){
         var cl1 = rw.insertCell(0);
         var cl2 = rw.insertCell(1);
         var cl3 = rw.insertCell(2);
-        var cl4 = rw.insertCell(3);
     
                                     
-        cl1.innerHTML = "<p class='text-dark'>Goals "+z+"</p>";
-        cl2.innerHTML = ":";
-        cl3.innerHTML = "<input class='form-control' name='goals"+z+"' type='text'></input>";
-        cl4.innerHTML = "<button type='button' onclick='delGoals()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        cl1.innerHTML = "<p class='text-dark text-center'>Goals "+z+"</p>";
+        cl2.innerHTML = "<textarea class='form-control' name='goals"+z+"' rows='1'></textarea>";
+        cl3.innerHTML = "<button type='button' onclick='delGoals()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
         
         var x = document.getElementById("goalsRow").rows.length;
@@ -205,13 +216,11 @@ function addDeliv(){
         var cl1 = rw.insertCell(0);
         var cl2 = rw.insertCell(1);
         var cl3 = rw.insertCell(2);
-        var cl4 = rw.insertCell(3);
     
                                     
-        cl1.innerHTML = "<p class='text-dark'>Deliverables "+z+"</p>";
-        cl2.innerHTML = ":";
-        cl3.innerHTML = "<input class='form-control' name='deliv"+z+"' type='text'></input>";
-        cl4.innerHTML = "<button type='button' onclick='delDeliv()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+        cl1.innerHTML = "<p class='text-dark text-center'>Deliverables "+z+"</p>";
+        cl2.innerHTML = "<textarea class='form-control' name='deliv"+z+"' rows='1'></textarea>";
+        cl3.innerHTML = "<button type='button' onclick='delDeliv()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
         
         var x = document.getElementById("delivRow").rows.length;
@@ -225,5 +234,19 @@ function delDeliv(){
   var x = document.getElementById("delivRow").rows.length;
   console.log(x);
   document.getElementById("totRowDeliv").value=x;
+
+}
+
+
+
+function changeInput(){
+  var x = document.getElementById("kpi1").value;
+
+  if(x == "Quality"){
+    document.getElementById("sub1").innerHTML = "YESSSSSSSSSSSSS";
+  }else{
+    document.getElementById("sub1").innerHTML = "You selected: " + x;
+
+  }
 
 }
