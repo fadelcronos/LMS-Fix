@@ -14,7 +14,11 @@ use App\Kaizen_Member;
 use App\Kaizen_Scope;
 use App\Kaizen_Baseline;
 use App\Kaizen_Goals;
-use App\Kaizen_Update_List;
+
+
+use App\View_UpdateList;
+use App\View_Member;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -52,21 +56,10 @@ class kaizenCont extends Controller
             
         }
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -170,9 +163,21 @@ class kaizenCont extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($kzid)
     {
-        //
+        // dd($kzid);
+        $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
+        $member = View_Member::where('Kaizen_ID', $kzid)->get();
+        // dd($member);
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+
+            $employee = Employee::all();
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            return view('kaizenform-user.updatekaizenlistdetail-page', compact('acc', 'employee', 'main', 'member'));
+        }
     }
 
     /**
@@ -217,12 +222,28 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
 
-            $kaizen_list = Kaizen_Update_List::where('kpkNum', $acc->kpkNum)->get();
+            $kaizen_list = View_UpdateList::where('kpkNum', $acc->kpkNum)->get();
+            $memberlist = View_Member::all();
 
+            $scopelist = Kaizen_Scope::all();
+            $baselist = Kaizen_Baseline::all();
+            $backlist = Kaizen_Background::all();
+            $goalslist = Kaizen_Goals::all();
+            $delivlist = Kaizen_Deliverable::all();
            
-            return view('kaizenform-user.updatekaizenlist-page', compact('acc', 'kaizen_list'));
+            return view('kaizenform-user.updatekaizenlist-page', compact('acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
            
 
+        }
+    }
+
+    public function detaillist(Request $req){
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $kzid = $req->kzid;
+            dd($kzid);
+            return view('kaizenform-user.updatekaizenlistdetail-page', compact('acc'));
         }
     }
 }

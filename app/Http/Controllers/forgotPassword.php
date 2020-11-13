@@ -64,6 +64,6 @@ class forgotPassword extends Controller
                 ]);
         return redirect('/forgot-password')->with('showModal', 'a')->with('alert-success','Pasword Updated, Please Login');
         // return view('user.user-changepassword.user-changepassPage', compact('acc'))->with('alert-success', 'Password Changed');
-
+            
     }
 }

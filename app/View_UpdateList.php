@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kaizen_Update_List extends Model
+class View_UpdateList extends Model
 {
-    protected $table = 'KF_UpdateListKaizen';
+    protected $table = 'KF_View_UpdateListKaizen';
     public $timestamps = false;
 }
