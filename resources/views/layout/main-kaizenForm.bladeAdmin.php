@@ -65,7 +65,7 @@
       <hr class="sidebar-divider my-0">
 
       @if(Session::has('admin'))
-      <li class="nav-item @yield('updateKaizen')">
+      <li class="nav-item @yield('approvalKaizen')">
         <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
           <i class="fas fa-check-square"></i>
           <span>Approval Kaizen</span></a>
@@ -169,5 +169,7 @@
   <!-- Custom scripts for all pages-->
   <script src="../js/sb-admin-2.min.js"></script>
   <script src="../js/kaiform.js"></script>
+  <script src="../js/modal/showModal.js"></script>
+
 </body>
 </html>

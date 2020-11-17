@@ -250,3 +250,8 @@ function changeInput(){
   }
 
 }
+
+function getData(){
+  // var x = document.getElementById("myRows").rows.length;
+  document.getElementById("totRow").value = "Yeayyy";
+}

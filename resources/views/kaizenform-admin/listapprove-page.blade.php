@@ -7,7 +7,8 @@
 @section('formClass', 'active')
 @section('addKaizen', '')
 @section('listKaizen', '')
-@section('updateKaizen', 'active')
+@section('updateKaizen', '')
+@section('approvalKaizen', 'active')
 @section('dashboard', '')
 
 @section('container')
