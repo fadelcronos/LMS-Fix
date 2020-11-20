@@ -14,8 +14,10 @@ use App\Kaizen_Member;
 use App\Kaizen_Scope;
 use App\Kaizen_Baseline;
 use App\Kaizen_Goals;
+Use DateTime;
 
 
+use App\View_KaizenRoles;
 use App\View_UpdateList;
 use App\View_Member;
 
@@ -35,8 +37,10 @@ class kaizenCont extends Controller
                 $employee = Employee::all();
                 $id = Session::get('id');
                 $acc = User::where('id', '=', $id)->first();
-        
-                return view('kaizenform-user.addkaizen-page', compact('acc', 'employee'));
+                // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+                $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
+                return view('kaizenform-user.addkaizen-page', compact('acc', 'employee', 'totWait'));
             
             
         }
@@ -49,8 +53,11 @@ class kaizenCont extends Controller
             
                 $id = Session::get('id');
                 $acc = User::where('id', '=', $id)->first();
+                // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+                $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
         
-                return view('kaizenform-user.listallkaizen-page', compact('acc'));
+                return view('kaizenform-user.listallkaizen-page', compact('acc', 'totWait'));
 
             
             
@@ -82,11 +89,19 @@ class kaizenCont extends Controller
         $KZ_Baseline = new Kaizen_Baseline;
         $KZ_Goals = new Kaizen_Goals;
 
+        // $fdate = $req->dateFrom;
+        // $tdate = $req->dateTo;
+        // $datetime1 = new DateTime($fdate);
+        // $datetime2 = new DateTime($tdate);
+        // $interval = $datetime1->diff($datetime2);
+        // $days = $interval->format('%a');//now do whatever you like with $days
+        // dd($days+1);
+
         $KZ_Main->Kaizen_ID = $req->kzid;
         $KZ_Main->Kaizen_title = $req->kztitle;
         $KZ_Main->Kaizen_type = $req->kztypes;
         $KZ_Main->Kaizen_dept = $req->kzdept;
-        $KZ_Main->Kaizen_room = "Jogja";
+        $KZ_Main->Kaizen_room = "";
         $KZ_Main->Kaizen_status = "Waiting";
         $KZ_Main->Kaizen_madeby = $req->kpk1;
         $KZ_Main->save();
@@ -194,6 +209,10 @@ class kaizenCont extends Controller
         $bases = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
         $goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
         $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
+        // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+        $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->first();
+        // dd($rolesKaizen);
 
         // dd($scopes);
         // dd($member);
@@ -204,7 +223,7 @@ class kaizenCont extends Controller
             $employee = Employee::all();
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            return view('kaizenform-user.updatekaizenlistdetail-page', compact('acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+            return view('kaizenform-user.updatekaizenlistdetail-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
         }
     }
 
@@ -258,8 +277,12 @@ class kaizenCont extends Controller
             $backlist = Kaizen_Background::all();
             $goalslist = Kaizen_Goals::all();
             $delivlist = Kaizen_Deliverable::all();
+            $datelist = Kaizen_Date::all();
+
+            // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+            $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
            
-            return view('kaizenform-user.updatekaizenlist-page', compact('acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-user.updatekaizenlist-page', compact('datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
            
 
         }
@@ -281,6 +304,7 @@ class kaizenCont extends Controller
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
+
 
             $KZ_Main = new Kaizen_Main;
             $KZ_Member = new Kaizen_Member;
@@ -308,12 +332,17 @@ class kaizenCont extends Controller
         $KZ_Main->Kaizen_title = $req->kztitle;
         $KZ_Main->Kaizen_type = $req->kztypes;
         $KZ_Main->Kaizen_dept = $req->kzdept;
-        $KZ_Main->Kaizen_room = $req->kzroom;
-        $KZ_Main->Kaizen_status = $req->kzstatus;
         $KZ_Main->Kaizen_madeby = $req->kzmade;
+
+        if($acc->kpkNum == "393560"){
+            $KZ_Main->Kaizen_status = "Approved";
+            $KZ_Main->Kaizen_room = $req->kzroom;
+        }else{
+            $KZ_Main->Kaizen_status = $req->kzstatus;
+            $KZ_Main->Kaizen_room = $req->kzroom;
+        }
         
         $KZ_Main->save();
-        
         $totMember = $req->totRow;
         $dataMembers = [];
             for ($i=1; $i<=$totMember; $i++){
@@ -379,8 +408,11 @@ class kaizenCont extends Controller
                 $KZ_Goals->insert($dataMembers);
 
             }
-
-            return redirect('/kaizen-form/update-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
+            if($acc->kpkNum == "393560"){
+                return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
+            }else{
+                return redirect('/kaizen-form/update-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
+            }
         
 
             // return view('kaizenform-user.updatekaizenlistdetail-page', compact('acc'));
@@ -394,7 +426,7 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
 
-            $kaizen_list = View_UpdateList::latest('Kaizen_ID')->get();
+            $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
             $memberlist = View_Member::all();
 
             $scopelist = Kaizen_Scope::all();
@@ -402,8 +434,12 @@ class kaizenCont extends Controller
             $backlist = Kaizen_Background::all();
             $goalslist = Kaizen_Goals::all();
             $delivlist = Kaizen_Deliverable::all();
+            $datelist = Kaizen_Date::all();
+
+            // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+            $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
             
-            return view('kaizenform-admin.listapprove-page', compact('acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-admin.listapprove-page', compact('datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }
 }

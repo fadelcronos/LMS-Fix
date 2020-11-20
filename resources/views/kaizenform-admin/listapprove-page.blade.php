@@ -72,10 +72,25 @@
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-4">
-                                <div class="text font-weight-bold text-dark mb-1">Date</div>
+                                <div class="text font-weight-bold text-dark mb-1">Day(s)</div>
                             </div>
                             <div class="col-auto mr-2">
-                                <div class="text font-weight-bold text-dark mb-1">{{ $list->Kaizen_DateTo }}</div>
+                                <div class="text font-weight-bold text-dark mb-1">
+                                    @foreach($datelist as $date)
+                                        @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            @php
+                                                $fdate = $date->Kaizen_DateFrom;
+                                                $tdate = $date->Kaizen_DateTo;
+
+                                                $datetime1 = new DateTime($fdate);
+                                                $datetime2 = new DateTime($tdate);
+                                                $interval = $datetime1->diff($datetime2);
+                                                $days = $interval->format('%a');
+                                            @endphp
+                                            {{$days+1}}
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="row no-gutters align-items-center">
@@ -87,21 +102,40 @@
                                 @if($list->Kaizen_status == 'Waiting')
                                     {{ $list->Kaizen_status }} Approval <i class="fas fa-exclamation-circle text-warning"></i>
                                 @else
-                                    {{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-danger"></i>
+                                    {{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i>
                                 @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="row align-content-end">
-                            <div class="col text-center">
-                                <input type="text" name="kzid" value="{{ $list->Kaizen_ID }}" hidden>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">VIEW</button>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-4">
+                                <div class="text font-weight-bold text-dark mb-1">Room</div>
+                            </div>
+                            <div class="col-auto mr-2">
+                                <div class="text font-weight-bold text-dark mb-1">
+                                    @if($list->Kaizen_room == "")
+                                        -                                    
+                                    @else
+                                        {{$list->Kaizen_room}}
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                        <!-- <div class="position-static">
+                           
+                                <input type="text" name="kzid" value="{{ $list->Kaizen_ID }}" hidden>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">VIEW</button>
+                           
+                        </div> -->
                         
+                    </div>
+                    <div class="card-footer text-center">
+                        <input type="text" name="kzid" value="{{ $list->Kaizen_ID }}" hidden>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">VIEW</button>
                     </div>
                 </div>
             </div>
+            
             <div class="modal fade" id="kz{{ $list->Kaizen_ID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
@@ -112,6 +146,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        
+                        <div class="row bg-danger text-light p-2 rounded">
+                            <div class="col-3">
+                                Date
+                            </div>    
+                            <div class="col">
+                                @foreach($datelist as $date)
+                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                        {{ $date->Kaizen_DateFrom }} - {{ $date->Kaizen_DateTo }}
+                                    @endif
+                               @endforeach
+                            </div>
+                        </div>
                         <div class="row p-2">
                             <div class="col-3">
                                 Type
@@ -217,8 +264,10 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                         <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                        
+
                     </div>
                     </div>
                 </div>

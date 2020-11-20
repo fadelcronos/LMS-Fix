@@ -21,7 +21,6 @@
                   <p class="text text-light bg-red rounded" id="">KZ ID: {{ $main->Kaizen_ID }}</p>
                   <input type="text" name="kzid" id="kzidi" hidden value="{{ $main->Kaizen_ID }}">
                   <input type="text" name="kzstatus" id="kzidi" hidden value="{{ $main->Kaizen_status }}">
-                  <input type="text" name="kzroom" id="kzidi" hidden value="{{ $main->Kaizen_room }}">
                   <input type="text" name="kzmade" id="kzidi" hidden value="{{ $main->Kaizen_madeby }}">
                 </div>
               </div>
@@ -34,7 +33,43 @@
               </nav>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="form-group row justify-content-center ">
+                  @if($acc->kpkNum == '393560')
+                  <div class="form-group row justify-content-center ">
+                    <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
+                      <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Room</label>
+                      <select class="form-control" id="exampleSelect1" name="kzroom" required>
+                        @if($main->Kaizen_room == "")
+                        <option value="" selected hidden>Select Room</option>
+                        @else
+                          <option value="{{ $main->Kaizen_room }}" selected hidden>{{$main->Kaizen_room}}</option>
+                        @endif
+
+                          <option value="" disabled>--- EAST ---</option>
+                          <option value="Banda Aceh">Banda Aceh</option>
+                          <option value="Banda Naira">Banda Naira</option>
+                          <option value="Batik 1">Batik 1</option>
+                          <option value="Batik 2">Batik 2</option>
+                          <option value="Batik 3">Batik 3</option>
+                          <option value="Kresna Dewa">Kresna Dewa</option>
+                          <option value="Kolaka">Kolaka</option>
+                          <option value="Jogjakarta">Jogjakarta</option>
+                          <option value="Surabaya">Surabaya</option>
+                          <option value="Toraja">Toraja</option>
+                          <option value="Other">Other</option>
+                          <option value="555">555</option>
+                          <option value="" Disabled>--- WEST ---</option>
+                          <option value="Executive">Executive</option>
+                          <option value="Kalianda">Kalianda</option>
+                          <option value="Jepara">Jepara</option>
+                          <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  @else
+                  <input type="text" name="kzroom" id="kzidi" hidden value="{{ $main->Kaizen_room }}">
+                  @endif
+
+                  <div class="form-group row justify-content-center ">
                     <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
                       <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
                       <select class="form-control" id="exampleSelect1" name="kztypes" required>
@@ -282,9 +317,22 @@
 
                   <div class="row justify-content-center">
                     <div class="col-md-6">
+                    @if($acc->kpkNum == '393560')
                       <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
-                          UPDATE
+                          UPDATE & APPROVE
                       </button>
+                    @else
+                      @if($rolesKaizen->member_roles == 'Leader' || $rolesKaizen->member_roles == 'Facilitator' || $rolesKaizen->member_roles == 'Sponsor')
+                        <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
+                          UPDATE
+                        </button>
+                      @else
+                        <button class="btn btn-customyel btn-user btn-block text-uppercase" disabled>
+                          UPDATE
+                        </button>
+                      @endif
+                      
+                    @endif
                     </div>
                   </div>
                 </div>

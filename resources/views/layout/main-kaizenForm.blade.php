@@ -21,6 +21,17 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
+  <style>
+
+.badge-notify{
+   background:black;
+   width:15px;
+   position:relative;
+   top: -25px;
+   left: 35px;
+  }
+  </style>
+
 </head>
 
 <body id="page-top" onload="getDate()">
@@ -61,7 +72,11 @@
   <ul class="navbar-nav bg-red sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
+      @if(Session::has('admin'))
+        <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin-homepage') }}">
+      @else
+        <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
+      @endif
         <div class="sidebar-brand-icon rotate-n-15">
           <img class="img-fluid" src="https://cdn.freebiesupply.com/logos/large/2x/mattel-logo-black-and-white.png" alt="">
         </div>
@@ -97,9 +112,16 @@
 
       @if(Session::has('admin'))
       <li class="nav-item @yield('approvalKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/approval-kaizen')}}">
+        <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
+
           <i class="fas fa-check-square"></i>
+          @if(count($totWait) <= 0)
+          @else
+          <span class="badge badge-notify">{{ count($totWait)}}</span>
+          @endif 
           <span>Approval Kaizen</span></a>
+
+          
       </li>
 
       <hr class="sidebar-divider my-0">
