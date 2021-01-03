@@ -13,18 +13,14 @@ use Illuminate\Support\Facades\Session;
 class detailprofileCont extends Controller
 {
     public function index(User $acc){
- 
+        Session::put('home', TRUE);
+        Session::forget('kaizen');
         if(!Session::get('login')){
-            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+            return view('user.user-homePage');
         }else{
-            if(!Session::get('user')){
-                return redirect()->back()->with('alert', 'You are admin not user');
-            }else{
-                $id = Session::get('id');
-                $acc = User::where('id', '=', $id)->first();
-        
-                return view('user.user-homePage', compact('acc'));
-            }
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            return view('user.user-homePage', compact('acc'));
         }
 
     }

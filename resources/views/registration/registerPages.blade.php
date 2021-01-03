@@ -77,7 +77,7 @@
                 <a href="{{ url('/admin-homepage') }}" class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">go to homepage</a> 
                 @else
                 <div class="text-center mt-0 mt-md-4 mb-md-2">
-                  <a href="{{ url('/login') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
+                  <a href="{{ url('/homepage') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
                 </div>
                 @endif
               </div>
@@ -175,7 +175,7 @@
               <a href="{{ url('/admin-homepage') }}" class="btn btn-user text-uppercase btn-block btn-customyel mt-0 mt-md-4 mb-md-2">go to homepage</a> 
               @else
               <div class="text-center mt-0 mt-md-4 mb-md-2">
-                <a href="{{ url('/login') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
+                <a href="{{ url('/homepage') }}" class="text-center text-red ">Already have an account? Login Here!</a> 
               </div>
               @endif
             </div>

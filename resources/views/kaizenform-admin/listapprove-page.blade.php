@@ -50,10 +50,10 @@
             Type: ... Date: ...
         </a>
     </div> -->
-    <form action="{{ url('/kaizen-form/test') }}" method="get">
+    <!-- <form action="{{ url('/kaizen-form/test') }}" method="get">
         @csrf
         <button class="btn btn-primary">TEST</button>
-    </form>
+    </form> -->
     <nav>
         <div class="nav nav-tabs nav-justified mb-3" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Waiting Approval</a>

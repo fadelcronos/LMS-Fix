@@ -47,57 +47,56 @@ class kaizenCont extends Controller
         }
     }
     public function listkaipage(){
+        Session::put('kaizen', TRUE);
+        Session::forget('home');
+
+        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
+        $memberlist = View_Member::all();
+
+        $scopelist = Kaizen_Scope::all();
+        $baselist = Kaizen_Baseline::all();
+        $backlist = Kaizen_Background::all();
+        $goalslist = Kaizen_Goals::all();
+        $delivlist = Kaizen_Deliverable::all();
+        $datelist = Kaizen_Date::all();
+
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
 
         if(!Session::get('login')){
-            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }else{
-            
-                $id = Session::get('id');
-                $acc = User::where('id', '=', $id)->first();
-
-                $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
-                $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
-                $memberlist = View_Member::all();
-
-                $scopelist = Kaizen_Scope::all();
-                $baselist = Kaizen_Baseline::all();
-                $backlist = Kaizen_Background::all();
-                $goalslist = Kaizen_Goals::all();
-                $delivlist = Kaizen_Deliverable::all();
-                $datelist = Kaizen_Date::all();
-
-                $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-
-        
-                return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
+            return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }
 
     public function searchkaizen(Request $req){
+        $search = $req->search;
+        $type = $req->kztype;
+        $status = $req->status;
+        $dept = $req->department;
+        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+        $memberlist = View_Member::all();
+
+        $scopelist = Kaizen_Scope::all();
+        $baselist = Kaizen_Baseline::all();
+        $backlist = Kaizen_Background::all();
+        $goalslist = Kaizen_Goals::all();
+        $delivlist = Kaizen_Deliverable::all();
+        $datelist = Kaizen_Date::all();
+
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
         if(!Session::get('login')){
-            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
-                $id = Session::get('id');
-                $acc = User::where('id', '=', $id)->first();
-                $search = $req->search;
-                $type = $req->kztype;
-                $status = $req->status;
-                $dept = $req->department;
-                $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-                $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-                $memberlist = View_Member::all();
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
 
-                $scopelist = Kaizen_Scope::all();
-                $baselist = Kaizen_Baseline::all();
-                $backlist = Kaizen_Background::all();
-                $goalslist = Kaizen_Goals::all();
-                $delivlist = Kaizen_Deliverable::all();
-                $datelist = Kaizen_Date::all();
-
-                $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-
-        
-                return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }
 
