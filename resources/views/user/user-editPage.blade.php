@@ -74,13 +74,13 @@
                       </div>
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom02">E-mail</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->email }}" readonly>
+                        <input required pattern=".+@mattel.com" type="email" name="email" class="form-control text-center" id="validationCustom02" placeholder="Email" value="{{ $acc->email }}">
                       </div>
                     </div>
                     <div class="row d-flex justify-content-center">
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom01">KPK ID</label>
-                        <input type="email" class="form-control text-center" id="validationCustom01" placeholder="email" readonly value="{{ $acc->kpkNum }}">
+                        <input type="text" class="form-control text-center" id="validationCustom01" placeholder="KPK" readonly value="{{ $acc->kpkNum }}">
                       </div>
                     </div>
                     <div class="row d-flex justify-content-center">

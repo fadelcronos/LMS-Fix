@@ -66,4 +66,6 @@ class forgotPassword extends Controller
         // return view('user.user-changepassword.user-changepassPage', compact('acc'))->with('alert-success', 'Password Changed');
             
     }
+
+    
 }

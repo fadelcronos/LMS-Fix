@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class accountController extends Controller
 {
     public function test(){
-        return redirect('/login');
+        return redirect('/homepage');
     }
     public function login(){
         if(!Session::get('login')){
@@ -39,30 +39,51 @@ class accountController extends Controller
         if($checkusername){
             $data = User::where('kpkNum', $user)->where('pass', $pass)->first();
             if($data){
-                Session::flush();
+                // Session::flush();
                 Session::put('name',$data->Fullname);
                 Session::put('kpknum',$data->kpkNum);
                 Session::put('id', $data->id);
                 Session::put('login',TRUE);
-                if($data->level == "admin"){
-                    Session::put('admin',TRUE);
-                    return redirect('/admin-homepage')->with('alert-success','Login Successfull');
-                }else{
-                    Session::put('user',TRUE);
+                if(Session::has('home')){
+                    if($data->level == "admin"){
+                        Session::put('admin',TRUE);
+                    }else{
+                        Session::put('user',TRUE);
+                    }
                     return redirect('/homepage')->with('alert-success','Login Successfull');
+                }else if(Session::has('kaizen')){
+                    if($data->level == "admin"){
+                        Session::put('admin',TRUE);
+                    }else{
+                        Session::put('user',TRUE);
+                    }
+                    return redirect('/kaizen-form/list-kaizen')->with('alert-success','Login Successfull');
                 }
+                // if($data->level == "admin"){
+                //     Session::put('admin',TRUE);
+                //     return redirect('/admin-homepage')->with('alert-success','Login Successfull');
+                // }else{
+                //     Session::put('user',TRUE);
+                //     return redirect('/homepage')->with('alert-success','Login Successfull');
+                // }
             }else{
                 
-                return redirect('/login')->with('alert','Incorrect Password')->with('showModal', 'a')->withInput($req->except('pass'));
+                return redirect()->back()->with('alert','Incorrect Password')->with('showModal', 'a')->withInput($req->except('pass'));
             }
         }else{
-            return redirect('/login')->with('alert','Incorrect Username')->with('showModal', 'a')->withInput($req->except('pass'));
+            return redirect()->back()->with('alert','Incorrect Username')->with('showModal', 'a')->withInput($req->except('pass'));
         }
     }
 
     public function logOut(){
-        Session::flush();
-        return redirect('/login')->with('showModal', 'a')->with('alert-success', 'Logout Succesfull');
+        if(Session::has('home')){
+            Session::flush();
+            return redirect('/homepage')->with('showModal', 'a')->with('alert-success', 'Logout Succesfull');
+        }else if(Session::has('kaizen')){
+            Session::flush();
+            return redirect('/kaizen-form/list-kaizen')->with('showModal', 'a')->with('alert-success', 'Logout Succesfull');
+        }
+        
     }
     /**
      * Display a listing of the resource.
@@ -115,7 +136,7 @@ class accountController extends Controller
             Session::forget('Fullname');
             Session::forget('kpkno');
             Session::forget('dept');
-            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Account Created');
+            return redirect('/homepage')->with('showModal', 'a')->with('alert-success', 'Account Created, Please Log in');
         }else{
             return redirect()->back()->with('showModal', 'a')->with('alert', 'Failed To Create Account')->withInput($request->except('pass'));
         }

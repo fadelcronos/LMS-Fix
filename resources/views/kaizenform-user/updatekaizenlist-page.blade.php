@@ -148,7 +148,7 @@
                                 {{ $list->Kaizen_type }}
                             </div>
                         </div>
-                        <div class="row bg-danger text-light p-2 rounded">
+                        <div class="row p-2 rounded">
                             <div class="col-3">
                                 Status
                             </div>    
@@ -164,7 +164,7 @@
                                 {{ $list->Kaizen_dept }}
                             </div>
                         </div>
-                        <div class="row bg-danger p-2 text-light rounded">
+                        <div class="row p-2 rounded">
                             <div class="col-3">
                                 Member
                             </div>
@@ -190,7 +190,7 @@
                                 @endforeach
                             </div> 
                         </div>
-                        <div class="row bg-danger p-2 text-light rounded">
+                        <div class="row p-2 rounded">
                             <div class="col-3">
                                 Background
                             </div>
@@ -214,7 +214,7 @@
                              @endforeach
                             </div> 
                         </div>
-                        <div class="row bg-danger p-2 text-light rounded">
+                        <div class="row p-2 rounded">
                             <div class="col-3">
                                 Goals
                             </div>
@@ -231,7 +231,7 @@
                                 Deliverable
                             </div>
                             <div class="col">
-                                @if(count($delivlist) > 0)    
+                                @if(count($delivlist) > 0)      
                                     @foreach($delivlist as $deliv)
                                         @if($list->Kaizen_ID == $deliv->Kaizen_ID)
                                             <li>{{ $deliv->deliverable }}</li>
@@ -257,11 +257,11 @@
 </div>
 
 <!-- Modal -->
-<div class="row">
+<!-- <div class="row">
     <div class="col">
         <a href="" class="btn btn-danger">TEST MAIL</a>
     </div>
-</div>
+</div> -->
 
 
 

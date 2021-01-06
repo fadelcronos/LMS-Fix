@@ -53,7 +53,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <form class=adminr" method="post" action="{{ url('/admin-edit') }}" enctype="multipart/form-data">
+                    <form class="admin" method="post" action="{{ url('/admin-edit') }}" enctype="multipart/form-data">
                         @csrf
                     <div class="form-group row d-flex justify-content-center">
                         <div class="col-8 col-md-4 d-flex justify-content-center">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Email</label>
-                        <input type="text" class="form-control text-center" id="validationCustom02" placeholder="Last name" value="{{ $acc->email }}" readonly>
+                        <input required pattern=".+@mattel.com" type="email" class="form-control text-center" id="validationCustom02" placeholder="Email" name="email" value="{{ $acc->email }}">
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">

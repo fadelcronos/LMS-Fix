@@ -74,7 +74,7 @@
 
       <hr class="sidebar-divider my-0">
 
-      @if(Session::has('admin'))
+      @if(Session::has('admin') && $acc->kpkNum == '393560')
       <li class="nav-item @yield('approvalKaizen')">
         <a class="nav-link notofication" href="{{url('/kaizen-form/approval-kaizen')}}">
           <i class="fas fa-check-square"></i>

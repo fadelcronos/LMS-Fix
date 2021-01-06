@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Session;
 class adminPageController extends Controller
 {
     public function index(User $acc){
+        Session::put('home', TRUE);
+        Session::forget('kaizen');
         if(!Session::get('login')){
             return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
@@ -23,7 +25,7 @@ class adminPageController extends Controller
                 $acc = User::where('id', '=', $id)->first();
                 return view('admin.admin-homepage', compact('acc'));
             }
-        }
+        } 
         
     }
 
@@ -60,21 +62,31 @@ class adminPageController extends Controller
         $id = Session::get('id');
         $acc = Account::where('id', '=', $id)->first();
         // $req->image->store('images');
-        if ($req->hasfile('image')){
-            $file = $req->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-            $file->move('adminimg/',$filename);
+
+        try {
             Account::where('id', $id)
-                ->update([
-                    'image' => $req->image = $filename
-                ]);
-                return redirect()->back()->with('showModal', 'a')->with('alert-success','Image Updated');
+            ->update([
+                'email' => $req->email
+            ]);
+            if ($req->hasfile('image')){
+                $file = $req->file('image');
+                $ext = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $ext;
+                $file->move('adminimg/',$filename);
+                Account::where('id', $id)
+                    ->update([
+                        'image' => $req->image = $filename
+                    ]);
+                }
+            return redirect()->back()->with('showModal', 'a')->with('alert-success','Data Updated');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('showModal', 'a')->with('alert-danger','No Data Updated');
         }
-        else{
-            return redirect()->back()->with('showModal', 'a')->with('alert','No Image Selected');
-            
-        }
+
+        
+        // else{
+        //     // return redirect()->back()->with('showModal', 'a')->with('alert','No Image Selected');
+        // }
          
     }
 

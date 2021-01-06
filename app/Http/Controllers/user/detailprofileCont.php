@@ -13,18 +13,14 @@ use Illuminate\Support\Facades\Session;
 class detailprofileCont extends Controller
 {
     public function index(User $acc){
- 
+        Session::put('home', TRUE);
+        Session::forget('kaizen');
         if(!Session::get('login')){
-            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+            return view('user.user-homePage');
         }else{
-            if(!Session::get('user')){
-                return redirect()->back()->with('alert', 'You are admin not user');
-            }else{
-                $id = Session::get('id');
-                $acc = User::where('id', '=', $id)->first();
-        
-                return view('user.user-homePage', compact('acc'));
-            }
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            return view('user.user-homePage', compact('acc'));
         }
 
     }
@@ -91,22 +87,28 @@ class detailprofileCont extends Controller
     public function editImage(Request $req, Account $acc){
         $id = Session::get('id');
         $acc = Account::where('id', '=', $id)->first();
-        // $req->image->store('images');
-        if ($req->hasfile('image')){
-            $file = $req->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-            $file->move('userimg/',$filename);
+
+        try {
             Account::where('id', $id)
-                ->update([
-                    'image' => $req->image = $filename
-                ]);
-                return redirect()->back()->with('showModal', 'a')->with('alert-success','Image Updated');
+            ->update([
+                'email' => $req->email
+            ]);
+            if ($req->hasfile('image')){
+                $file = $req->file('image');
+                $ext = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $ext;
+                $file->move('userimg/',$filename);
+                Account::where('id', $id)
+                    ->update([
+                        'image' => $req->image = $filename
+                    ]);
+                }
+            return redirect()->back()->with('showModal', 'a')->with('alert-success','Data Updated');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('showModal', 'a')->with('alert','No Data Updated');
         }
-        else{
-            return redirect()->back()->with('showModal', 'a')->with('alert','No Image Selected');
-            
-        }
+
+        
         // $name = $req->image->getClientOriginalName();
 
         

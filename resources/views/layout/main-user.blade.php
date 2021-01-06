@@ -23,6 +23,35 @@
 </head>
 
 <body id="page-top" class="fontstyle">
+@if(Session::has('showModal'))
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  @if(Session('alert'))
+                    <div class="alert alert-danger">
+                      <div>{{Session('alert')}}</div>
+                    </div>
+                  @endif
+                  @if(Session('alert-success'))
+                    <div class="alert alert-success">
+                      <div>{{Session('alert-success')}}</div>
+                    </div>
+                  @endif
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-customyel" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+@endif
     
         <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
 
@@ -34,16 +63,15 @@
             </form>
 
             <!-- Topbar Navbar -->
+            @if(Session::has('login'))
             <ul class="navbar-nav ml-auto">
 
-                <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
                         <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
-                    <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{{ url('/user/details') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -69,6 +97,50 @@
                 </li>
 
             </ul>
+            @else
+            <ul class="navbar-nav ml-auto">
+                <a href=""  class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+                <a href="{{ url('/register') }}"  class="btn btn-danger ml-2">Register</a>
+            </ul>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-center mb-4">
+                                        <i class="fas fa-user fa-3x text-red"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <form class="user" method="post" action="{{ url('/login') }}">
+                                @csrf
+                                <div class="form-group row d-flex justify-content-center">
+                                    <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}"> 
+                                </div>
+                                <div class="form-group row d-flex justify-content-center">
+                                    <input required type="password" class="form-control form-control-user col-8 border border-danger" name="pass" id="pass" placeholder="Password">
+                                </div>
+                                <div class="form-group row d-flex justify-content-center">
+                                    <button class="col-8 btn btn-user btn-block btn-customyel">
+                                        LOGIN
+                                    </button>
+                                </div>
+                                <div class="form-group row d-flex justify-content-center">
+                                    <p class="text text-dark">Don't have an account? <a href="{{ url('/register') }}">Register</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 
         </nav>
 

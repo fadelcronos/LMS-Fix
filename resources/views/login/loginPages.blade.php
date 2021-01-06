@@ -113,7 +113,7 @@
                   <form class="user mt-4" method="post" action="{{ url('/login') }}">
                     @csrf
                     <div class="form-group">
-                      <input required type="text" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}">
+                      <input required type="text" class="form-control form-control-user" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}"> 
                     </div>
                     <div class="form-group">
                       <input required type="password" class="form-control form-control-user" name="pass" id="pass" placeholder="Password">

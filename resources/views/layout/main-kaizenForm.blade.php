@@ -22,8 +22,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
   <style>
+    .vertical-scrollable { 
+      height:60vh;
+      overflow-y: scroll;
+        }
 
-.badge-notify{
+        .badge-notify{
    background:black;
    width:15px;
    position:relative;
@@ -64,7 +68,7 @@
               </div>
             </div>
           </div>
-        @endif
+@endif
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -94,48 +98,71 @@
       </li>
       <hr class="sidebar-divider my-0">
 
-      <li class="nav-item @yield('addKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-          <i class="fas fa-plus"></i>
-          <span>Add Kaizen</span></a>
-      </li>
+      @if(Session::has('login'))
+        <li class="nav-item @yield('addKaizen')">
+          <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+            <i class="fas fa-plus"></i>
+            <span>Add Kaizen</span></a>
+        </li>
 
-      <hr class="sidebar-divider my-0">
+        <hr class="sidebar-divider my-0">
 
-      <li class="nav-item @yield('updateKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
-          <i class="fas fa-edit"></i>
-          <span>Update Kaizen</span></a>
-      </li>
+        <li class="nav-item @yield('updateKaizen')">
+          <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
+            <i class="fas fa-edit"></i>
+            <span>Update Kaizen</span></a>
+        </li>
 
-      <hr class="sidebar-divider my-0">
+        <hr class="sidebar-divider my-0">
 
-      @if(Session::has('admin'))
-      <li class="nav-item @yield('approvalKaizen')">
-        <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
+        @if(Session::has('admin') && $acc->kpkNum == '393560')
+          <li class="nav-item @yield('approvalKaizen')">
+            <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
+              <i class="fas fa-check-square"></i>
+              @if(count($totWait) <= 0)
+              @else
+                <span class="badge badge-notify">{{ count($totWait)}}</span>
+              @endif 
+              <span>Approval Kaizen</span></a>
+          </li>
 
-          <i class="fas fa-check-square"></i>
-          @if(count($totWait) <= 0)
-          @else
-          <span class="badge badge-notify">{{ count($totWait)}}</span>
-          @endif 
-          <span>Approval Kaizen</span></a>
+          <hr class="sidebar-divider my-0">
+        @endif
 
-          
-      </li>
+        <li class="nav-item @yield('dashboard')">
+          <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
 
-      <hr class="sidebar-divider my-0">
+        <hr class="sidebar-divider my-0">
+      @else
+        <li class="nav-item @yield('addKaizen')">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModalCenter" href="">
+            <i class="fas fa-plus"></i>
+            <span>Add Kaizen</span></a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item @yield('updateKaizen')">
+          <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-edit"></i>
+            <span>Update Kaizen</span></a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item @yield('dashboard')">
+          <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
       @endif
-
-      <li class="nav-item @yield('dashboard')">
-        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-          <i class="fas fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-
-      <hr class="sidebar-divider my-0">
-
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -155,6 +182,7 @@
             <i class="fa fa-bars text-red"></i>
           </button>
           <ul class="navbar-nav ml-auto">
+            @if(Session::has('login'))
               @if(Session::has('user'))
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
@@ -218,6 +246,52 @@
                     </div>
                 </li>
               @endif
+            @else
+              <ul class="navbar-nav ml-auto">
+                  <a href=""  class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+                  <a href="{{ url('/register') }}"  class="btn btn-danger ml-2">Register</a>
+              </ul>
+
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header text-center">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <div class="row">
+                                  <div class="col">
+                                      <div class="text-center mb-4">
+                                          <i class="fas fa-user fa-3x text-red"></i>
+                                      </div>
+                                  </div>
+                              </div>
+                              <form class="user" method="post" action="{{ url('/login') }}">
+                                  @csrf
+                                  <div class="form-group row d-flex justify-content-center">
+                                      <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}"> 
+                                  </div>
+                                  <div class="form-group row d-flex justify-content-center">
+                                      <input required type="password" class="form-control form-control-user col-8 border border-danger" name="pass" id="pass" placeholder="Password">
+                                  </div>
+                                  <div class="form-group row d-flex justify-content-center">
+                                      <button class="col-8 btn btn-user btn-block btn-customyel">
+                                          LOGIN
+                                      </button>
+                                  </div>
+                                  <div class="form-group row d-flex justify-content-center">
+                                      <p class="text text-dark">Don't have an account? <a href="{{ url('/register') }}">Register</a></p>
+                                      <div></div>
+                                      <p class="text text-dark">Forgot password? <a href="{{ url('/register') }}">Click here</a></p>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            @endif
 
             </ul>
         </nav>

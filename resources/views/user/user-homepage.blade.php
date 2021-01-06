@@ -42,16 +42,23 @@
         <div class="container rounded pr-3 pl-3 pb-4 pt-3">
           
           <div class="row justify-content-md-center">
+            @if(Session::has('login'))
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="userimg/{{ $acc->image }}">
                <h2 class="fontApple" style="font-weight: 600; color:#D12421">Hello, {{ $acc->Fullname }}</h2>
                 <div class="inline">
                   <a href="{{ url('/user/details') }}" class="text-red">Account Settings</a>
-                  <!-- <a href="{{ url('/logout') }}" class="text-danger">Logout</a> -->
                 </div>
               </div>
             </div>
+            @else
+            <div class="col d-flex justify-content-center mb-5 mt-5">
+              <div class="title text-center">
+                <h1 class="text-uppercase text-dark" style="font-weight: 200; font-family: Helvetica, sans-serif;">Lean Management System</h1>
+              </div>
+            </div>
+            @endif
           </div>
           
 
@@ -95,7 +102,7 @@
 var i;
   function goWeb(i){
     if(i == 1){
-      window.open("{{ url('/kaizen-form/add-kaizen') }}","_self");
+      window.open("{{ url('/kaizen-form/list-kaizen') }}","_self");
     }else if(i == 4){
       window.open("{{ url('/admin-listuser') }}","_self");
     }else if(i == 5){
