@@ -159,7 +159,7 @@
                             </div>
                             <div class="modal-body">
                                 
-                                <div class="row bg-danger text-light p-2 rounded">
+                                <div class="row p-2 rounded">
                                     <div class="col-3">
                                         Date
                                     </div>    
@@ -278,6 +278,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                 <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                <a href="/kaizen-form/approval-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-success">APPROVE</a>
                                 
 
                             </div>

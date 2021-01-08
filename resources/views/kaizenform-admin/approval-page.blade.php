@@ -1,7 +1,7 @@
 @extends('layout/main-kaizenForm-detail')
 
 
-@section('title', 'Update Kaizen')
+@section('title', 'Approval Kaizen')
 @section('collapseClass', 'show')
 @section('formClass', 'active')
 @section('addKaizen', '')
@@ -120,7 +120,7 @@
                           </select>
                         </div>
                         <div class="col-3 text-center">
-                          <button onclick="addRow()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                          <button id="btnAdd" type="button" onclick="addMemss()" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
                         </div>
                       </div>
 
@@ -146,7 +146,7 @@
                                 </td>
                                 <td><input readonly name="kpk{{$loop->index+1}}" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
                                 <td><input readonly name="name{{$loop->index+1}}" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
-                                <td><button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                <td><button type='button' id="delBtn"  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                             </tr>
                             
                             @endforeach

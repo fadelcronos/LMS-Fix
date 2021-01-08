@@ -47,10 +47,11 @@ class accountController extends Controller
                 if(Session::has('home')){
                     if($data->level == "admin"){
                         Session::put('admin',TRUE);
+                        return redirect('/admin-homepage')->with('alert-success','Login Successfull');
                     }else{
                         Session::put('user',TRUE);
+                        return redirect('/homepage')->with('alert-success','Login Successfull');
                     }
-                    return redirect('/homepage')->with('alert-success','Login Successfull');
                 }else if(Session::has('kaizen')){
                     if($data->level == "admin"){
                         Session::put('admin',TRUE);

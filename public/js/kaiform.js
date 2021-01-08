@@ -64,6 +64,7 @@ function getDate() {
     var kzid = "KZ"+str;
     var a = document.getElementById("kzid").innerHTML += kzid;
     var b = document.getElementById("kzidi").value = kzid;
+
 }
 
 function changePage() {
@@ -255,3 +256,38 @@ function getData(){
   // var x = document.getElementById("myRows").rows.length;
   document.getElementById("totRow").value = "Yeayyy";
 }
+
+var memberList = [];
+
+function addMemss(){
+  var names = $('#nameEmp option:selected').val();
+  // var emp = names.split("- ");
+
+  memberList.push(names);
+
+  for(var i = 0; i < memberList.length; i++){
+    var newData = "<button class='btn btn-danger' onClick='delBtn("+i+");'>X</button>"+ memberList[i] +" <br>";
+  }
+  document.getElementById('myRows').innerHTML += newData;
+
+}
+
+function delBtn(i){
+  memberList.splice(i, 1);
+  var newData = "";
+
+  for(var i = 0; i<memberList.length; i++){
+    newData += "<button class='btn btn-danger' onClick='delBtn("+i+");'>X</button>"+ memberList[i] +" <br>";
+  }
+  document.getElementById('myRows').innerHTML = newData;
+}
+
+document.getElementById("myRows").addEventListener("load", myFunction);
+
+function myFunction(){
+  let mem = document.getElementsByClassName('kpkUser').value;
+  
+  memberList.push(mem);
+  console.log(memberList);
+}
+//<td><input type='text' class='form-control'></td><td><input type='text' class='form-control'></td><td><input type='text' class='form-control'></td> <td><input type='button' class ='removeButton' value='(-)' /></td>

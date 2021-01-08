@@ -55,6 +55,6 @@ Route::get('/kaizen-form/update-kaizen/{kzid}','kaizenform\KaizenCont@show'); //
 Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata'); //Update existing data routing
 
 Route::get('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@listapprove'); //list kaizen to be approved
-Route::post('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@approved'); //approved kaizen
+Route::get('/kaizen-form/approval-kaizen/{kzid}','kaizenform\KaizenCont@approvalpage'); //approved kaizen
 
 Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kaizen
