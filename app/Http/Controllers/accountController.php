@@ -59,6 +59,16 @@ class accountController extends Controller
                         Session::put('user',TRUE);
                     }
                     return redirect('/kaizen-form/list-kaizen')->with('alert-success','Login Successfull');
+                }else{
+                    if($data->level == "admin"){
+                        Session::put('admin',TRUE);
+                        return redirect('/admin-homepage')->with('alert-success','Login Successfull');
+
+                    }else{
+                        Session::put('user',TRUE);
+                        return redirect('/homepage')->with('alert-success','Login Successfull');
+
+                    }
                 }
                 // if($data->level == "admin"){
                 //     Session::put('admin',TRUE);
