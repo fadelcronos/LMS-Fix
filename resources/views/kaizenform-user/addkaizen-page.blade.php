@@ -45,7 +45,7 @@
 <!-- Main Content -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container">
 
           <form class="user" method="post" action="{{ url('/kaizen-form/add-kaizen') }}">
             @csrf
@@ -53,6 +53,56 @@
                 <div class="col-md-3 text-center">
                   <p class="text text-light bg-red rounded" id="kzid">KZ ID: </p>
                   <input type="text" name="kzid" id="kzidi" hidden value="">
+                </div>
+              </div>
+
+              <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active text-danger" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">Main</a>
+                      <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">Members</a>
+                      <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">Details</a>
+                  </div>
+              </nav>
+
+              <div class="border-0 shadow-lg rounded pl-3 pt-3 pb-3 pr-3">
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active bg-light" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
+                    <div class="list-group vertical-scrollable">
+                      <div class="form-group row justify-content-center">
+                        <div class="col-md-6 border-0 rounded pt-2 pb-3">
+                          <label for="exampleInputEmail" class="bmd-label-floating blk text-uppercase font-weight-bold">Title</label>
+                          <input required type="text" class="form-control form-control" id="exampleInputEmail" name="kztitle" placeholder="Title here...">
+                        </div>
+                      </div>
+                      <div class="form-group row justify-content-center ">
+                        <div class="col-md-4 border-0 rounded pt-2 pb-3">
+                          <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
+                          <select class="form-control" id="exampleSelect1" name="kztypes" required>
+                              <option value="" selected disabled hidden>Kaizen Type</option>
+                              <option value="BPK">BPK</option>
+                              <option value="SFK">SFK</option>
+                              <option value="DK">DK</option>
+                              <option value="555">555</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 border-0 rounded pt-2 pb-3">
+                          <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Department</label>
+                          <select class="form-control" name="kzdept" id="kzdept" required>
+                              <option value="" selected disabled hidden>Select Department</option>
+                              <option value="EHS">EHS</option>
+                              <option value="Engineering">Engineering</option>
+                              <option value="Finance & IT">Finance & IT</option>
+                              <option value="Human Resources">Human Resources</option>
+                              <option value="Manufacturing East">Manufacturing East</option>
+                              <option value="Manufacturing West">Manufacturing West</option>
+                              <option value="Quality">Quality</option>
+                              <option value="Product Development">Product Development</option>
+                              <option value="Materials">Materials</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
