@@ -126,14 +126,6 @@ class kaizenCont extends Controller
         $KZ_Baseline = new Kaizen_Baseline;
         $KZ_Goals = new Kaizen_Goals;
 
-        // $fdate = $req->dateFrom;
-        // $tdate = $req->dateTo;
-        // $datetime1 = new DateTime($fdate);
-        // $datetime2 = new DateTime($tdate);
-        // $interval = $datetime1->diff($datetime2);
-        // $days = $interval->format('%a');//now do whatever you like with $days
-        // dd($days+1);
-
         $KZ_Main->Kaizen_ID = $req->kzid;
         $KZ_Main->Kaizen_title = $req->kztitle;
         $KZ_Main->Kaizen_type = $req->kztypes;
@@ -142,27 +134,21 @@ class kaizenCont extends Controller
         $KZ_Main->Kaizen_status = "Waiting";
         $KZ_Main->Kaizen_madeby = $req->kpk1;
         $KZ_Main->save();
+
+        $KZ_Date->Kaizen_ID = $req->kzid;
+        $KZ_Date->Kaizen_DateFrom = $req->dateFrom;
+        $KZ_Date->Kaizen_DateTo = $req->dateTo;
+        $KZ_Date->save();
         
         $totMember = $req->totRow;
         $dataMembers = [];
-            for ($i=1; $i<=$totMember; $i++){
 
-                // $dataMembers = new Kaizen_Member([
-                //     'Kaizen_ID' => $req->kzid,
-                //     'member_roles' => $req->{'role'.$i},
-                //     'kpkNum' => $req->{'kpk'.$i}
-                // ]);
-
-                // DB::table('KF_Member')->insert(array(
-                //     array($KZ_Member->Kaizen_ID = $req->kzid,
-                //     $KZ_Member->member_roles = $req->{'role'.$i},
-                //     $KZ_Member->kpkNum = $req->{'kpk'.$i},
-                //     )
-                // ));
-                // echo $KZ_Member->kpkNum;
-                // DB::table(KF_Member)->insert($KZ_Member);
-                $dataMembers = [
-                    ['Kaizen_ID' => $req->kzid,  'member_roles' => $req->{'role'.$i}, 'kpkNum' => $req->{'kpk'.$i}]
+        $names = $req->name;
+            $kpk = $req->kpk;
+            $role = $req->role;
+            foreach($names as $key => $n){
+                    $dataMembers = [
+                    ['Kaizen_ID' => $req->kzid,  'member_roles' => $role[$key], 'kpkNum' => $kpk[$key]]
                 ];
                 $KZ_Member->insert($dataMembers);
             }
@@ -172,58 +158,51 @@ class kaizenCont extends Controller
             $KZ_Date->Kaizen_DateTo = $req->dateTo;
             $KZ_Date->save();
 
-            $totScope = $req->totRowScope;
-            for ($i=1; $i<=$totScope; $i++){
-                $dataMembers = [[
-                    'Kaizen_ID' => $req->kzid,
-                    'scope' => $req->{'scope'.$i},
-                ]];
+            $scope = $req->scope;
+            $back = $req->back;
+            $base = $req->base;
+            $goals = $req->goals;
+            $deliv = $req->deliv;
 
+            foreach($scope as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'scope' => $n,
+                        ]];
                 $KZ_Scope->insert($dataMembers);
             }
 
-            $totBack = $req->totRowBack;
-            for ($i=1; $i<=$totBack; $i++){
+            foreach($back as $key => $n){
                 $dataMembers = [[
-                    'Kaizen_ID' => $req->kzid,
-                    'background' => $req->{'back'.$i}
-                ]];
+                            'Kaizen_ID' => $req->kzid,
+                            'background' => $n,
+                        ]];
                 $KZ_Back->insert($dataMembers);
             }
 
-            $totDeliv = $req->totRowDeliv;
-            for ($i=1; $i<=$totDeliv; $i++){
+            foreach($base as $key => $n){
                 $dataMembers = [[
-                    'Kaizen_ID' => $req->kzid,
-                    'deliverable' => $req->{'deliv'.$i}
-                ]];
-
-                $KZ_Deliv->insert($dataMembers);
-
-            }
-            $totBase = $req->totRowBase;
-            for ($i=1; $i<=$totBase; $i++){
-                $dataMembers = [[
-                    'Kaizen_ID' => $req->kzid,
-                    'baseline' => $req->{'base'.$i}
-                ]];
- 
+                            'Kaizen_ID' => $req->kzid,
+                            'baseline' => $n,
+                        ]];
                 $KZ_Baseline->insert($dataMembers);
-
             }
-
-            $totGoals = $req->totRowGoals;
-            for ($i=1; $i<=$totGoals; $i++){
+            foreach($goals as $key => $n){
                 $dataMembers = [[
-                    'Kaizen_ID' => $req->kzid,
-                    'goals' => $req->{'goals'.$i}
-                ]];
-
+                            'Kaizen_ID' => $req->kzid,
+                            'goals' => $n,
+                        ]];
                 $KZ_Goals->insert($dataMembers);
-
+            }
+            foreach($deliv as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'deliverable' => $n,
+                        ]];
+                $KZ_Deliv->insert($dataMembers);
             }
 
-            return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Pre-Kaizen Created, Waiting for Approval');
+        return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Pre-Kaizen Created, Waiting for Approval');
         
 
     }
@@ -336,15 +315,17 @@ class kaizenCont extends Controller
     }
 
     public function updatedetaildata(Request $req){
+
+        // dd($req->name);
+
         if(!Session::get('login')){
             return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
 
-
-            $KZ_Main = new Kaizen_Main;
             $KZ_Member = new Kaizen_Member;
+            $KZ_Main = new Kaizen_Main;
             $KZ_Date = new Kaizen_Date;
             $KZ_Back = new Kaizen_Background;
             $KZ_Scope = new Kaizen_Scope;
@@ -354,9 +335,6 @@ class kaizenCont extends Controller
 
             $kzid = $req->kzid;
 
-            
-
-            
             Kaizen_Deliverable::where('Kaizen_ID', $kzid)->delete();
             Kaizen_Goals::where('Kaizen_ID', $kzid)->delete();
             Kaizen_Baseline::where('Kaizen_ID', $kzid)->delete();
@@ -374,89 +352,76 @@ class kaizenCont extends Controller
             $KZ_Main->Kaizen_madeby = $req->kzmade;
             $KZ_Main->Kaizen_status = $req->kzstatus;
             $KZ_Main->Kaizen_room = $req->kzroom;
-
-            // if($acc->kpkNum == "393560"){
-            //     $KZ_Main->Kaizen_status = "Approved";
-            //     $KZ_Main->Kaizen_room = $req->kzroom;
-            // }else{
-            //     $KZ_Main->Kaizen_status = $req->kzstatus;
-            //     $KZ_Main->Kaizen_room = $req->kzroom;
-            // }
-
-            
-            
-            
             $KZ_Main->save();
+            
             $totMember = $req->totRow;
             $dataMembers = [];
-                for ($i=1; $i<=$totMember; $i++){
+
+            $names = $req->name;
+            $kpk = $req->kpk;
+            $role = $req->role;
+            foreach($names as $key => $n){
                     $dataMembers = [
-                        ['Kaizen_ID' => $req->kzid,  'member_roles' => $req->{'role'.$i}, 'kpkNum' => $req->{'kpk'.$i}]
-                    ];
-                    $KZ_Member->insert($dataMembers);
+                    ['Kaizen_ID' => $req->kzid,  'member_roles' => $role[$key], 'kpkNum' => $kpk[$key]]
+                ];
+                $KZ_Member->insert($dataMembers);
+            }
 
-                }
+            $KZ_Date->Kaizen_ID = $req->kzid;
+            $KZ_Date->Kaizen_DateFrom = $req->dateFrom;
+            $KZ_Date->Kaizen_DateTo = $req->dateTo;
+            $KZ_Date->save();
 
-                $KZ_Date->Kaizen_ID = $req->kzid;
-                $KZ_Date->Kaizen_DateFrom = $req->dateFrom;
-                $KZ_Date->Kaizen_DateTo = $req->dateTo;
-                $KZ_Date->save();
+            $scope = $req->scope;
+            $back = $req->back;
+            $base = $req->base;
+            $goals = $req->goals;
+            $deliv = $req->deliv;
 
-                $totScope = $req->totRowScope;
-                for ($i=1; $i<=$totScope; $i++){
-                    $dataMembers = [[
-                        'Kaizen_ID' => $req->kzid,
-                        'scope' => $req->{'scope'.$i},
-                    ]];
+            foreach($scope as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'scope' => $n,
+                        ]];
+                $KZ_Scope->insert($dataMembers);
+            }
 
-                    $KZ_Scope->insert($dataMembers);
-                }
+            foreach($back as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'background' => $n,
+                        ]];
+                $KZ_Back->insert($dataMembers);
+            }
 
-                $totBack = $req->totRowBack;
-                for ($i=1; $i<=$totBack; $i++){
-                    $dataMembers = [[
-                        'Kaizen_ID' => $req->kzid,
-                        'background' => $req->{'back'.$i}
-                    ]];
-                    $KZ_Back->insert($dataMembers);
-                }
+            foreach($base as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'baseline' => $n,
+                        ]];
+                $KZ_Baseline->insert($dataMembers);
+            }
+            foreach($goals as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'goals' => $n,
+                        ]];
+                $KZ_Goals->insert($dataMembers);
+            }
+            foreach($deliv as $key => $n){
+                $dataMembers = [[
+                            'Kaizen_ID' => $req->kzid,
+                            'deliverable' => $n,
+                        ]];
+                $KZ_Deliv->insert($dataMembers);
+            }
 
-                $totDeliv = $req->totRowDeliv;
-                for ($i=1; $i<=$totDeliv; $i++){
-                    $dataMembers = [[
-                        'Kaizen_ID' => $req->kzid,
-                        'deliverable' => $req->{'deliv'.$i}
-                    ]];
-
-                    $KZ_Deliv->insert($dataMembers);
-
-                }
-                $totBase = $req->totRowBase;
-                for ($i=1; $i<=$totBase; $i++){
-                    $dataMembers = [[
-                        'Kaizen_ID' => $req->kzid,
-                        'baseline' => $req->{'base'.$i}
-                    ]];
-
-                    $KZ_Baseline->insert($dataMembers);
-
-                }
-
-                $totGoals = $req->totRowGoals;
-                for ($i=1; $i<=$totGoals; $i++){
-                    $dataMembers = [[
-                        'Kaizen_ID' => $req->kzid,
-                        'goals' => $req->{'goals'.$i}
-                    ]];
-
-                    $KZ_Goals->insert($dataMembers);
-
-                }
-                if($acc->kpkNum == "393560"){
-                    return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
-                }else{
-                    return redirect('/kaizen-form/update-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
-                }
+            
+            if($acc->kpkNum == "393560"){
+                return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
+            }else{
+                return redirect('/kaizen-form/update-kaizen')->with('showModal', 'a')->with('alert-success', 'Data Updated');
+            }
         
 
             // return view('kaizenform-user.updatekaizenlistdetail-page', compact('acc'));
@@ -545,7 +510,15 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
             $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
+            
             return view('kaizenform-admin.approval-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+        // if($acc->kpkNum == "393560"){
+            //     $KZ_Main->Kaizen_status = "Approved";
+            //     $KZ_Main->Kaizen_room = $req->kzroom;
+            // }else{
+            //     $KZ_Main->Kaizen_status = $req->kzstatus;
+            //     $KZ_Main->Kaizen_room = $req->kzroom;
+            // }
         }
     }
 }

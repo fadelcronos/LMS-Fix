@@ -133,7 +133,6 @@
                                 <!-- tab all kaizen -->
                                 <div class="tab-pane fade show active" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
                                     <div class="pt-2 pb-2">Search result(s) for all Kaizen</div>
-                                    
                                     <div class="list-group vertical-scrollable">
                                         @foreach($kaizen_list as $list)
                                             <a class="list-group-item">

@@ -135,7 +135,7 @@
                           @foreach($member as $mems)
                             <tr>
                                 <td>
-                                  <select class="form-control" name="role{{$loop->index+1}}" id="role1" style="width:auto" required>
+                                  <select class="form-control" name="role[]" id="role1" style="width:auto" required>
                                     <option value="{{$mems->member_roles}}" selected hidden>{{$mems->member_roles}}</option>
                                     <option value="Sponsor">Sponsor</option>
                                     <option value="Facilitator">Facilitator</option>
@@ -144,9 +144,9 @@
                                     <option value="Leader">Participant</option>
                                   </select>
                                 </td>
-                                <td><input readonly name="kpk{{$loop->index+1}}" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
-                                <td><input readonly name="name{{$loop->index+1}}" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
-                                <td><button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
+                                <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
+                                <td><button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                             </tr>
                             
                             @endforeach
@@ -190,9 +190,9 @@
                                     <p>Scope {{$loop->index+1}}</p>
                                   </td>
                                   <td>
-                                    <textarea class="form-control" id="scope1" name="scope{{$loop->index+1}}" rows="1">{{ $scp->scope }}</textarea>
+                                    <textarea class="form-control" id="scope1" name="scope[]" rows="1">{{ $scp->scope }}</textarea>
                                   </td>
-                                  <td><button type='button' onclick='delScope()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                  <td><button type='button' onclick='delScope(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                 </tr>
                               @endforeach
                             </tbody>
@@ -217,9 +217,9 @@
                                     <p>Background {{$loop->index+1}}</p>
                                   </td>
                                   <td>
-                                    <textarea class="form-control" id="back1" name="back{{$loop->index+1}}" rows="1">{{ $back->background }}</textarea>
+                                    <textarea class="form-control" id="back1" name="back[]" rows="1">{{ $back->background }}</textarea>
                                   </td>
-                                  <td><button type='button' onclick='delBack()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                  <td><button type='button' onclick='delBack(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                 </tr>
                               @endforeach
                             </tbody>
@@ -244,9 +244,9 @@
                                   <p class="text">Baseline {{$loop->index+1}}</p>
                                   </td>
                                   <td>
-                                    <textarea class="form-control" id="base1" name="base{{$loop->index+1}}" rows="1">{{$base->baseline}}</textarea>
+                                    <textarea class="form-control" id="base1" name="base[]" rows="1">{{$base->baseline}}</textarea>
                                   </td>
-                                  <td><button type='button' onclick='delBase()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                  <td><button type='button' onclick='delBase(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                 </tr>
                               @endforeach
                             </tbody>
@@ -271,9 +271,9 @@
                                     <p>Goals {{$loop->index+1}}</p>
                                   </td>
                                   <td>
-                                    <textarea class="form-control" id="goals1" name="goals{{$loop->index+1}}" rows="1">{{ $goal->goals }}</textarea>
+                                    <textarea class="form-control" id="goals1" name="goals[]" rows="1">{{ $goal->goals }}</textarea>
                                   </td>
-                                  <td><button type='button' onclick='delGoals()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                  <td><button type='button' onclick='delGoals(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                 </tr>
                               @endforeach
                             </tbody>
@@ -298,9 +298,9 @@
                                     <p>Deliverables {{$loop->index+1}}</p>
                                   </td>
                                   <td>
-                                    <textarea class="form-control" id="deliv1" name="deliv{{$loop->index+1}}" rows="1">{{$deliv->deliverable}}</textarea>
+                                    <textarea class="form-control" id="deliv1" name="deliv[]" rows="1">{{$deliv->deliverable}}</textarea>
                                   </td>
-                                  <td><button type='button' onclick='delDeliv()'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                  <td><button type='button' onclick='delDeliv(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                 </tr>
                               @endforeach
                             </tbody>

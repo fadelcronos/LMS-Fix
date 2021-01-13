@@ -25,6 +25,7 @@
     .vertical-scrollable { 
       height:60vh;
       overflow-y: scroll;
+      overflow-x: hidden;
         }
 
         .badge-notify{

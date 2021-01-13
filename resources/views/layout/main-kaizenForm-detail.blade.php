@@ -22,6 +22,12 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <style>
+  .vertical-scrollable { 
+      height:60vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+        }
+
     .badge-notify{
    background:black;
    width:15px;
