@@ -11,7 +11,7 @@
 
 @section('container')
 
-<div class="container" >
+<div class="container-fluid" >
 
           <form class="user" method="post" action="{{ url('/kaizen-form/update-kaizen') }}">
             @csrf
@@ -34,7 +34,7 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                   @if($acc->kpkNum == '393560')
                     <div class="form-group row justify-content-center ">
-                      <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-3">
+                      <div class="col-md-3 border-0 rounded pt-2 pb-3">
                         <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Room</label>
                         <select class="form-control" id="exampleSelect1" name="kzroom" required>
                           @if($main->Kaizen_room == "")
@@ -62,6 +62,18 @@
                             <option value="Other">Other</option>
                         </select>
                       </div>
+                      <div class="col-md-6 border-0 rounded pt-2 pb-2">
+                        <div id="date" class="row justify-content-center">
+                          <div class="col-md-5" id="dates">
+                            <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">date From</label>
+                            <input class="form-control" type="date" name="dateFrom" value="{{ $dates->Kaizen_DateFrom }}" required>
+                          </div>
+                          <div class="col-md-5">
+                            <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">date To</label>
+                            <input class="form-control" type="date" name="dateTo" value="{{ $dates->Kaizen_DateTo }}" required>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   @else
                     <input type="text" name="kzroom" id="kzidi" hidden value="{{ $main->Kaizen_room }}">
@@ -72,7 +84,7 @@
                   
 
                   <div class="form-group row justify-content-center d-flex">
-                    <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-2">
+                    <div class="col-md-10 border-0 shadow-lg rounded pt-2 pb-2">
                     <label for="myTab" class="bmd-label-floating blk text-uppercase font-weight-bold">Members</label>
                       <div class="row justify-content-center mb-3 mt-1">
                         <div class="col-9 text-center">
@@ -94,23 +106,15 @@
                               <th>Role</th>
                               <th>KPK</th>
                               <th>Name</th>
+                              <th>Email</th>
                           </thead>
                           <tbody id="myRows" class="text-white">
                           @foreach($member as $mems)
                             <tr>
-                                <td>
-                                  <select class="form-control" name="role{{$loop->index+1}}" id="role1" style="width:auto" required>
-                                    <option value="{{$mems->member_roles}}" selected hidden>{{$mems->member_roles}}</option>
-                                    <option value="Sponsor">Sponsor</option>
-                                    <option value="Facilitator">Facilitator</option>
-                                    <option value="Leader">Leader</option>
-                                    <option value="Leader">Co-Leader</option>
-                                    <option value="Leader">Participant</option>
-                                  </select>
-                                </td>
-                                <td><input readonly name="kpk{{$loop->index+1}}" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
-                                <td><input readonly name="name{{$loop->index+1}}" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
-                                <td><button type='button' id="delBtn"  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
+                                <td><input readonly name="role[]" scope="col" type="text" class="form-control" value="{{$mems->member_roles}}"></td>
+                                <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
+                                <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
+                                <td><input name="email[]" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
                             </tr>
                             
                             @endforeach

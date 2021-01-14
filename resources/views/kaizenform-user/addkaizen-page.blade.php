@@ -165,139 +165,137 @@
                   <div class="tab-pane fade show" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">
                     <div class="list-group vertical-scrollable">
                     <div class="form-group row justify-content-center">
-                <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-2">
-                  <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Details</label>
-                  <div class="row justify-content-center">
-                    <div class="col border-0 shadow-lg rounded pt-2 pb-2">
-                      <label for="exampleTextarea" class="bmd-label-floating blk">Scope</label>
-                      <table class="table" id="scopeTab">
-                        <tbody id="scopeRow">
-                          <tr class="text-dark">
-                            <td class="text-center">
-                              <p>Scope 1</p>
-                            </td>
-                            <td>
-                              <textarea class="form-control" id="scope1" name="scope[]" rows="1"></textarea>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="row">
-                        <div class="col text-center">
-                            <input type="text" id="totRowScope" name="totRowScope" hidden value="1">
-                          <button onclick="addScope()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                        </div>
+                      <div class="col-md-10 border-0  rounded pt-2 pb-2">
+                        <div class="row justify-content-center">
+                          <div class="col border-0 rounded pt-2 pb-2">
+                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Scope</label>
+                            <table class="table" id="scopeTab">
+                              <tbody id="scopeRow">
+                                <tr class="text-dark">
+                                  <td class="text-center">
+                                    <p>Scope 1</p>
+                                  </td>
+                                  <td>
+                                    <textarea class="form-control" id="scope1" name="scope[]" rows="1"></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="row">
+                              <div class="col text-center">
+                                  <input type="text" id="totRowScope" name="totRowScope" hidden value="1">
+                                <button onclick="addScope()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>              
+                        <div class="row justify-content-center">
+                          <div class="col border-0 rounded pt-2 pb-2">
+                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Background</label>
+                            <table class="table" id="backTab">
+                              <tbody id="backRow">
+                                <tr class="text-dark">
+                                  <td class="text-center">
+                                    <p>Background 1</p>
+                                  </td>
+                                  <td>
+                                    <textarea class="form-control" id="back1" name="back[]" rows="1"></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              
+                            </table>
+                            <div class="row">
+                              <div class="col text-center">
+                                  <input type="text" id="totRowBack" name="totRowBack" hidden value="1">
+                                <button onclick="addBack()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>              
+                        <div class="row justify-content-center">
+                          <div class="col border-0 rounded pt-2 pb-2">
+                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Baseline</label>
+                            <table class="table" id="baseTab">
+                              <tbody id="baseRow">
+                                <tr class="text-dark">
+                                  <td class="text-center">
+                                  <p class="text">Baseline 1</p>
+                                  </td>
+                                  <td>
+                                    <textarea class="form-control" id="base1" name="base[]" rows="1"></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="row">
+                              <div class="col text-center">
+                                  <input type="text" id="totRowBase" name="totRowBase" hidden value="1">
+                                <button onclick="addBase()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>              
+                        <div class="row justify-content-center">
+                          <div class="col border-0 rounded pt-2 pb-2">
+                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Goals</label>
+                            <table class="table" id="goalsTab">
+                              <tbody id="goalsRow">
+                                <tr class="text-dark">
+                                  <td class="text-center">
+                                    <p>Goals 1</p>
+                                  </td>
+                                  <td>
+                                    <textarea class="form-control" id="goals1" name="goals[]" rows="1"></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              
+                            </table>
+                            <div class="row">
+                              <div class="col text-center">
+                                  <input type="text" id="totRowGoals" name="totRowGoals" hidden value="1">
+                                <button onclick="addGoals()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>              
+                        <div class="row justify-content-center">
+                          <div class="col border-0 rounded pt-2 pb-2">
+                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Deliverables</label>
+                            <table class="table" id="delivTab">
+                              <tbody id="delivRow">
+                                <tr class="text-dark">
+                                  <td class="text-center">
+                                    <p>Deliverables 1</p>
+                                  </td>
+                                  <td>
+                                    <textarea class="form-control" id="deliv1" name="deliv[]" rows="1"></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              
+                            </table>
+                            <div class="row">
+                              <div class="col text-center">
+                                  <input type="text" id="totRowDeliv" name="totRowDeliv" hidden value="1">
+                                <button onclick="addDeliv()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>              
                       </div>
-                    </div>
-                  </div>              
-                  <div class="row justify-content-center">
-                    <div class="col border-0 shadow-lg rounded pt-2 pb-2">
-                      <label for="exampleTextarea" class="bmd-label-floating blk">Background</label>
-                      <table class="table" id="backTab">
-                        <tbody id="backRow">
-                          <tr class="text-dark">
-                            <td class="text-center">
-                              <p>Background 1</p>
-                            </td>
-                            <td>
-                              <textarea class="form-control" id="back1" name="back[]" rows="1"></textarea>
-                            </td>
-                          </tr>
-                        </tbody>
-                        
-                      </table>
-                      <div class="row">
-                        <div class="col text-center">
-                            <input type="text" id="totRowBack" name="totRowBack" hidden value="1">
-                          <button onclick="addBack()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>              
-                  <div class="row justify-content-center">
-                    <div class="col border-0 shadow-lg rounded pt-2 pb-2">
-                      <label for="exampleTextarea" class="bmd-label-floating blk">Baseline</label>
-                      <table class="table" id="baseTab">
-                        <tbody id="baseRow">
-                          <tr class="text-dark">
-                            <td class="text-center">
-                             <p class="text">Baseline 1</p>
-                            </td>
-                            <td>
-                              <textarea class="form-control" id="base1" name="base[]" rows="1"></textarea>
-                            </td>
-                          </tr>
-                        </tbody>
-                        
-                      </table>
-                      <div class="row">
-                        <div class="col text-center">
-                            <input type="text" id="totRowBase" name="totRowBase" hidden value="1">
-                          <button onclick="addBase()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>              
-                  <div class="row justify-content-center">
-                    <div class="col border-0 shadow-lg rounded pt-2 pb-2">
-                      <label for="exampleTextarea" class="bmd-label-floating blk">Goals</label>
-                      <table class="table" id="goalsTab">
-                        <tbody id="goalsRow">
-                          <tr class="text-dark">
-                            <td class="text-center">
-                              <p>Goals 1</p>
-                            </td>
-                            <td>
-                              <textarea class="form-control" id="goals1" name="goals[]" rows="1"></textarea>
-                            </td>
-                          </tr>
-                        </tbody>
-                        
-                      </table>
-                      <div class="row">
-                        <div class="col text-center">
-                            <input type="text" id="totRowGoals" name="totRowGoals" hidden value="1">
-                          <button onclick="addGoals()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>              
-                  <div class="row justify-content-center">
-                    <div class="col border-0 shadow-lg rounded pt-2 pb-2">
-                      <label for="exampleTextarea" class="bmd-label-floating blk">Deliverables</label>
-                      <table class="table" id="delivTab">
-                        <tbody id="delivRow">
-                          <tr class="text-dark">
-                            <td class="text-center">
-                              <p>Deliverables 1</p>
-                            </td>
-                            <td>
-                              <textarea class="form-control" id="deliv1" name="deliv[]" rows="1"></textarea>
-                            </td>
-                          </tr>
-                        </tbody>
-                        
-                      </table>
-                      <div class="row">
-                        <div class="col text-center">
-                            <input type="text" id="totRowDeliv" name="totRowDeliv" hidden value="1">
-                          <button onclick="addDeliv()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>              
-                </div>
-              </div>                          
+                    </div>                          
                     </div>
                   </div>
                 </div>
-                <!-- <div class="row justify-content-end pt-2">
+                <div class="row justify-content-end pt-2">
                   <div class="col-md-3">
                     <button type="submit" class="btn btn-customyel btn-block text-uppercase">
                         Submit
                     </button>
                   </div>
-                </div> -->
+                </div>
               </div>
               
               <!-- <div class="form-group row justify-content-center ">
@@ -397,7 +395,7 @@
                 </div>
               </div> -->
               
-              <div class="form-group row justify-content-center">
+              <!-- <div class="form-group row justify-content-center">
                 <div class="col-md-6 border-0 shadow-lg rounded pt-2 pb-2">
                   <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Details</label>
                   <div class="row justify-content-center">
@@ -520,15 +518,15 @@
                     </div>
                   </div>              
                 </div>
-              </div>
+              </div> -->
 
-              <div class="row justify-content-center">
+              <!-- <div class="row justify-content-center">
                 <div class="col-md-6">
                   <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
                       Submit
                   </button>
                 </div>
-              </div>
+              </div> -->
           </form>
                     
 
