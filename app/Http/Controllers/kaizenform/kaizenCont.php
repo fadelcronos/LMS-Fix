@@ -132,7 +132,7 @@ class kaizenCont extends Controller
         $KZ_Main->Kaizen_dept = $req->kzdept;
         $KZ_Main->Kaizen_room = "";
         $KZ_Main->Kaizen_status = "Waiting";
-        $KZ_Main->Kaizen_madeby = $req->kpk1;
+        $KZ_Main->Kaizen_madeby = $req->kpk[0];
         $KZ_Main->save();
 
         $KZ_Date->Kaizen_ID = $req->kzid;
@@ -470,55 +470,67 @@ class kaizenCont extends Controller
         $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
         // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        
-
-        // dd($scopes);
-        // dd($member);
+        $user = User::all();
+        // dd($user);
         if(!Session::get('login')){
             return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
 
             $employee = Employee::all();
+            // dd($employee);
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
             $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
-            return view('kaizenform-admin.approval-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+            return view('kaizenform-admin.approval-page', compact('user', 'rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
         }
     }
-    public function approvemail($kzid){
-        // dd($kzid);
-        $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
-        $dates = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
-        $member = View_Member::oldest('MemberID')->where('Kaizen_ID', $kzid)->get();
 
-        $scopes = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
-        $backs = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
-        $bases = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
-        $goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
-        $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
-        // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
-        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+    public function approvemail(Request $req){
         
-
-        // dd($scopes);
-        // dd($member);
+        
         if(!Session::get('login')){
             return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
+            $kzid = $req->kzid;
+            $mail = $req->email;
+            $kpks = $req->kpk;
+            $email = [];
+            foreach($kpks as $key => $n){
+                if($mail[$key] != NULL){
+                    array_push($email, $mail[$key]);
+                    Account::where('kpkNum', $n)
+                    ->update([
+                        'email' => $mail[$key]
+                    ]);
+                }else{
+                    
+                }
 
-            $employee = Employee::all();
-            $id = Session::get('id');
-            $acc = User::where('id', '=', $id)->first();
-            $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
+            }
             
-            return view('kaizenform-admin.approval-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
-        // if($acc->kpkNum == "393560"){
-            //     $KZ_Main->Kaizen_status = "Approved";
-            //     $KZ_Main->Kaizen_room = $req->kzroom;
-            // }else{
-            //     $KZ_Main->Kaizen_status = $req->kzstatus;
-            //     $KZ_Main->Kaizen_room = $req->kzroom;
-            // }
+            // dd($req->kzroom);
+
+            Kaizen_Main::where('Kaizen_ID', $kzid)
+            ->update([
+                'Kaizen_status' => 'Approved',
+                'Kaizen_room' => $req->kzroom,
+            ]);
+
+            $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
+            $member = View_KaizenRoles::where('Kaizen_ID', $kzid)->get();
+            $date = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
+            $Scope = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
+            $Back = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
+            $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
+            $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
+            $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
+            Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
+                $m->to($email, 'name')->subject('Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')');
+            });
+
+            return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
+            
+            
         }
     }
 }

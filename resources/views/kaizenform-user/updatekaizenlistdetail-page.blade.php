@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-md-6 pt-md-0 pt-2">
                               <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">Date To</label>
-                              <input class="form-control" type="date" name="dateFrom" value="{{ $dates->Kaizen_DateTo }}" required>
+                              <input class="form-control" type="date" name="dateTo" value="{{ $dates->Kaizen_DateTo }}" required>
                             </div>
                           </div>
                         </div>
