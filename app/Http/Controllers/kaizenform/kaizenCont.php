@@ -493,6 +493,62 @@ class kaizenCont extends Controller
     }
 
     public function approvemail(Request $req){
+        
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $kzid = $req->kzid;
+            $mail = $req->email;
+            $kpks = $req->kpk;
+            $room = $req->kzroom;
+            $fixStart = $req->startTime;
+            $fixEnd = $req->endTime;
+            $fixDate = $req->dateFrom;
+
+            $email = [];
+            foreach($kpks as $key => $n){
+                if($mail[$key] != NULL){
+                    array_push($email, $mail[$key]);
+                    Account::where('kpkNum', $n)
+                    ->update([
+                        'email' => $mail[$key]
+                    ]);
+                }else{
+                    
+                }
+
+            }
+
+            Kaizen_Main::where('Kaizen_ID', $kzid)
+            ->update([
+                'Kaizen_status' => 'Approved',
+                'Kaizen_room' => $room,
+            ]);
+
+            $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
+            $member = View_KaizenRoles::where('Kaizen_ID', $kzid)->get();
+            $date = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
+            $Scope = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
+            $Back = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
+            $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
+            $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
+            $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
+            Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
+                
+                $m->to($email, 'name')
+                ->subject(
+                    'Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')'
+                );
+                
+            });
+
+            return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
+            
+            
+        }
+    }
+
+    public function approvemailTest(Request $req){
 
         function clean($string) {
             $string = str_replace('-', '', $string); // Replaces all spaces with hyphens.
