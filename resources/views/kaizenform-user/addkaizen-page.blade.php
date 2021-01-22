@@ -173,7 +173,7 @@
                               <tbody id="scopeRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                    <p>Scope 1</p>
+                                    <ul></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="scope1" name="scope[]" rows="1"></textarea>

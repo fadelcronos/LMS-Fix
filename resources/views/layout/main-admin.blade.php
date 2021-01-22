@@ -40,28 +40,28 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="adminimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small">{{ $acc->Fullname }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-red-600 small"><div class="text-red">{{ $acc->Fullname }}</div></span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{{ url('/admin-profile') }}">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-danger-400"></i>
                             My Profile
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/admin-edit') }}">
-                        <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-danger-400"></i>
                             Edit Profile
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/admin-changepassword') }}">
-                            <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <i class="fas fa-key fa-sm fa-fw mr-2 text-danger-400"></i>
                             Change Password
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/logout') }}">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"></i>
                             Logout
                         </a>
                         

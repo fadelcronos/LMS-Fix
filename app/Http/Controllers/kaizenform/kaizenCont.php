@@ -14,6 +14,9 @@ use App\Kaizen_Member;
 use App\Kaizen_Scope;
 use App\Kaizen_Baseline;
 use App\Kaizen_Goals;
+use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
+// use Spatie\CalendarLinks\Link;
 Use DateTime;
 
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +30,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+
+use Ical\Ical;
+use Ical\IcalendarException;
+
 
 class kaizenCont extends Controller
 {   
@@ -486,6 +493,17 @@ class kaizenCont extends Controller
     }
 
     public function approvemail(Request $req){
+
+        function clean($string) {
+            $string = str_replace('-', '', $string); // Replaces all spaces with hyphens.
+            
+            return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+         }
+         function cleanS($string) {
+            $string = str_replace(':', '', $string); // Replaces all spaces with hyphens.
+            
+            return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+         }
         
         
         if(!Session::get('login')){
@@ -494,6 +512,35 @@ class kaizenCont extends Controller
             $kzid = $req->kzid;
             $mail = $req->email;
             $kpks = $req->kpk;
+            $room = $req->kzroom;
+            $fixStart = $req->startTime;
+            $fixEnd = $req->endTime;
+            $fixDate = $req->dateFrom;
+            clean($fixDate);
+            cleanS($fixStart);
+            cleanS($fixEnd);
+
+            $text = "BEGIN:VCALENDAR\r\n
+            VERSION:2.0\r\n
+            PRODID:-//Deathstar-mailer//theforce/NONSGML v1.0//EN\r\n
+            METHOD:REQUEST\r\n
+            BEGIN:VEVENT\r\n
+            UID:" . md5(uniqid(mt_rand(), true)) . "example.com\r\n
+            DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z\r\n
+            DTSTART:".$fixDate."T".$fixStart."00Z\r\n
+            DTEND:".$fixDate."T".$fixEnd."00Z\r\n
+            SUMMARY:test\r\n
+            LOCATION:".$room."\r\n
+            DESCRIPTION:trial\r\n
+            ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-NUM-GUESTS=0:MAILTO:gabriella.keysiarahamis@mattel.com\r\n
+            END:VEVENT\r\n
+            END:VCALENDAR\r\n";
+
+            
+		
+		// ICS
+		
+           
             $email = [];
             foreach($kpks as $key => $n){
                 if($mail[$key] != NULL){
@@ -507,13 +554,15 @@ class kaizenCont extends Controller
                 }
 
             }
+
             
-            // dd($req->kzroom);
+            
+            // dd($text);
 
             Kaizen_Main::where('Kaizen_ID', $kzid)
             ->update([
-                'Kaizen_status' => 'Approved',
-                'Kaizen_room' => $req->kzroom,
+                'Kaizen_status' => 'Waiting',
+                'Kaizen_room' => $room,
             ]);
 
             $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
@@ -524,8 +573,51 @@ class kaizenCont extends Controller
             $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
             $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
             $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
-            Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
-                $m->to($email, 'name')->subject('Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')');
+            Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main,$room,$fixDate,$fixStart,$fixEnd) {    
+                $filename = "invite.ics";
+                $meeting_duration = (3600 * 2); // 2 hours
+                // $meetingstamp = strtotime( $data['start_date'] . " UTC");
+                // $dtstart = gmdate('Ymd\THis\Z', $meetingstamp);
+                // $dtend =  gmdate('Ymd\THis\Z', $meetingstamp + $meeting_duration);
+                $todaystamp = gmdate('Ymd\THis\Z');
+                $uid = date('Ymd').'T'.date('His').'-'.rand().'@yourdomain.com';
+                // $description = strip_tags($data['texto']);
+                $location = "Telefone ou vídeo conferência";
+                $titulo_invite = "Your meeting title";
+                $organizer = "CN=Organizer name:email@YourOrganizer.com";
+
+                $mail[0]  = "BEGIN:VCALENDAR";
+                $mail[1] = "PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN";
+                $mail[2] = "VERSION:2.0";
+                $mail[3] = "CALSCALE:GREGORIAN";
+                $mail[4] = "METHOD:REQUEST";
+                $mail[5] = "BEGIN:VEVENT";
+                $mail[6] = "DTSTART:".$fixDate."T".$fixStart."00Z";
+                $mail[7] = "DTEND:".$fixDate."T".$fixEnd."00Z";
+                $mail[8] = "DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z";
+                $mail[9] = "UID:" . md5(uniqid(mt_rand(), true)) . "example.com";
+                $mail[10] = "ORGANIZER;" . $organizer;
+                $mail[11] = "CREATED:" . $todaystamp;
+                $mail[12] = "DESCRIPTION:Test";
+                $mail[13] = "LAST-MODIFIED:" . $todaystamp;
+                $mail[14] = "LOCATION:" . $room;
+                $mail[15] = "SEQUENCE:0";
+                $mail[16] = "STATUS:CONFIRMED";
+                $mail[17] = "ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CNfadel;X-NUM-GUESTS=0:MAILTO:gabriella.keysiarahamis@mattel.com;";
+                $mail[18] = "SUMMARY:Your meeting title";
+                $mail[19] = "TRANSP:OPAQUE";
+                $mail[20] = "END:VEVENT";
+                $mail[21] = "END:VCALENDAR";
+                
+                $mail = implode("\r\n", $mail);
+                header("text/calendar");
+                file_put_contents($filename, $mail);
+                
+                $m->to($email, 'name')
+                ->subject(
+                    'Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')'
+                )->attach($filename, array('base64' => 'text/calendar'));
+                
             });
 
             return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');

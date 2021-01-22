@@ -98,7 +98,7 @@ class adminPageController extends Controller
                 return redirect()->back()->with('alert', 'Only admin can access the page');
             }else{
                 $id = Session::get('id');
-                $acc = Account::where('id', '=', $id)->first();
+                $acc = User::where('id', '=', $id)->first();
                 return view('admin.admin-changepass', compact('acc'));
             }
         }
