@@ -281,3 +281,89 @@ function addMemss(){
 
 }
 
+
+
+
+var a,b,c,d,e;
+$('#kztitle').focus();
+$('#kztitle').blur(function(){
+  var input = $('#kztitle').val();
+
+  if(input.length == 0){
+    $('#kztitle').next(".text-danger").remove();
+    $('#kztitle').after('<div class="text-danger">Title is Required</div>');
+    a = false;
+  }else{
+    $(this).next(".text-danger").remove();
+    a == true;
+  }
+});
+$('#kztypes').blur(function(){
+  var input = $('#kztypes').val();
+  console.log(input);
+
+  if(input == null){
+    $('#kztypes').next(".text-danger").remove();
+    $('#kztypes').after('<div class="text-danger">Type is Required</div>');
+    b = false;
+  }else{
+    $(this).next(".text-danger").remove();
+    b = true;
+  }
+});
+$('#kzdept').blur(function(){
+  var input = $('#kzdept').val();
+  console.log(input);
+
+  if(input == null){
+    $('#kzdept').next(".text-danger").remove();
+    $('#kzdept').after('<div class="text-danger">Department is Required</div>');
+    c = false;
+  }else{
+    $(this).next(".text-danger").remove();
+    c = true;
+  }
+});
+$('#dateFrom').blur(function(){
+  var input = $('#dateFrom').val();
+  console.log(input);
+
+  if(input == ''){
+    $('#dateFrom').next(".text-danger").remove();
+    $('#dateFrom').after('<div class="text-danger">Dates Required</div>');
+    d = false;
+  }else{
+    $(this).next(".text-danger").remove();
+    d = true;
+  }
+});
+$('#dateTo').blur(function(){
+  var input = $('#dateTo').val();
+  console.log(input);
+
+  if(input == ''){
+    $('#dateTo').next(".text-danger").remove();
+    $('#dateTo').after('<div class="text-danger">Dates Required</div>');
+    e = false;
+  }else{
+    $(this).next(".text-danger").remove();
+    e = true;
+  }
+});
+
+$( document ).ready(function() {
+  
+});
+
+$('#nextMem').click(function(){
+ 
+  
+  $('#nav-main-tab').removeClass('active');
+  $('#nav-main').removeClass('show active');
+  $('#nav-member-tab').addClass('active');
+  $('#nav-member').addClass('show active');
+  
+    
+  });
+
+

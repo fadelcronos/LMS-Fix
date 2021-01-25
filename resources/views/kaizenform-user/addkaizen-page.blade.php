@@ -47,7 +47,7 @@
         <!-- Begin Page Content -->
         <div class="container">
 
-          <form class="user" method="post" action="{{ url('/kaizen-form/add-kaizen') }}">
+          <form class="user" id="forms" method="post" action="{{ url('/kaizen-form/add-kaizen') }}">
             @csrf
               <div class="row justify-content-center">
                 <div class="col-md-3 text-center">
@@ -71,11 +71,11 @@
                       <div class="form-group row justify-content-center">
                         <div class="col-md-8 border-0 rounded pt-2 pb-2">
                           <label for="exampleInputEmail" class="bmd-label-floating blk text-uppercase font-weight-bold">Title</label>
-                          <input required type="text" class="form-control form-control" id="exampleInputEmail" name="kztitle" placeholder="Title here...">
+                          <input required type="text" class="form-control form-control" id="kztitle" name="kztitle" placeholder="Title here...">
                         </div>
                         <div class="col-md-3 border-0 rounded pt-2 pb-2">
                           <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
-                          <select class="form-control" id="exampleSelect1" name="kztypes" required>
+                          <select class="form-control" id="kztypes" name="kztypes" required>
                               <option value="" selected disabled hidden>Kaizen Type</option>
                               <option value="BPK">BPK</option>
                               <option value="SFK">SFK</option>
@@ -104,14 +104,17 @@
                           <div id="date" class="row justify-content-center">
                             <div class="col-md-" id="dates">
                               <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold"> Date From</label>
-                              <input class="form-control" type="date" name="dateFrom" required>
+                              <input class="form-control" type="date" name="dateFrom" id="dateFrom" required>
                             </div>
                             <div class="col-md-6 pt-md-0 pt-2">
                               <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">Date To</label>
-                              <input class="form-control" type="date" name="dateTo" required>
+                              <input class="form-control" type="date" name="dateTo" id="dateTo" required>
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="form-group row justify-content-center">
+                        <button type="button" id="nextMem" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
                       </div>
                     </div>
                   </div>

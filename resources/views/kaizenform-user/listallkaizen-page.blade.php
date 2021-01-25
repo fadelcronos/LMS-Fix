@@ -144,27 +144,7 @@
                                                     <div class="col-3">
                                                         <div class="row">
                                                             <div class="col-10 align-self-center">
-                                                                <div class="row mb-2">
-                                                                    <div class="col-2">
-                                                                        <i class="far fa-calendar-alt"></i>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        @foreach($datelist as $date)
-                                                                            @if($list->Kaizen_ID == $date->Kaizen_ID)
-                                                                                @php
-                                                                                    $fdate = $date->Kaizen_DateFrom;
-                                                                                    $tdate = $date->Kaizen_DateTo;
-
-                                                                                    $datetime1 = new DateTime($fdate);
-                                                                                    $datetime2 = new DateTime($tdate);
-                                                                                    $interval = $datetime1->diff($datetime2);
-                                                                                    $days = $interval->format('%a');
-                                                                                @endphp
-                                                                                {{$days+1}}
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
+                                                                
                                                                 <div class="row mb-2">
                                                                     <div class="col-2">
                                                                         <i class="fas fa-map-pin"></i>
@@ -191,15 +171,43 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-2 align-self-center">
-                                                        <div class="row">
-                                                            Status
+                                                        <div class="row mb-2">
+                                                            <div class="col-2">
+                                                                <i class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                @foreach($datelist as $date)
+                                                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                                                        @php
+                                                                            $fdate = $date->Kaizen_DateFrom;
+                                                                            $tdate = $date->Kaizen_DateTo;
+
+                                                                            $datetime1 = new DateTime($fdate);
+                                                                            $datetime2 = new DateTime($tdate);
+                                                                            $interval = $datetime1->diff($datetime2);
+                                                                            $days = $interval->format('%a');
+                                                                        @endphp
+                                                                        {{$days+1}}
+                                                                    @endif
+                                                                @endforeach
+                                                                Day(s)
+                                                            </div>
                                                         </div>
+                                                        <!-- <div class="row">
+                                                            Status
+                                                        </div> -->
                                                         <div class="row">
-                                                        @if($list->Kaizen_status == 'Waiting')
-                                                            <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                        @else
-                                                            <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
-                                                        @endif
+                                                            <div class="col-2">
+                                                                <i class="fas fa-info-circle"></i>                 
+                                                            </div>
+                                                            <div class="col-10">
+                                                                @if($list->Kaizen_status == 'Waiting')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
+                                                                @else
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
+                                                                @endif
+                                                            </div>
+                                                        
                                                         </div>
                                                     </div>
                                                     <div class="col-2 align-self-center">
@@ -368,27 +376,7 @@
                                                     <div class="col-3">
                                                         <div class="row">
                                                             <div class="col-10 align-self-center">
-                                                                <div class="row mb-2">
-                                                                    <div class="col-2">
-                                                                        <i class="far fa-calendar-alt"></i>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        @foreach($datelist as $date)
-                                                                            @if($list->Kaizen_ID == $date->Kaizen_ID)
-                                                                                @php
-                                                                                    $fdate = $date->Kaizen_DateFrom;
-                                                                                    $tdate = $date->Kaizen_DateTo;
-
-                                                                                    $datetime1 = new DateTime($fdate);
-                                                                                    $datetime2 = new DateTime($tdate);
-                                                                                    $interval = $datetime1->diff($datetime2);
-                                                                                    $days = $interval->format('%a');
-                                                                                @endphp
-                                                                                {{$days+1}}
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
+                                                                
                                                                 <div class="row mb-2">
                                                                     <div class="col-2">
                                                                         <i class="fas fa-map-pin"></i>
@@ -415,11 +403,40 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-2 align-self-center">
-                                                        <div class="row">
-                                                            Status
+                                                        <div class="row mb-2">
+                                                            <div class="col-2">
+                                                                <i class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                @foreach($datelist as $date)
+                                                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                                                        @php
+                                                                            $fdate = $date->Kaizen_DateFrom;
+                                                                            $tdate = $date->Kaizen_DateTo;
+
+                                                                            $datetime1 = new DateTime($fdate);
+                                                                            $datetime2 = new DateTime($tdate);
+                                                                            $interval = $datetime1->diff($datetime2);
+                                                                            $days = $interval->format('%a');
+                                                                        @endphp
+                                                                        {{$days+1}}
+                                                                    @endif
+                                                                @endforeach
+                                                                Day(s)
+                                                            </div>
                                                         </div>
                                                         <div class="row">
-                                                            {{ $list->Kaizen_status }}
+                                                            <div class="col-2">
+                                                                <i class="fas fa-info-circle"></i>
+                                                            </div>
+                                                            <div class="col-10">
+                                                                @if($list->Kaizen_status == 'Waiting')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
+                                                                @else
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
+                                                                @endif
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-2 align-self-center">
