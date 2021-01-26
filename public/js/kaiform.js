@@ -20,9 +20,9 @@ var i=2;
           var cl4 = rw.insertCell(3);
       
                                       
-          cl1.innerHTML = "<select class='form-control' name='role[]' style='width:auto'><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
-          cl2.innerHTML = "<input class='form-control' name='kpk[]' type='text' value='"+ emp[1] +"' readonly></input>";
-          cl3.innerHTML = "<input class='form-control' name='name[]' type='text' value='"+ emp[0] +"' readonly></input>";
+          cl1.innerHTML = "<input class='form-control' name='kpk[]' type='text' value='"+ emp[1] +"' readonly></input>";
+          cl2.innerHTML = "<input class='form-control' name='name[]' type='text' value='"+ emp[0] +"' readonly></input>";
+          cl3.innerHTML = "<select class='form-control' name='role[]' style='width:auto' required><option value='' selected disabled hidden>Select Roles</option><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
           cl4.innerHTML = "<button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
           
           // if(z == 2){

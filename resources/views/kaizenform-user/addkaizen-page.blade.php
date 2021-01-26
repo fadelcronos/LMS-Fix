@@ -140,21 +140,22 @@
                           <div class="row">
                             <table class="table text-center" id="myTab">
                               <thead class="text-center blk">
-                                  <th>Role</th>
                                   <th>KPK</th>
                                   <th>Name</th>
+                                  <th>Role</th>
                               </thead>
                               <tbody id="myRows" class="text-white">
                                 <tr>
-                                    <td>
-                                      <select class="form-control" name="role[]" id="role1" style="width:auto">
-                                        <option value="Sponsor">Sponsor</option>
-                                        <option value="Facilitator">Facilitator</option>
-                                        <option value="Leader">Leader</option>
-                                      </select>
-                                    </td>
-                                    <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $acc->kpkNum }}"></td>
-                                    <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $acc->Fullname }}"></td>
+                                  <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $acc->kpkNum }}"></td>
+                                  <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $acc->Fullname }}"></td>
+                                  <td>
+                                    <select class="form-control" name="role[]" id="role1" style="width:auto" required>
+                                      <option value="" selected disabled hidden>Select Roles</option>
+                                      <option value="Sponsor">Sponsor</option>
+                                      <option value="Facilitator">Facilitator</option>
+                                      <option value="Leader">Leader</option>
+                                    </select>
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>

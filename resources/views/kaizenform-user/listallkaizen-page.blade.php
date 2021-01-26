@@ -226,14 +226,14 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row p-2">
-                                                            <div class="col-3 text-blk">
+                                                            <div class="col-3">
                                                                 Type
                                                             </div>    
                                                             <div class="col">
                                                                 {{ $list->Kaizen_type }}
                                                             </div>
                                                         </div>
-                                                        <div class="row text-dark p-2 rounded">
+                                                        <div class="row  p-2 rounded">
                                                             <div class="col-3">
                                                                 Status
                                                             </div>    
@@ -241,7 +241,7 @@
                                                                 {{ $list->Kaizen_status }}
                                                             </div>
                                                         </div>
-                                                        <div class="row text-dark p-2 rounded">
+                                                        <div class="row  p-2 rounded">
                                                             <div class="col-3">
                                                                 Date
                                                             </div>    
@@ -261,7 +261,7 @@
                                                                 {{ $list->Kaizen_dept }}
                                                             </div>
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Member
                                                             </div>
@@ -287,7 +287,7 @@
                                                                 @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Background
                                                             </div>
@@ -311,7 +311,7 @@
                                                             @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Goals
                                                             </div>
@@ -462,7 +462,7 @@
                                                                 {{ $list->Kaizen_type }}
                                                             </div>
                                                         </div>
-                                                        <div class="row text-dark p-2 rounded">
+                                                        <div class="row  p-2 rounded">
                                                             <div class="col-3">
                                                                 Status
                                                             </div>    
@@ -478,7 +478,7 @@
                                                                 {{ $list->Kaizen_dept }}
                                                             </div>
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Member
                                                             </div>
@@ -504,7 +504,7 @@
                                                                 @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Background
                                                             </div>
@@ -528,7 +528,7 @@
                                                             @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2 text-dark rounded">
+                                                        <div class="row p-2  rounded">
                                                             <div class="col-3">
                                                                 Goals
                                                             </div>
