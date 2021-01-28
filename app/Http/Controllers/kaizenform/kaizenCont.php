@@ -66,6 +66,7 @@ class kaizenCont extends Controller
         $goalslist = Kaizen_Goals::all();
         $delivlist = Kaizen_Deliverable::all();
         $datelist = Kaizen_Date::all();
+        // dd($datelist);
 
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
 
@@ -505,19 +506,19 @@ class kaizenCont extends Controller
             $fixEnd = $req->endTime;
             $fixDate = $req->dateFrom;
 
-            $email = [];
-            foreach($kpks as $key => $n){
-                if($mail[$key] != NULL){
-                    array_push($email, $mail[$key]);
-                    Account::where('kpkNum', $n)
-                    ->update([
-                        'email' => $mail[$key]
-                    ]);
-                }else{
+            // $email = [];
+            // foreach($kpks as $key => $n){
+            //     if($mail[$key] != NULL){
+            //         array_push($email, $mail[$key]);
+            //         Account::where('kpkNum', $n)
+            //         ->update([
+            //             'email' => $mail[$key]
+            //         ]);
+            //     }else{
                     
-                }
+            //     }
 
-            }
+            // }
 
             Kaizen_Main::where('Kaizen_ID', $kzid)
             ->update([
@@ -525,22 +526,22 @@ class kaizenCont extends Controller
                 'Kaizen_room' => $room,
             ]);
 
-            $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
-            $member = View_KaizenRoles::where('Kaizen_ID', $kzid)->get();
-            $date = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
-            $Scope = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
-            $Back = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
-            $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
-            $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
-            $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
-            Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
+            // $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
+            // $member = View_KaizenRoles::where('Kaizen_ID', $kzid)->get();
+            // $date = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
+            // $Scope = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
+            // $Back = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
+            // $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
+            // $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
+            // $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
+            // Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
                 
-                $m->to($email, 'name')
-                ->subject(
-                    'Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')'
-                );
+            //     $m->to($email, 'name')
+            //     ->subject(
+            //         'Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')'
+            //     );
                 
-            });
+            // });
 
             return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
             

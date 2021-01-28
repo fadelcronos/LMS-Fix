@@ -43,7 +43,7 @@ Route::get('/user/edit','user\detailprofileCont@editpage'); //Detailpage routing
 Route::get('/user/changepassword','user\detailprofileCont@changepass'); //Detailpage routing
 Route::get('/user/details','user\detailprofileCont@detailpage'); //Detailpage routing
 Route::post('/user/changepassword','user\detailprofileCont@updatepass'); //Update Password routing
-Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image routing
+Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image routing 
 
 //Kaizen 
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing

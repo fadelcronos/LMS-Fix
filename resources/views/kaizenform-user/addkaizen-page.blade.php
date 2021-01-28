@@ -113,8 +113,13 @@
                           </div>
                         </div>
                       </div>
+                      <div class="form-group row justify-content-center mt-5">
+                        <button type="button" id="nextMem" class="btn btn-danger justify-content-center" disabled>Next <i class="fas fa-chevron-circle-right"></i></button>
+                      </div>
                       <div class="form-group row justify-content-center">
-                        <button type="button" id="nextMem" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                        <div id="remind">
+                          <p class="text-danger">*Please fill all the field</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -149,7 +154,7 @@
                                   <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $acc->kpkNum }}"></td>
                                   <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $acc->Fullname }}"></td>
                                   <td>
-                                    <select class="form-control" name="role[]" id="role1" style="width:auto" required>
+                                    <select class="form-control" name="role[]" id="role" style="width:auto" required>
                                       <option value="" selected disabled hidden>Select Roles</option>
                                       <option value="Sponsor">Sponsor</option>
                                       <option value="Facilitator">Facilitator</option>
@@ -159,6 +164,10 @@
                                 </tr>
                               </tbody>
                             </table>
+                          </div>
+                          <div class="form-group row justify-content-center mt-5">
+                            <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"> Back</i></button>
+                            <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
                           </div>
                               
                             <input type="text" id="totRow" name="totRow" hidden value="1">
@@ -177,7 +186,7 @@
                               <tbody id="scopeRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                    <ul></ul>
+                                    <ul><li></li></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="scope1" name="scope[]" rows="1"></textarea>
@@ -200,7 +209,7 @@
                               <tbody id="backRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                    <p>Background 1</p>
+                                    <ul><li></li></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="back1" name="back[]" rows="1"></textarea>
@@ -224,7 +233,7 @@
                               <tbody id="baseRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                  <p class="text">Baseline 1</p>
+                                  <ul><li></li></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="base1" name="base[]" rows="1"></textarea>
@@ -247,7 +256,7 @@
                               <tbody id="goalsRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                    <p>Goals 1</p>
+                                  <ul><li></li></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="goals1" name="goals[]" rows="1"></textarea>
@@ -271,7 +280,7 @@
                               <tbody id="delivRow">
                                 <tr class="text-dark">
                                   <td class="text-center">
-                                    <p>Deliverables 1</p>
+                                  <ul><li></li></ul>
                                   </td>
                                   <td>
                                     <textarea class="form-control" id="deliv1" name="deliv[]" rows="1"></textarea>
@@ -289,13 +298,16 @@
                           </div>
                         </div>              
                       </div>
-                    </div>                          
+                    </div>  
+                      <div class="form-group row justify-content-center mt-5">
+                        <button type="button" id="befMem" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"> Back</i></button>
+                      </div>                 
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-end pt-2">
+                <div class="row justify-content-end pt-2"> 
                   <div class="col-md-3">
-                    <button type="submit" class="btn btn-customyel btn-block text-uppercase">
+                    <button type="submit" id="btnSubmit" class="btn btn-customyel btn-block text-uppercase" style="display:none;" disabled>
                         Submit
                     </button>
                   </div>

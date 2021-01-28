@@ -22,7 +22,7 @@ var i=2;
                                       
           cl1.innerHTML = "<input class='form-control' name='kpk[]' type='text' value='"+ emp[1] +"' readonly></input>";
           cl2.innerHTML = "<input class='form-control' name='name[]' type='text' value='"+ emp[0] +"' readonly></input>";
-          cl3.innerHTML = "<select class='form-control' name='role[]' style='width:auto' required><option value='' selected disabled hidden>Select Roles</option><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
+          cl3.innerHTML = "<select class='form-control' id='role' name='role[]' style='width:auto' required><option value='' selected disabled hidden>Select Roles</option><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
           cl4.innerHTML = "<button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
           
           // if(z == 2){
@@ -95,7 +95,7 @@ function addScope(){
         var cl3 = rw.insertCell(2);
     
                                     
-        cl1.innerHTML = "<p class='text-dark text-center'>Scope "+z+"</p>";
+        cl1.innerHTML = "<ul><li></li></ul>";
         cl2.innerHTML = "<textarea class='form-control' name='scope[]' rows='1'></textarea>";
         cl3.innerHTML = "<button type='button' onclick='delScope(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
@@ -127,7 +127,7 @@ function addBack(){
         var cl3 = rw.insertCell(2);
     
                                     
-        cl1.innerHTML = "<p class='text-dark text-center'>Background "+z+"</p>";
+        cl1.innerHTML = "<ul><li></li></ul>";
         cl2.innerHTML = "<textarea class='form-control' name='back[]' rows='1'></textarea>";
         cl3.innerHTML = "<button type='button' onclick='delBack(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
@@ -159,7 +159,7 @@ function addBase(){
         var cl3 = rw.insertCell(2);
 
                                     
-        cl1.innerHTML = "<p class='text-dark text-center'>Baseline"+z+"</p>";
+        cl1.innerHTML = "<ul><li></li></ul>";
         cl2.innerHTML = "<textarea class='form-control' name='base[]' id='base"+z+"' rows='1'></textarea>";
         cl3.innerHTML = "<button type='button' onclick='delBase(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         
@@ -193,7 +193,7 @@ function addGoals(){
         var cl3 = rw.insertCell(2);
     
                                     
-        cl1.innerHTML = "<p class='text-dark text-center'>Goals "+z+"</p>";
+        cl1.innerHTML = "<ul><li></li></ul>";
         cl2.innerHTML = "<textarea class='form-control' name='goals[]' rows='1'></textarea>";
         cl3.innerHTML = "<button type='button' onclick='delGoals(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
@@ -226,7 +226,7 @@ function addDeliv(){
         var cl3 = rw.insertCell(2);
     
                                     
-        cl1.innerHTML = "<p class='text-dark text-center'>Deliverables "+z+"</p>";
+        cl1.innerHTML = "<ul><li></li></ul>";
         cl2.innerHTML = "<textarea class='form-control' name='deliv[]' rows='1'></textarea>";
         cl3.innerHTML = "<button type='button' onclick='delDeliv(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
         i+=1;
@@ -282,88 +282,57 @@ function addMemss(){
 }
 
 
+$(document).on('change', function() {
+  var input1 = $('#dateTo').val();
+  var input2 = $('#dateFrom').val();
+  var input3 = $('#kzdept').val();
+  var input4 = $('#kztypes').val();
+  var input5 = $('#kztitle').val();
 
-
-var a,b,c,d,e;
-$('#kztitle').focus();
-$('#kztitle').blur(function(){
-  var input = $('#kztitle').val();
-
-  if(input.length == 0){
-    $('#kztitle').next(".text-danger").remove();
-    $('#kztitle').after('<div class="text-danger">Title is Required</div>');
-    a = false;
-  }else{
-    $(this).next(".text-danger").remove();
-    a == true;
+  if(input1 == '' || input2 == '' || input3 == null || input4 == null || input5.length == 0){
+    $('#nextMem').attr('disabled', true);
+    $('#remind').show();
+    $('#btnSubmit').attr('disabled', true);
+    
+  }else if(input1 != '' && input2 != '' && input3 != null && input4 != null && input5.length != 0){
+    $('#nextMem').attr('disabled', false);
+    $('#remind').hide();
+    $('#btnSubmit').attr('disabled', false);
   }
-});
-$('#kztypes').blur(function(){
-  var input = $('#kztypes').val();
-  console.log(input);
 
-  if(input == null){
-    $('#kztypes').next(".text-danger").remove();
-    $('#kztypes').after('<div class="text-danger">Type is Required</div>');
-    b = false;
-  }else{
-    $(this).next(".text-danger").remove();
-    b = true;
-  }
-});
-$('#kzdept').blur(function(){
-  var input = $('#kzdept').val();
-  console.log(input);
-
-  if(input == null){
-    $('#kzdept').next(".text-danger").remove();
-    $('#kzdept').after('<div class="text-danger">Department is Required</div>');
-    c = false;
-  }else{
-    $(this).next(".text-danger").remove();
-    c = true;
-  }
-});
-$('#dateFrom').blur(function(){
-  var input = $('#dateFrom').val();
-  console.log(input);
-
-  if(input == ''){
-    $('#dateFrom').next(".text-danger").remove();
-    $('#dateFrom').after('<div class="text-danger">Dates Required</div>');
-    d = false;
-  }else{
-    $(this).next(".text-danger").remove();
-    d = true;
-  }
-});
-$('#dateTo').blur(function(){
-  var input = $('#dateTo').val();
-  console.log(input);
-
-  if(input == ''){
-    $('#dateTo').next(".text-danger").remove();
-    $('#dateTo').after('<div class="text-danger">Dates Required</div>');
-    e = false;
-  }else{
-    $(this).next(".text-danger").remove();
-    e = true;
-  }
-});
-
-$( document ).ready(function() {
+ 
   
+
 });
 
 $('#nextMem').click(function(){
- 
-  
   $('#nav-main-tab').removeClass('active');
   $('#nav-main').removeClass('show active');
   $('#nav-member-tab').addClass('active');
   $('#nav-member').addClass('show active');
-  
-    
-  });
+});
+$('#nextDet').click(function(){
+  $('#nav-member-tab').removeClass('active');
+  $('#nav-member').removeClass('show active');
+  $('#nav-detail-tab').addClass('active');
+  $('#nav-detail').addClass('show active');
+  $('#btnSubmit').show();
+});
+$('#befMain').click(function(){
+  $('#nav-member-tab').removeClass('active');
+  $('#nav-member').removeClass('show active');
+  $('#nav-main-tab').addClass('active');
+  $('#nav-main').addClass('show active');
+});
+$('#befMem').click(function(){
+  $('#nav-detail-tab').removeClass('active');
+  $('#nav-detail').removeClass('show active');
+  $('#nav-member-tab').addClass('active');
+  $('#nav-member').addClass('show active');
+});
+
+$('#nav-detail-tab').click(function(){
+  $('#btnSubmit').show();
+});
 
 

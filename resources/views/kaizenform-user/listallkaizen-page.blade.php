@@ -248,7 +248,7 @@
                                                             <div class="col">
                                                                 @foreach($datelist as $dates)
                                                                     @if($list->Kaizen_ID == $dates->Kaizen_ID)
-                                                                        {{ $dates->Kaizen_DateFrom }}  -  {{ $dates->Kaizen_DateTo }}
+                                                                        {{ date("d M Y", strtotime($dates->Kaizen_DateFrom)) }}  -  {{ date("d M Y", strtotime($dates->Kaizen_DateTo)) }}
                                                                     @endif
                                                                 @endforeach
                                                             </div>
@@ -462,12 +462,24 @@
                                                                 {{ $list->Kaizen_type }}
                                                             </div>
                                                         </div>
-                                                        <div class="row  p-2 rounded">
+                                                        <div class="row p-2 rounded">
                                                             <div class="col-3">
                                                                 Status
                                                             </div>    
                                                             <div class="col">
                                                                 {{ $list->Kaizen_status }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  p-2 rounded">
+                                                            <div class="col-3">
+                                                                Date
+                                                            </div>    
+                                                            <div class="col">
+                                                                @foreach($datelist as $dates)
+                                                                    @if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                                        {{ date("d M Y", strtotime($dates->Kaizen_DateFrom)) }}  -  {{ date("d M Y", strtotime($dates->Kaizen_DateTo)) }}
+                                                                    @endif
+                                                                @endforeach
                                                             </div>
                                                         </div>
                                                         <div class="row p-2">
@@ -478,7 +490,7 @@
                                                                 {{ $list->Kaizen_dept }}
                                                             </div>
                                                         </div>
-                                                        <div class="row p-2  rounded">
+                                                        <div class="row p-2 rounded">
                                                             <div class="col-3">
                                                                 Member
                                                             </div>
@@ -504,7 +516,7 @@
                                                                 @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2  rounded">
+                                                        <div class="row p-2 rounded">
                                                             <div class="col-3">
                                                                 Background
                                                             </div>
@@ -528,7 +540,7 @@
                                                             @endforeach
                                                             </div> 
                                                         </div>
-                                                        <div class="row p-2  rounded">
+                                                        <div class="row p-2 rounded">
                                                             <div class="col-3">
                                                                 Goals
                                                             </div>

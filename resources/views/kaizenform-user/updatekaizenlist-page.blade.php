@@ -156,6 +156,18 @@
                                 {{ $list->Kaizen_status }}
                             </div>
                         </div>
+                        <div class="row  p-2 rounded">
+                            <div class="col-3">
+                                Date
+                            </div>    
+                            <div class="col">
+                                @foreach($datelist as $dates)
+                                    @if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                        {{ date("d M Y", strtotime($dates->Kaizen_DateFrom)) }}  -  {{ date("d M Y", strtotime($dates->Kaizen_DateTo)) }}
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
                         <div class="row p-2">
                             <div class="col-3">
                                 Department

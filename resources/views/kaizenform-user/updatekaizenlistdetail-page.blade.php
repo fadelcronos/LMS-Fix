@@ -107,13 +107,15 @@
                           <div class="row">
                             <table class="table text-center" id="myTab">
                               <thead class="text-center blk">
-                                  <th>Role</th>
                                   <th>KPK</th>
                                   <th>Name</th>
+                                  <th>Role</th>
                               </thead>
                               <tbody id="myRows" class="text-white">
                                 @foreach($member as $mems)
                                   <tr>
+                                      <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
+                                      <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
                                       <td>
                                         <select class="form-control" name="role[]" id="role1" style="width:auto" required>
                                           <option value="{{$mems->member_roles}}" selected hidden>{{$mems->member_roles}}</option>
@@ -124,8 +126,6 @@
                                           <option value="Leader">Participant</option>
                                         </select>
                                       </td>
-                                      <td><input readonly name="kpk[]" scope="col" type="text" class="form-control" value="{{ $mems->kpkNum }}"></td>
-                                      <td><input readonly name="name[]" scope="col" type="text" class="form-control"  value="{{ $mems->Fullname }}"></td>
                                       <td><button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button></td>
                                   </tr>
                                   
