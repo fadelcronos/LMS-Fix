@@ -151,7 +151,7 @@
                                 @foreach($scopes as $scp)
                                   <tr class="text-dark">
                                     <td class="text-center">
-                                      <p>Scope {{$loop->index+1}}</p>
+                                    <ul><li></li></ul>
                                     </td>
                                     <td>
                                       <textarea class="form-control" id="scope1" name="scope[]" rows="1">{{ $scp->scope }}</textarea>
@@ -177,7 +177,7 @@
                                 @foreach($backs as $back)
                                   <tr class="text-dark">
                                     <td class="text-center">
-                                      <p>Background {{$loop->index+1}}</p>
+                                    <ul><li></li></ul>
                                     </td>
                                     <td>
                                       <textarea class="form-control" id="back1" name="back[]" rows="1">{{ $back->background }}</textarea>
@@ -204,7 +204,7 @@
                                 @foreach($bases as $base)
                                   <tr class="text-dark">
                                     <td class="text-center">
-                                    <p class="text">Baseline {{$loop->index+1}}</p>
+                                    <ul><li></li></ul>
                                     </td>
                                     <td>
                                       <textarea class="form-control" id="base1" name="base[]" rows="1">{{$base->baseline}}</textarea>
@@ -230,7 +230,7 @@
                                 @foreach($goals as $goal)
                                   <tr class="text-dark">
                                     <td class="text-center">
-                                      <p>Goals {{$loop->index+1}}</p>
+                                    <ul><li></li></ul>
                                     </td>
                                     <td>
                                       <textarea class="form-control" id="goals1" name="goals[]" rows="1">{{ $goal->goals }}</textarea>
@@ -257,7 +257,7 @@
                                 @foreach($delivs as $deliv)
                                   <tr class="text-dark">
                                     <td class="text-center">
-                                      <p>Deliverables {{$loop->index+1}}</p>
+                                    <ul><li></li></ul>
                                     </td>
                                     <td>
                                       <textarea class="form-control" id="deliv1" name="deliv[]" rows="1">{{$deliv->deliverable}}</textarea>

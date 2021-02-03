@@ -14,6 +14,7 @@ use App\Kaizen_Member;
 use App\Kaizen_Scope;
 use App\Kaizen_Baseline;
 use App\Kaizen_Goals;
+use App\Kaizen_Temp;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 // use Spatie\CalendarLinks\Link;
@@ -503,22 +504,7 @@ class kaizenCont extends Controller
             $kpks = $req->kpk;
             $room = $req->kzroom;
             $fixStart = $req->startTime;
-            $fixEnd = $req->endTime;
-            $fixDate = $req->dateFrom;
-
-            // $email = [];
-            // foreach($kpks as $key => $n){
-            //     if($mail[$key] != NULL){
-            //         array_push($email, $mail[$key]);
-            //         Account::where('kpkNum', $n)
-            //         ->update([
-            //             'email' => $mail[$key]
-            //         ]);
-            //     }else{
-                    
-            //     }
-
-            // }
+            
 
             Kaizen_Main::where('Kaizen_ID', $kzid)
             ->update([
@@ -526,27 +512,25 @@ class kaizenCont extends Controller
                 'Kaizen_room' => $room,
             ]);
 
-            // $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
-            // $member = View_KaizenRoles::where('Kaizen_ID', $kzid)->get();
-            // $date = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
-            // $Scope = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
-            // $Back = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
-            // $Deliv = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
-            // $Base = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
-            // $Goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
-            // Mail::send('mail/forgotmailpage', ['Scope' => $Scope, 'Back' => $Back, 'Deliv' => $Deliv, 'Base' => $Base, 'Goals' => $Goals, 'date' => $date, 'email' => $email, 'main' => $main, 'member' => $member],function ($m) use ($email,$main) {    
-                
-            //     $m->to($email, 'name')
-            //     ->subject(
-            //         'Kaizen Invitation ' . $main['Kaizen_type'] . ' - ' . $main['Kaizen_title']. '('.$main['Kaizen_ID'].')'
-            //     );
-                
-            // });
+            Kaizen_Temp::truncate();
+            $temp = new Kaizen_Temp;
+            $temp->Kaizen_ID = $kzid;
+            $temp->kpkNum = $req->userKpk;
+            $temp->save();
+
+            exec('START file://///apckrm06a/Namlos/34.%20Kaizen_mails/Kaizen_Mail/Testing/bin/Debug/Testing.exe');
+
+            sleep(2000);
+
 
             return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
             
             
         }
+    }
+
+    public function testApps(){
+        exec('START file://///apckrm06a/Namlos/24.%20Sendipedia/Sendipedia/Sendipedia/bin/Debug/Sendipedia.exe');
     }
 
     public function approvemailTest(Request $req){

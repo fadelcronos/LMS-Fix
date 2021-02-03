@@ -57,22 +57,6 @@
                             <option value="Other">Other</option>
                         </select>
                       </div>
-                      <div class="col-md-6 border-0 rounded pt-2 pb-2">
-                        <div id="date" class="row justify-content-center">
-                          <div class="col-md-5" id="dates">
-                            <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">DATE</label>
-                            <input class="form-control" type="date" name="dateFrom" value="{{ $dates->Kaizen_DateFrom }}" required>
-                          </div>
-                          <div class="col-md-3">
-                            <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">START TIME</label>
-                            <input class="form-control" type="time" name="startTime" value="{{ $dates->Kaizen_DateTo }}" required>
-                          </div>
-                          <div class="col-md-3">
-                            <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">END TIME</label>
-                            <input class="form-control" type="time" name="endTime" value="{{ $dates->Kaizen_DateTo }}" required>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   
 
@@ -136,6 +120,7 @@
                       <button type="submit" class="btn btn-customyel btn-block text-uppercase p-2">
                           APPROVE
                       </button>
+                      <input type="text" name="userKpk" value={{ $acc->kpkNum }} hidden>
                     </div>
                   </div>
                 </div>
