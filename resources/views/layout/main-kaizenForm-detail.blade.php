@@ -51,8 +51,8 @@
       @else
         <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
       @endif
-        <div class="sidebar-brand-icon rotate-n-15">
-          <img class="img-fluid" src="https://cdn.freebiesupply.com/logos/large/2x/mattel-logo-black-and-white.png" alt="">
+        <div class="sidebar-brand-icon rotate-n-15 p-2 pb-3">
+          <img class="img-fluid" src="../../img/MATTEL LOGO WHITE.png" alt="">
         </div>
         <div class="sidebar-brand-text mx-3">kaizen form</div>
       </a>

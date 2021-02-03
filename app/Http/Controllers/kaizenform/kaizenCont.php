@@ -520,9 +520,6 @@ class kaizenCont extends Controller
 
             exec('START file://///apckrm06a/Namlos/34.%20Kaizen_mails/Kaizen_Mail/Testing/bin/Debug/Testing.exe');
 
-            sleep(2000);
-
-
             return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
             
             

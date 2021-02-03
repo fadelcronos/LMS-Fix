@@ -50,9 +50,10 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
 }
 
 .btn-customyel:hover{
-    background-color:#EDF2F4;
-    color:#D12421;
+    background-color:#8d0801;
+    color:white;
 }
+
 
 .btn-customblk{
     background-color:#EDF2F4;
