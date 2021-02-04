@@ -54,8 +54,14 @@
             </div>
             @else
             <div class="col d-flex justify-content-center mb-5 mt-5">
+              <div class="mt-5">
+                <h1 class="text-uppercase font-weight-bold fontApple" style="
+                  font-size:4em; color:#3f3d56">Lean <br>Management <br>System</h1>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center mb-5 mt-5">
               <div class="title text-center">
-                <h1 class="text-uppercase text-dark" style="font-weight: 200; font-family: Helvetica, sans-serif;">Lean Management System</h1>
+                <img class="" src="../../img/home.svg" alt="" style="height:20em;">
               </div>
             </div>
             @endif

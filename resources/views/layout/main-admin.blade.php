@@ -29,7 +29,9 @@
             <!-- Topbar Title -->
             <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
                 <div class="text">
-                    <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/admin-homepage') }}" class="text-red">L E A N</a></h3>
+                    <a href="{{ url('/admin-homepage') }}">
+                        <img class="img-fluid rotate-n-15" src="../../img/MATTEL LOGO RED.png" alt="" style="height:3.5em;">
+                    </a>
                 </div>
             </form>
 

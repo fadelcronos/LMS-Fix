@@ -174,40 +174,84 @@ class kaizenCont extends Controller
             $deliv = $req->deliv;
 
             foreach($scope as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'scope' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'scope' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'scope' => $n,
+                    ]];
+                }
+                
                 $KZ_Scope->insert($dataMembers);
             }
 
             foreach($back as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'background' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'background' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'background' => $n,
+                    ]];
+                }
+                
                 $KZ_Back->insert($dataMembers);
             }
 
             foreach($base as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'baseline' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'baseline' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'baseline' => $n,
+                    ]];
+                }
                 $KZ_Baseline->insert($dataMembers);
             }
+
             foreach($goals as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'goals' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'goals' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'goals' => $n,
+                    ]];
+                }
                 $KZ_Goals->insert($dataMembers);
             }
             foreach($deliv as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'deliverable' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'deliverable' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'deliverable' => $n,
+                    ]];
+                }
+                
                 $KZ_Deliv->insert($dataMembers);
             }
 
@@ -388,40 +432,84 @@ class kaizenCont extends Controller
             $deliv = $req->deliv;
 
             foreach($scope as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'scope' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'scope' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'scope' => $n,
+                    ]];
+                }
+                
                 $KZ_Scope->insert($dataMembers);
             }
 
             foreach($back as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'background' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'background' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'background' => $n,
+                    ]];
+                }
+                
                 $KZ_Back->insert($dataMembers);
             }
 
             foreach($base as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'baseline' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'baseline' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'baseline' => $n,
+                    ]];
+                }
                 $KZ_Baseline->insert($dataMembers);
             }
+
             foreach($goals as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'goals' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'goals' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'goals' => $n,
+                    ]];
+                }
                 $KZ_Goals->insert($dataMembers);
             }
             foreach($deliv as $key => $n){
-                $dataMembers = [[
-                            'Kaizen_ID' => $req->kzid,
-                            'deliverable' => $n,
-                        ]];
+                if($n != NULL){
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'deliverable' => $n,
+                    ]];
+                }else{
+                    $n = " ";
+                    $dataMembers = [[
+                        'Kaizen_ID' => $req->kzid,
+                        'deliverable' => $n,
+                    ]];
+                }
+                
                 $KZ_Deliv->insert($dataMembers);
             }
 
