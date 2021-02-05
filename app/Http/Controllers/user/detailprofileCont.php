@@ -20,7 +20,12 @@ class detailprofileCont extends Controller
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            return view('user.user-homePage', compact('acc'));
+            if(Session::get('admin')){
+                return redirect()->back();
+            }else{
+                return view('user.user-homePage', compact('acc'));
+            }
+            
         }
 
     }

@@ -20,6 +20,8 @@
   <link href="../css/customCss.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
   <style>
     .vertical-scrollable { 
@@ -318,6 +320,17 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+  @if(Session::has('send'))
+  <script>
+    $(document).ready(function sendEmail(){
+    var mail = 'mailto:Mail.invite.com?subject=Mail Invitation&body=For sending mail invitation please Ctrl + click link below %0D%0Afile:///\\\apckrm06a\\Namlos\\Kaizen_mails\\Kaizen_Mail\\Testing\\bin\\Debug\\Testing.exe';
+    var a = document.createElement('a');
+    a.href = mail;
+    a.click();
+}
+);
+  </script>
+  @endif
 
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
@@ -334,6 +347,8 @@
   <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
   <script src="../js/modal/showModal.js"></script>
+
+
 
   
 

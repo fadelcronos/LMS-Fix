@@ -596,7 +596,7 @@ class kaizenCont extends Controller
 
             Kaizen_Main::where('Kaizen_ID', $kzid)
             ->update([
-                'Kaizen_status' => 'Approved',
+                'Kaizen_status' => 'Waiting',
                 'Kaizen_room' => $room,
             ]);
 
@@ -606,9 +606,9 @@ class kaizenCont extends Controller
             $temp->kpkNum = $req->userKpk;
             $temp->save();
 
-            exec('START file://///apckrm06a/Namlos/34.%20Kaizen_mails/Kaizen_Mail/Testing/bin/Debug/Testing.exe');
+            //exec('START file://///apckrm06a/Namlos/34.%20Kaizen_mails/Kaizen_Mail/Testing/bin/Debug/Testing.exe');
 
-            return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Approved');
+            return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('send', 'a')->with('alert-success', 'Kaizen Approved');
             
             
         }
