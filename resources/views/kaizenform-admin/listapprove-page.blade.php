@@ -43,6 +43,10 @@
           </div>
         @endif
 
+        @if(Session::has('send'))
+            
+        @endif
+
 <div class="container-fluid">
     <!-- <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action data-toggle=">

@@ -60,7 +60,7 @@
             <form class=" d-sm-inline-block form-inline mr-auto ml-md-1 my-2 my-md-0 mw-100">
                 <div class="text">
                   <a href="{{ url('/homepage') }}">
-                    <img class="img-fluid rotate-n-15" src="../../img/MATTEL LOGO RED.png" alt="" style="height:3.5em;">
+                    <img class="img-fluid" src="../../img/MATTEL LOGO RED.png" alt="" style="height:3.5em;">
                   </a>
                     <!-- <h3 class="p-2 text-light" style="font-family: Arial, Helvetica, sans-serif;"><a href="{{ url('/homepage') }}" class="text-red">L E A N</a></h3> -->
                 </div>
@@ -126,10 +126,12 @@
                             <form class="user" method="post" action="{{ url('/login') }}">
                                 @csrf
                                 <div class="form-group row d-flex justify-content-center">
-                                    <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}"> 
+                                    <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number" value="{{ old('user') }}"> 
                                 </div>
                                 <div class="form-group row d-flex justify-content-center">
                                     <input required type="password" class="form-control form-control-user col-8 border border-danger" name="pass" id="pass" placeholder="Password">
+                                    <p class="text text-dark pt-2" style="font-size: 0.8em">Password format : Birthdate(YYYYMMDD) e.g: 19990128</p>
+
                                 </div>
                                 <div class="form-group row d-flex justify-content-center">
                                     <button class="col-8 btn btn-user btn-block btn-customyel">
@@ -137,7 +139,7 @@
                                     </button>
                                 </div>
                                 <div class="form-group row d-flex justify-content-center">
-                                    <p class="text text-dark">Don't have an account? <a href="{{ url('/register') }}">Register</a></p>
+                                    <p class="text text-dark">Don't have an account? <a class="text-red" href="{{ url('/register') }}">Register</a></p>
                                 </div>
                             </form>
                         </div>

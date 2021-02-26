@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Mail;
 use App\View_KaizenRoles;
 use App\View_UpdateList;
 use App\View_Member;
+use App\View_ListDate;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -550,8 +551,7 @@ class kaizenCont extends Controller
         }
     }
 
-    public function testmail(){
-        
+    public function testmail(){     
     }
 
     public function approvalpage($kzid){
@@ -751,4 +751,72 @@ class kaizenCont extends Controller
             
         }
     }
+
+    public function comingsoon(){
+        if(!Session::get('login')){
+            return view('comingsoon.comingsoon_kaizen');    
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
+            return view('comingsoon.comingsoon_kaizen', compact('totWait', 'acc'));
+        }
+    }
+
+    public function attendancepage(){
+        Session::put('kaizen', TRUE);
+        Session::forget('home');
+
+        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
+        $memberlist = View_Member::all();
+
+        $scopelist = Kaizen_Scope::all();
+        $baselist = Kaizen_Baseline::all();
+        $backlist = Kaizen_Background::all();
+        $goalslist = Kaizen_Goals::all();
+        $delivlist = Kaizen_Deliverable::all();
+        $datelist = Kaizen_Date::all();
+        // dd($datelist);
+
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
+        if(!Session::get('login')){
+            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
+            return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        }
+    }
+
+    public function sortDate(){
+        Session::put('kaizen', TRUE);
+        Session::forget('home');
+
+        $kaizen_list = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+        $memberlist = View_Member::all();
+
+        $scopelist = Kaizen_Scope::all();
+        $baselist = Kaizen_Baseline::all();
+        $backlist = Kaizen_Background::all();
+        $goalslist = Kaizen_Goals::all();
+        $delivlist = Kaizen_Deliverable::all();
+        $datelist = Kaizen_Date::all();
+        // dd($datelist);
+
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
+        if(!Session::get('login')){
+            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
+            return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        }
+    }
+
+
 }

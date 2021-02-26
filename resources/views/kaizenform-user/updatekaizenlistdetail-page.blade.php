@@ -83,6 +83,10 @@
                           </div>
                         </div>
                       </div>
+                      <div class="form-group row justify-content-center mt-5">
+                        <button type="button" id="nextMem" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                      </div>
+                      
                     </div>
                   </div>
                   <div class="tab-pane fade show" id="nav-member" role="tabpanel" aria-labelledby="nav-member-tab">
@@ -133,7 +137,10 @@
                               </tbody>
                             </table>
                           </div>
-                              
+                          <div class="form-group row justify-content-center mt-5">
+                            <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
+                            <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                          </div>
                             <input type="text" id="totRow" name="totRow" hidden value="1">
                         </div>
                       </div>
@@ -277,7 +284,10 @@
                           </div>
                         </div>              
                       </div>
-                    </div>                          
+                    </div>
+                    <div class="form-group row justify-content-center mt-5">
+                        <button type="button" id="befMem" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
+                      </div>                          
                     </div>
                   </div>
                   <div class="tab-pane fade show" id="nav-action" role="tabpanel" aria-labelledby="nav-action-tab">

@@ -28,12 +28,12 @@
       overflow-x: hidden;
         }
 
-    .badge-notify{
-   background:black;
-   width:15px;
+        .badge-notify{
+   background:white;
+   height: 15px !important;
+   width: auto;
    position:relative;
-   top: -25px;
-   left: 35px;
+   left: 7px;
   }
   </style>
 </head>
@@ -43,7 +43,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       @if(Session::has('admin'))
@@ -86,16 +86,25 @@
 
       @if(Session::has('admin') && $acc->kpkNum == '393560')
       <li class="nav-item @yield('approvalKaizen')">
-        <a class="nav-link notofication" href="{{url('/kaizen-form/approval-kaizen')}}">
+        <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
           <i class="fas fa-check-square"></i>
+          <span>Approval Kaizen</span>
           @if(count($totWait) <= 0)
           @else
-          <span class="badge badge-notify rounded-circle">{{ count($totWait)}}</span>
+          <span class="badge-notify text-red rounded font-weight-bold pr-2 pl-2 pt-1 pb-1">{{ count($totWait)}}</span>
           @endif 
-          <span>Approval Kaizen</span></a>
+        </a>
       </li>
 
       <hr class="sidebar-divider my-0">
+          
+          <li class="nav-item @yield('attendance')">
+          <a class="nav-link" href="{{url('/kaizen-form/attendance-kaizen')}}">
+            <i class="fas fa-user-edit"></i>
+            <span>Attendance</span></a>
+          </li>
+
+          <hr class="sidebar-divider my-0">
       @endif
 
       <li class="nav-item @yield('dashboard')">
@@ -110,6 +119,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <!-- <div class="text-center d-none d-md-inline">

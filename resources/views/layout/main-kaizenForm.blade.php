@@ -31,11 +31,11 @@
         }
 
         .badge-notify{
-   background:black;
-   width:15px;
+   background:white;
+   height: 15px !important;
+   width: auto;
    position:relative;
-   top: -25px;
-   left: 35px;
+   left: 7px;
   }
   </style>
 
@@ -76,7 +76,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+  <ul class="navbar-nav bg-red sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       @if(Session::has('admin'))
@@ -84,8 +84,8 @@
       @else
         <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
       @endif
-        <div class="sidebar-brand-icon rotate-n-15 p-2 pb-3">
-          <img class="img-fluid" src="../img/MATTEL LOGO WHITE.png" alt="">
+        <div class="sidebar-brand-icon p-2 pb-3">
+          <img class="" src="../img/MATTEL LOGO WHITE.png" style="height:3.5em; width:auto"  alt="">
         </div>
         <div class="sidebar-brand-text mx-3">kaizen form</div>
       </a>
@@ -122,18 +122,28 @@
           <li class="nav-item @yield('approvalKaizen')">
             <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
               <i class="fas fa-check-square"></i>
+              <span>Approval Kaizen</span>
               @if(count($totWait) <= 0)
               @else
-                <span class="badge badge-notify">{{ count($totWait)}}</span>
+                <span class="badge-notify text-red rounded font-weight-bold pr-2 pl-2 pt-1 pb-1">{{ count($totWait)}}</span>
               @endif 
-              <span>Approval Kaizen</span></a>
+            
+            </a>
+          </li>
+
+          <hr class="sidebar-divider my-0">
+          
+          <li class="nav-item @yield('attendance')">
+          <a class="nav-link" href="{{url('/kaizen-form/attendance-kaizen')}}">
+            <i class="fas fa-user-edit"></i>
+            <span>Attendance</span></a>
           </li>
 
           <hr class="sidebar-divider my-0">
         @endif
 
         <li class="nav-item @yield('dashboard')">
-          <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+          <a class="nav-link" href="{{url('/kaizen-form/dashboard')}}">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -169,6 +179,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <!-- <div class="text-center d-none d-md-inline">
@@ -274,10 +287,11 @@
                               <form class="user" method="post" action="{{ url('/login') }}">
                                   @csrf
                                   <div class="form-group row d-flex justify-content-center">
-                                      <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number..." value="{{ old('user') }}"> 
+                                      <input required type="text" class="form-control form-control-user col-8 border border-danger" name="user" id="user" aria-describedby="emailHelp" placeholder="Enter KPK Number" value="{{ old('user') }}"> 
                                   </div>
                                   <div class="form-group row d-flex justify-content-center">
                                       <input required type="password" class="form-control form-control-user col-8 border border-danger" name="pass" id="pass" placeholder="Password">
+                                      <p class="text text-dark pt-2" style="font-size: 0.8em">Password format : Birthdate(YYYYMMDD) e.g: 19990128</p>
                                   </div>
                                   <div class="form-group row d-flex justify-content-center">
                                       <button class="col-8 btn btn-user btn-block btn-customyel">
@@ -285,9 +299,7 @@
                                       </button>
                                   </div>
                                   <div class="form-group row d-flex justify-content-center">
-                                      <p class="text text-dark">Don't have an account? <a href="{{ url('/register') }}">Register</a></p>
-                                      <div></div>
-                                      <p class="text text-dark">Forgot password? <a href="{{ url('/register') }}">Click here</a></p>
+                                      <p class="text text-dark">Don't have an account? <a class="text-red" href="{{ url('/register') }}">Register</a></p>
                                   </div>
                               </form>
                           </div>

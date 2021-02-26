@@ -27,10 +27,10 @@
         <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top transparent navbar-inverse">
 
             <!-- Topbar Title -->
-            <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+            <form class=" d-sm-inline-block form-inline mr-auto ml-md-1 my-2 my-md-0 mw-100">
                 <div class="text">
                     <a href="{{ url('/admin-homepage') }}">
-                        <img class="img-fluid rotate-n-15" src="../../img/MATTEL LOGO RED.png" alt="" style="height:3.5em;">
+                        <img class="img-fluid" src="../../img/MATTEL LOGO RED.png" alt="" style="height:3.5em;">
                     </a>
                 </div>
             </form>

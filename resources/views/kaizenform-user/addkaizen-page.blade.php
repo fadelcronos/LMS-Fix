@@ -166,7 +166,7 @@
                             </table>
                           </div>
                           <div class="form-group row justify-content-center mt-5">
-                            <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"> Back</i></button>
+                            <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
                             <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
                           </div>
                               
@@ -289,7 +289,7 @@
                               </tbody>
                               
                             </table>
-                            <div class="row">
+                            <div class="row"> 
                               <div class="col text-center">
                                   <input type="text" id="totRowDeliv" name="totRowDeliv" hidden value="1">
                                 <button onclick="addDeliv()" type="button" class="btn btn-danger justify-content-center"><i class="fas fa-plus"></i></button>
@@ -300,7 +300,7 @@
                       </div>
                     </div>  
                       <div class="form-group row justify-content-center mt-5">
-                        <button type="button" id="befMem" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"> Back</i></button>
+                        <button type="button" id="befMem" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
                       </div>                 
                     </div>
                   </div>
