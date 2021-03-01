@@ -137,7 +137,7 @@
                                         @foreach($kaizen_list as $list)
                                             <a class="list-group-item">
                                                 <div class="row">
-                                                    <div class="col-5 align-self-center">
+                                                    <div class="col-4 align-self-center">
                                                         <div class="row align-self-start"><h5 class="text-uppercase text-danger">{{ $list->Kaizen_title }}</h5></div>
                                                         <div class="row align-self-end">Kaizen Type : {{ $list->Kaizen_type }}</div>
                                                     </div>
@@ -170,7 +170,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2 align-self-center">
+                                                    <div class="col-3 align-self-center">
                                                         <div class="row mb-2">
                                                             <div class="col-2">
                                                                 <i class="far fa-calendar-alt"></i>
@@ -203,8 +203,14 @@
                                                             <div class="col-10">
                                                                 @if($list->Kaizen_status == 'Waiting')
                                                                     <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                                @else
+                                                                @elseif($list->Kaizen_status == 'Completed')
                                                                     <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
+                                                                @elseif($list->Kaizen_status == 'Recorded')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-clipboard-list text-primary"></i></p>
+                                                                @elseif($list->Kaizen_status == 'Approved')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i></p>
+                                                                @else
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-times-circle text-danger"></i></p>
                                                                 @endif
                                                             </div>
                                                         
@@ -345,7 +351,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         @if(Session::has('login'))
                                                             @if($acc->kpkNum == '393560')
-                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -369,7 +375,7 @@
                                         @foreach($myKaizen_list as $list)
                                             <a class="list-group-item">
                                                 <div class="row">
-                                                    <div class="col-5 align-self-center">
+                                                    <div class="col-4 align-self-center">
                                                         <div class="row align-self-start"><h5 class="text-uppercase text-danger">{{ $list->Kaizen_title }}</h5></div>
                                                         <div class="row align-self-end">Kaizen Type : {{ $list->Kaizen_type }}</div>
                                                     </div>
@@ -402,7 +408,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2 align-self-center">
+                                                    <div class="col-3 align-self-center">
                                                         <div class="row mb-2">
                                                             <div class="col-2">
                                                                 <i class="far fa-calendar-alt"></i>
@@ -432,8 +438,14 @@
                                                             <div class="col-10">
                                                                 @if($list->Kaizen_status == 'Waiting')
                                                                     <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                                @else
+                                                                @elseif($list->Kaizen_status == 'Completed')
                                                                     <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
+                                                                @elseif($list->Kaizen_status == 'Recorded')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-clipboard-list text-primary"></i></p>
+                                                                @elseif($list->Kaizen_status == 'Approved')
+                                                                    <p>{{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i></p>
+                                                                @else
+                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-times-circle text-danger"></i></p>
                                                                 @endif
                                                             </div>
                                                             
@@ -572,7 +584,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
                                                     </div>
                                                     </div>
                                                 </div>

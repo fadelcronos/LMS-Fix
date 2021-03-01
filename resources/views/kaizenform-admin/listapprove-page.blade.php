@@ -116,9 +116,9 @@
                                     <div class="col-auto mr-2">
                                         <div class="text font-weight-bold text-dark mb-1">
                                         @if($list->Kaizen_status == 'Waiting')
-                                            {{ $list->Kaizen_status }} Approval <i class="fas fa-exclamation-circle text-warning"></i>
+                                            {{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i>
                                         @else
-                                            {{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i>
+                                            {{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i>
                                         @endif
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                             </div>
                             <div class="card-footer text-center">
                                 <input type="text" name="kzid" value="{{ $list->Kaizen_ID }}" hidden>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">VIEW</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">View</button>
                             </div>
                         </div>
                     </div>
@@ -280,11 +280,9 @@
                                 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
-                                <a href="/kaizen-form/approval-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-success">APPROVE</a>
-                                
-
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
+                                <a href="/kaizen-form/approval-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Approve</a>
                             </div>
                             </div>
                         </div>
@@ -346,7 +344,7 @@
                                         @if($list->Kaizen_status == 'Waiting')
                                             {{ $list->Kaizen_status }} Approval <i class="fas fa-exclamation-circle text-warning"></i>
                                         @else
-                                            {{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i>
+                                            {{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i>
                                         @endif
                                         </div>
                                     </div>
@@ -375,7 +373,7 @@
                             </div>
                             <div class="card-footer text-center">
                                 <input type="text" name="kzid" value="{{ $list->Kaizen_ID }}" hidden>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">VIEW</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kz{{ $list->Kaizen_ID }}">View</button>
                             </div>
                         </div>
                     </div>
@@ -508,8 +506,8 @@
                                 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
                                 
 
                             </div>

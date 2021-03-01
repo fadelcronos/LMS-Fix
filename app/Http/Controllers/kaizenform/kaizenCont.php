@@ -596,7 +596,7 @@ class kaizenCont extends Controller
 
             Kaizen_Main::where('Kaizen_ID', $kzid)
             ->update([
-                'Kaizen_status' => 'Waiting',
+                'Kaizen_status' => 'Approved',
                 'Kaizen_room' => $room,
             ]);
 
@@ -768,7 +768,7 @@ class kaizenCont extends Controller
         Session::put('kaizen', TRUE);
         Session::forget('home');
 
-        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
+        $kaizen_list = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
         $memberlist = View_Member::all();
 
         $scopelist = Kaizen_Scope::all();
@@ -788,6 +788,66 @@ class kaizenCont extends Controller
             $acc = User::where('id', '=', $id)->first();
             $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
             return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        }
+    }
+
+    public function attendancedetail($kzid){
+        $main = Kaizen_Main::where('Kaizen_ID', $kzid)->first();
+        $dates = Kaizen_Date::where('Kaizen_ID', $kzid)->first();
+        $member = View_Member::oldest('MemberID')->where('Kaizen_ID', $kzid)->get();
+
+        $scopes = Kaizen_Scope::where('Kaizen_ID', $kzid)->get();
+        $backs = Kaizen_Background::where('Kaizen_ID', $kzid)->get();
+        $bases = Kaizen_Baseline::where('Kaizen_ID', $kzid)->get();
+        $goals = Kaizen_Goals::where('Kaizen_ID', $kzid)->get();
+        $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
+        // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
+        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+        $user = User::all();
+        // dd($user);
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+
+            $employee = Employee::all();
+            // dd($employee);
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
+            return view('kaizenform-admin.attendance-detail-page', compact('user', 'rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+        }
+    }
+
+    public function attendancesubmit(Request $req){
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+
+            $KZ_Member = new Kaizen_Member;
+            $kzid = $req->kzid;
+
+            Kaizen_Member::where('Kaizen_ID', $kzid)->delete();
+
+            $dataMembers = [];
+
+            $names = $req->name;
+            $kpk = $req->kpk;
+            $role = $req->role;
+            foreach($names as $key => $n){
+                    $dataMembers = [
+                    ['Kaizen_ID' => $req->kzid,  'member_roles' => $role[$key], 'kpkNum' => $kpk[$key]]
+                ];
+                $KZ_Member->insert($dataMembers);
+            }
+
+            Kaizen_Main::where('Kaizen_ID', $kzid)
+            ->update([
+                'Kaizen_status' => 'Recorded',
+            ]);
+
+            return redirect('/kaizen-form/attendance-kaizen')->with('showModal', 'a')->with('alert-success', 'Kaizen Attendance Recorded');
         }
     }
 

@@ -122,7 +122,7 @@
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active text-danger" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">All</a>
-                                <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">Done</a>
+                                <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">Recorded</a>
                                 
                             </div>
                         </nav>
@@ -132,9 +132,10 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <!-- tab all kaizen -->
                                 <div class="tab-pane fade show active" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
-                                    <div class="pt-2 pb-2">Search result(s) for all Kaizen</div>
+                                    <div class="pt-2 pb-2">All Kaizen Attendance</div>
                                     <div class="list-group vertical-scrollable">
                                         @foreach($kaizen_list as $list)
+                                            @if ($list->Kaizen_status == 'Approved')
                                             <a class="list-group-item">
                                                 <div class="row">
                                                     <div class="col-5 align-self-center">
@@ -160,7 +161,7 @@
                                                     </div>
                                                     
                                                     <div class="col-3 align-self-center text-center">
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#allkz{{$list->Kaizen_ID}}">Details</button>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz{{$list->Kaizen_ID}}">View</button>
                                                     </div>
                                                 </div>
                                             </a>
@@ -294,13 +295,14 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         @if(Session::has('login'))
                                                             @if($acc->kpkNum == '393560')
-                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                                                <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Attend</a>
                                                             @endif
                                                         @endif
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                     
@@ -312,84 +314,36 @@
                                 <!-- tab my kaizen -->
                                 @if(Session::has('login'))
                                 <div class="tab-pane fade" id="nav-mykz" role="tabpanel" aria-labelledby="nav-mykz-tab">
-                                    <div class="pt-2 pb-2">Search result(s) for my Kaizen</div>
-
+                                    <div class="pt-2 pb-2">All Recorded Kaizen</div>
                                     <div class="list-group vertical-scrollable">
-                                        @foreach($myKaizen_list as $list)
+                                        @foreach($kaizen_list as $list)
+                                            @if($list->Kaizen_status == 'Recorded')
                                             <a class="list-group-item">
                                                 <div class="row">
                                                     <div class="col-5 align-self-center">
                                                         <div class="row align-self-start"><h5 class="text-uppercase text-danger">{{ $list->Kaizen_title }}</h5></div>
                                                         <div class="row align-self-end">Kaizen Type : {{ $list->Kaizen_type }}</div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-10 align-self-center">
-                                                                
-                                                                <div class="row mb-2">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-map-pin"></i>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        {{ $list->Kaizen_dept }}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-user"></i>
-                                                                    </div>
-                                                                    <div class="col">
-                                                                        @foreach($memberlist as $members)
-                                                                            @if($list->Kaizen_ID == $members->Kaizen_ID)
-                                                                                @if($members->member_roles == 'Leader')
-                                                                                    {{$members->Fullname}}
-                                                                                @endif
-                                                                            @endif
-                                                                        @endforeach 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <div class="row align-self-end">Kaizen ID : {{ $list->Kaizen_ID }}</div>
                                                     </div>
                                                     <div class="col-2 align-self-center">
-                                                        <div class="row mb-2">
-                                                            <div class="col-2">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                @foreach($datelist as $date)
-                                                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
-                                                                        @php
-                                                                            $fdate = $date->Kaizen_DateFrom;
-                                                                            $tdate = $date->Kaizen_DateTo;
-
-                                                                            $datetime1 = new DateTime($fdate);
-                                                                            $datetime2 = new DateTime($tdate);
-                                                                            $interval = $datetime1->diff($datetime2);
-                                                                            $days = $interval->format('%a');
-                                                                        @endphp
-                                                                        {{$days+1}}
-                                                                    @endif
-                                                                @endforeach
-                                                                Day(s)
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-2">
-                                                                <i class="fas fa-info-circle"></i>
-                                                            </div>
-                                                            <div class="col-10">
-                                                                @if($list->Kaizen_status == 'Waiting')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                                @else
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
-                                                                @endif
-                                                            </div>
-                                                            
-                                                        </div>
+                                                    Date From
+                                                        @foreach($datelist as $date)
+                                                            @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                                            <div class="text">{{ date("d M Y", strtotime($date->Kaizen_DateFrom))}}</div>
+                                                            @endif
+                                                        @endforeach
                                                     </div>
                                                     <div class="col-2 align-self-center">
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#mykz{{ $list->Kaizen_ID }}">Details</button>
+                                                    Date From
+                                                        @foreach($datelist as $date)
+                                                            @if($list->Kaizen_ID == $date->Kaizen_ID)
+                                                            <div class="text">{{ date("d M Y", strtotime($date->Kaizen_DateTo))}}</div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                    
+                                                    <div class="col-3 align-self-center text-center">
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mykz{{ $list->Kaizen_ID }}">View</button>
                                                     </div>
                                                 </div>
                                             </a>
@@ -521,12 +475,12 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">UPDATE</a>
+                                                        <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update Attendance</a>
                                                     </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+                                            @endif
                                         @endforeach
                                     </div>
 
