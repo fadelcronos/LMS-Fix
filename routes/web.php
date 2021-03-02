@@ -62,6 +62,9 @@ Route::post('/kaizen-form/attendance','kaizenform\KaizenCont@attendancesubmit');
 Route::get('/kaizen-form/approval-kaizen/{kzid}','kaizenform\KaizenCont@approvalpage'); //approved kaizen
 Route::post('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@approvemail'); //approved kaizen
 
+Route::get('/kaizen-form/cancel-kaizen/{kzid}','kaizenform\KaizenCont@cancelkaizen'); //approved kaizen
+
+
 Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kaizen
 Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //approved kaizen
 

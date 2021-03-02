@@ -265,7 +265,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         
-                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
+                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
                     </div>
                     </div>
                 </div>

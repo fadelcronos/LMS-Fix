@@ -59,7 +59,7 @@ class kaizenCont extends Controller
         Session::put('kaizen', TRUE);
         Session::forget('home');
 
-        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->get();
+        $kaizen_list = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
         $memberlist = View_Member::all();
 
         $scopelist = Kaizen_Scope::all();
@@ -339,9 +339,8 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
 
-            $kaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
+            $kaizen_list = View_UpdateList::orderBy('Kaizen_DateFrom', 'DESC')->where('kpkNum', $acc->kpkNum)->get();
             $memberlist = View_Member::all();
-
             $scopelist = Kaizen_Scope::all();
             $baselist = Kaizen_Baseline::all();
             $backlist = Kaizen_Background::all();
@@ -535,6 +534,7 @@ class kaizenCont extends Controller
 
             $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
             $approve_kaizen = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_status', 'Approved')->get();
+            $cancel_kaizen = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_status', 'Canceled')->get();
             $memberlist = View_Member::all();
 
             $scopelist = Kaizen_Scope::all();
@@ -547,7 +547,7 @@ class kaizenCont extends Controller
             // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
             $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
             
-            return view('kaizenform-admin.listapprove-page', compact('approve_kaizen' ,'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-admin.listapprove-page', compact('cancel_kaizen' ,'approve_kaizen' ,'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }
 
@@ -878,5 +878,18 @@ class kaizenCont extends Controller
         }
     }
 
+    public function cancelkaizen($kzid){
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
 
+            Kaizen_Main::where('Kaizen_ID', $kzid)
+            ->update([
+                'Kaizen_status' => 'Canceled',
+            ]);
+            return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert', 'Kaizen Canceled');
+        }
+    }
 }

@@ -49,6 +49,18 @@
                                         <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
                                         <label class="form-check-label" for="stat2">Approved</label>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
+                                        <label class="form-check-label" for="stat2">Recorded</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
+                                        <label class="form-check-label" for="stat2">Completed</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
+                                        <label class="form-check-label" for="stat2">Canceled</label>
+                                    </div>
                                 </div>
 
                                 <div class="pl-2 pr-2 pb-3">
@@ -351,7 +363,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         @if(Session::has('login'))
                                                             @if($acc->kpkNum == '393560')
-                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
+                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -584,7 +596,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-danger">Update</a>
+                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
                                                     </div>
                                                     </div>
                                                 </div>

@@ -67,16 +67,8 @@ class accountController extends Controller
                     }else{
                         Session::put('user',TRUE);
                         return redirect('/homepage')->with('alert-success','Login Successfull');
-
                     }
                 }
-                // if($data->level == "admin"){
-                //     Session::put('admin',TRUE);
-                //     return redirect('/admin-homepage')->with('alert-success','Login Successfull');
-                // }else{
-                //     Session::put('user',TRUE);
-                //     return redirect('/homepage')->with('alert-success','Login Successfull');
-                // }
             }else{
                 
                 return redirect()->back()->with('alert','Incorrect Password')->with('showModal', 'a')->withInput($req->except('pass'));
