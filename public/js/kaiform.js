@@ -311,6 +311,12 @@ $('#nextMem').click(function(){
   $('#nav-member-tab').addClass('active');
   $('#nav-member').addClass('show active');
 });
+$('#nextMems').click(function(){
+  $('#nav-main-tab').removeClass('active');
+  $('#nav-main').removeClass('show active');
+  $('#nav-member-tab').addClass('active');
+  $('#nav-member').addClass('show active');
+});
 $('#nextDet').click(function(){
   $('#nav-member-tab').removeClass('active');
   $('#nav-member').removeClass('show active');

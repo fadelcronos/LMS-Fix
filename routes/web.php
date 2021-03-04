@@ -57,7 +57,7 @@ Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata
 Route::get('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@listapprove'); //list kaizen to be approved
 Route::get('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@attendancepage'); //list kaizen to be approved
 Route::get('/kaizen-form/attendance-kaizen/{kzid}','kaizenform\KaizenCont@attendancedetail'); //list kaizen to be approved
-Route::post('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@sortDate'); //list kaizen to be approved
+Route::post('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@searchData'); //list kaizen to be approved
 Route::post('/kaizen-form/attendance','kaizenform\KaizenCont@attendancesubmit'); //list kaizen to be approved
 Route::get('/kaizen-form/approval-kaizen/{kzid}','kaizenform\KaizenCont@approvalpage'); //approved kaizen
 Route::post('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@approvemail'); //approved kaizen

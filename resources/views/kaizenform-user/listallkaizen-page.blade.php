@@ -50,16 +50,16 @@
                                         <label class="form-check-label" for="stat2">Approved</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
-                                        <label class="form-check-label" for="stat2">Recorded</label>
+                                        <input class="form-check-input" type="radio" name="status" id="stat3" value="Recorded">
+                                        <label class="form-check-label" for="stat3">Recorded</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
-                                        <label class="form-check-label" for="stat2">Completed</label>
+                                        <input class="form-check-input" type="radio" name="status" id="stat4" value="Completed">
+                                        <label class="form-check-label" for="stat4">Completed</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="stat2" value="Approved">
-                                        <label class="form-check-label" for="stat2">Canceled</label>
+                                        <input class="form-check-input" type="radio" name="status" id="stat5" value="Canceled">
+                                        <label class="form-check-label" for="stat5">Canceled</label>
                                     </div>
                                 </div>
 

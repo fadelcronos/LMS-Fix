@@ -37,7 +37,7 @@
                                     </select>
                                 </div>
 
-                                <div class="pl-2 pr-2 pb-3">
+                                <div class="pl-2 pr-2 pb-3 d-none">
                                     <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold text-danger">STATUS</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="stat0" value="" checked>
@@ -295,7 +295,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         @if(Session::has('login'))
                                                             @if($acc->kpkNum == '393560')
-                                                                <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Attend</a>
+                                                                <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Attend <i class="fas fa-user-check"></i></a>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -475,7 +475,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update Attendance</a>
+                                                        <a href="/kaizen-form/attendance-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update Attendance <i class="fas fa-user-edit"></i></a>
                                                     </div>
                                                     </div>
                                                 </div>

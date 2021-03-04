@@ -84,7 +84,7 @@
                         </div>
                       </div>
                       <div class="form-group row justify-content-center mt-5">
-                        <button type="button" id="nextMem" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                        <button type="button" id="nextMems" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
                       </div>
                       
                     </div>

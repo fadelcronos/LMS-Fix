@@ -110,21 +110,6 @@ class kaizenCont extends Controller
         }
     }
 
-    public function index()
-    {
-        //
-    }
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $req)
     { 
         $KZ_Main = new Kaizen_Main;
@@ -261,12 +246,6 @@ class kaizenCont extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($kzid)
     {
         // dd($kzid);
@@ -297,24 +276,6 @@ class kaizenCont extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
@@ -851,11 +812,16 @@ class kaizenCont extends Controller
         }
     }
 
-    public function sortDate(){
+    public function searchData(Request $req){
         Session::put('kaizen', TRUE);
         Session::forget('home');
+// =--------------------
 
-        $kaizen_list = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+        $search = $req->search;
+        $type = $req->kztype;
+        $status = $req->status;
+        $dept = $req->department;
+        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
         $memberlist = View_Member::all();
 
         $scopelist = Kaizen_Scope::all();
@@ -864,16 +830,16 @@ class kaizenCont extends Controller
         $goalslist = Kaizen_Goals::all();
         $delivlist = Kaizen_Deliverable::all();
         $datelist = Kaizen_Date::all();
-        // dd($datelist);
 
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-
         if(!Session::get('login')){
             return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
+            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+
             return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }

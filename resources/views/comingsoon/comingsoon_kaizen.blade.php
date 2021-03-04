@@ -9,15 +9,14 @@
 @section('dashboard', 'active')
 
 @section('container')
-<div class="d-flex justify-content-md-center">
+<div class="">
     <div class="text-center mx-auto">
-        <div class="error mx-auto" data-text="COMING">COMING</div>
-        <div class="error mx-auto" data-text="SOON!">SOON!</div>
+        <div class="error mx-auto" data-text="404">404</div>
     </div>
 </div>
 <div class="text-center">
-    <p class="lead text-gray-800 mb-5">The Page Coming Soon</p>
+    <p class="lead text-gray-800 mb-5">Dashboard Page Still On Progress</p>
     <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-    <a href="index.html">&larr; Back to Dashboard</a>
+    <a href="/kaizen-form/list-kaizen">&larr; Back to List Kaizen</a>
 </div>
 @endsection
