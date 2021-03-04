@@ -815,7 +815,7 @@ class kaizenCont extends Controller
     public function searchData(Request $req){
         Session::put('kaizen', TRUE);
         Session::forget('home');
-// =--------------------
+
 
         $search = $req->search;
         $type = $req->kztype;
