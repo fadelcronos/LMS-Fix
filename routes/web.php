@@ -49,7 +49,10 @@ Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image rou
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
 Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@store'); //Add Kai user routing
 Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //Add Kai user routing
+
 Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@searchkaizen'); //Add Kai user routing
+// Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@testSearch')->name('livesearch'); //Add Kai user routing
+
 Route::get('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatelist'); //Add Kai user routing
 Route::get('/kaizen-form/update-kaizen/{kzid}','kaizenform\KaizenCont@show'); //Add Kai user routing
 Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata'); //Update existing data routing
@@ -68,4 +71,7 @@ Route::get('/kaizen-form/cancel-kaizen/{kzid}','kaizenform\KaizenCont@cancelkaiz
 Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kaizen
 Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //approved kaizen
 
+
+Route::get('/test','kaizenform\KaizenCont@testKaiPage'); //approved kaizen
+Route::get('/test/action','kaizenform\KaizenCont@testSearch')->name('actionsearch'); //approved kaizen
 

@@ -5,8 +5,8 @@
 @section('collapseClass', 'show')
 @section('formClass', 'active')
 @section('addKaizen', '')
-@section('listKaizen', '')
-@section('updateKaizen', 'active')
+@section('listKaizen', 'active')
+@section('updateKaizen', '')
 @section('dashboard', '')
 
 @section('container')

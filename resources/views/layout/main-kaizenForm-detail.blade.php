@@ -74,13 +74,13 @@
           <span>Add Kaizen</span></a>
       </li>
 
-      <hr class="sidebar-divider my-0">
+      <!-- <hr class="sidebar-divider my-0">
 
       <li class="nav-item @yield('updateKaizen')">
         <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
           <i class="fas fa-edit"></i>
           <span>Update Kaizen</span></a>
-      </li>
+      </li> -->
 
       <hr class="sidebar-divider my-0">
 
