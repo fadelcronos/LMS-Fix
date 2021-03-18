@@ -110,10 +110,8 @@
                         <!--nav tab-->
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active text-danger" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">All Kaizen</a>
-                                @if(Session::has('login'))
-                                    <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">My Kaizen</a>
-                                @endif
+                                <a class="nav-item nav-link active text-danger" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">Approved</a>
+                                <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">Recorded</a>
                             </div>
                         </nav>
 
@@ -122,7 +120,7 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <!-- tab all kaizen -->
                                 <div class="tab-pane fade show active" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
-                                    <div class="pt-2 pb-2">Search result(s) for all Kaizen</div>
+                                    <div class="pt-2 pb-2">Search result(s) for approved Kaizen</div>
                                     <div class="list-group vertical-scrollable" id="bodyAcc">
                                         
                                     </div>
@@ -135,7 +133,7 @@
                                 <!-- tab my kaizen -->
                                 @if(Session::has('login'))
                                 <div class="tab-pane fade" id="nav-mykz" role="tabpanel" aria-labelledby="nav-mykz-tab">
-                                    <div class="pt-2 pb-2">Search result(s) for my Kaizen</div>
+                                    <div class="pt-2 pb-2">Search result(s) for recorded Kaizen</div>
                                     <div class="list-group vertical-scrollable" id="myAcc">
 
                                     </div>

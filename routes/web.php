@@ -76,6 +76,6 @@ Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kai
 Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //approved kaizen
 
 
-Route::get('/test','kaizenform\KaizenCont@testKaiPage'); //approved kaizen
-Route::get('/test/action','kaizenform\KaizenCont@testSearch')->name('actionsearch'); //approved kaizen
+// Route::get('/test','kaizenform\KaizenCont@testKaiPage'); //approved kaizen
+// Route::get('/test/action','kaizenform\KaizenCont@testSearch')->name('actionsearch'); //approved kaizen
 

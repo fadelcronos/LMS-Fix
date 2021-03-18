@@ -2501,6 +2501,14 @@ class kaizenCont extends Controller
         }
     }
 
+
+
+
+
+
+
+
+    // Testing New Page---------------------------------------------------
     public function testKaiPage(){
         Session::put('kaizen', TRUE);
         Session::forget('home');

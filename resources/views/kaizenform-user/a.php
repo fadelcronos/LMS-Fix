@@ -526,12 +526,12 @@
                                 </div>
                                 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCancel" data-dismiss="modal">Cancel <i class="far fa-times-circle"></i></button>
-                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
-                                <a href="/kaizen-form/approval-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-success">Re-Approve <i class="far fa-thumbs-up"></i></a>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCancel" data-dismiss="modal">Cancel <i class="far fa-times-circle"></i></button>
+                                    <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
+                                    <a href="/kaizen-form/approval-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-success">Re-Approve <i class="far fa-thumbs-up"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
