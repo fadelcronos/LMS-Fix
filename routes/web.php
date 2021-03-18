@@ -49,6 +49,7 @@ Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image rou
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
 Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@store'); //Add Kai user routing
 Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //Add Kai user routing
+Route::get('/kaizen-form/list-kaizen/action','kaizenform\KaizenCont@searchkaizen')->name('actionlist'); //Add Kai user routing
 
 Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@searchkaizen'); //Add Kai user routing
 // Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@testSearch')->name('livesearch'); //Add Kai user routing
@@ -58,7 +59,10 @@ Route::get('/kaizen-form/update-kaizen/{kzid}','kaizenform\KaizenCont@show'); //
 Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata'); //Update existing data routing
 
 Route::get('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@listapprove'); //list kaizen to be approved
+Route::get('/kaizen-form/approval-kaizen/action','kaizenform\KaizenCont@searchApprove')->name('actionapproval'); //list kaizen to be approved
 Route::get('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@attendancepage'); //list kaizen to be approved
+Route::get('/kaizen-form/attendance-kaizen/action','kaizenform\KaizenCont@searchData')->name('actionattendance'); //list kaizen to be approved
+
 Route::get('/kaizen-form/attendance-kaizen/{kzid}','kaizenform\KaizenCont@attendancedetail'); //list kaizen to be approved
 Route::post('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@searchData'); //list kaizen to be approved
 Route::post('/kaizen-form/attendance','kaizenform\KaizenCont@attendancesubmit'); //list kaizen to be approved

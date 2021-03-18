@@ -55,6 +55,7 @@ class kaizenCont extends Controller
             
         }
     }
+    
     public function listkaipage(){
         Session::put('kaizen', TRUE);
         Session::forget('home');
@@ -72,44 +73,606 @@ class kaizenCont extends Controller
 
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
 
+        // $id = Session::get('id');
+        // $acc = User::where('id', '=', $id)->first();
+        // return view('kaizenform-user.listallkaizen-page', compact('acc', 'id', 'totWait'));
+
         if(!Session::get('login')){
-            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-user.listallkaizen-page', compact('totWait'));
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->get();
-            return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+            return view('kaizenform-user.listallkaizen-page', compact('acc', 'id', 'totWait'));
         }
     }
 
     public function searchkaizen(Request $req){
-        $search = $req->search;
-        $type = $req->kztype;
-        $status = $req->status;
-        $dept = $req->department;
-        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-        $memberlist = View_Member::all();
+        // $search = $req->search;
+        // $type = $req->kztype;
+        // $status = $req->status;
+        // $dept = $req->department;
+        // $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+        // $memberlist = View_Member::all();
 
-        $scopelist = Kaizen_Scope::all();
-        $baselist = Kaizen_Baseline::all();
-        $backlist = Kaizen_Background::all();
-        $goalslist = Kaizen_Goals::all();
-        $delivlist = Kaizen_Deliverable::all();
-        $datelist = Kaizen_Date::all();
+        // $scopelist = Kaizen_Scope::all();
+        // $baselist = Kaizen_Baseline::all();
+        // $backlist = Kaizen_Background::all();
+        // $goalslist = Kaizen_Goals::all();
+        // $delivlist = Kaizen_Deliverable::all();
+        // $datelist = Kaizen_Date::all();
 
-        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        if(!Session::get('login')){
-            // return redirect()->back()->withInput($req->except('pass'));
+        // $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+        // if(!Session::get('login')){
+        //     // return redirect()->back()->withInput($req->except('pass'));
 
-            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'), ['msgSearch' => $search]);
-            // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
-        }else{
+        //     return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'), ['msgSearch' => $search]);
+        //     // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        // }else{
+        //     $id = Session::get('id');
+        //     $acc = User::where('id', '=', $id)->first();
+        //     $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+        //     // return redirect()->back()->withInput($req->except('pass'));
+        //     return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        // }
+        if($req->ajax()){
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-            // return redirect()->back()->withInput($req->except('pass'));
-            return view('kaizenform-user.listallkaizen-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        }
+            $memberlist = View_Member::all();
+            $scopelist = Kaizen_Scope::all();
+            $baselist = Kaizen_Baseline::all();
+            $backlist = Kaizen_Background::all();
+            $goalslist = Kaizen_Goals::all();
+            $delivlist = Kaizen_Deliverable::all();
+            $datelist = Kaizen_Date::all();
+            $output = '';
+            $myoutput = '';
+            $query = $req->get('query');
+            $type = $req->get('type');
+            $status = $req->get('status');
+            $dept = $req->get('dept');
+            if($query != ' ' || $type != ' ' || $status != ' ' || $dept != ' '){
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_status', 'like', '%'. $status .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->get();
+    
+                if($req->session()->has("login")){
+                    $myData = View_UpdateList::orderBy('Kaizen_DateFrom', 'DESC')
+                    ->where('Kaizen_title', 'like', '%'. $query . '%')
+                    ->where('Kaizen_type', 'like', '%'. $type .'%')
+                    ->where('Kaizen_status', 'like', '%'. $status .'%')
+                    ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                    ->where('kpkNum', $acc->kpkNum)
+                    ->get();
+                }
+                
+    
+            }else{
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+                if($req->session()->has("login")){
+                    $myData = View_UpdateList::orderBy('Kaizen_DateFrom', 'DESC')->where('kpkNum', $acc->kpkNum)->get();
+                }
+            }
+            $total_row = $data->count();
+            if($req->session()->has("login")){
+                $total_my = $myData->count();
+            }
+            if($total_row > 0){
+                foreach($data as $list){
+    
+                    $output .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-4 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col-10 align-self-center">
+                                                
+                                                <div class="row mb-2">
+                                                    <div class="col-2">
+                                                        <i class="fas fa-map-pin"></i>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        '.$list->Kaizen_dept.'
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                    <div class="col">';
+                                                    
+                                                            foreach($memberlist as $members){
+                                                                if($list->Kaizen_ID == $members->Kaizen_ID){
+                                                                    if($members->member_roles == "Leader")
+                                                                        $output .= $members->Fullname;
+                                                                }
+                                                            }
+                                                            $output.=
+                                                            
+                                                            '
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 align-self-center">
+                                        <div class="row mb-2">
+                                            <div class="col-2">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </div>
+                                            <div class="col-8">
+                                                ';
+                                                foreach($datelist as $date){
+                                                    if($list->Kaizen_ID == $date->Kaizen_ID){
+                                                        
+                                                            $fdate = $date->Kaizen_DateFrom;
+                                                            $tdate = $date->Kaizen_DateTo;
+    
+                                                            $datetime1 = new DateTime($fdate);
+                                                            $datetime2 = new DateTime($tdate);
+                                                            $interval = $datetime1->diff($datetime2);
+                                                            $days = $interval->format('%a');
+                                                        
+                                                        $output .= $days+1;
+                                                    }
+                                                }
+                                                $output.=
+                                                '
+                                                Day(s)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <i class="fas fa-info-circle"></i>                 
+                                            </div>
+                                            <div class="col-10">
+                                            ';
+                                                if($list->Kaizen_status == "Waiting")
+                                                $output .= '<p>'. $list->Kaizen_status .' <i class="fas fa-exclamation-circle text-warning"></i></p>';
+                                                else if($list->Kaizen_status == "Completed")
+                                                $output .='<p>'. $list->Kaizen_status .' <i class="fas fa-check-circle text-success"></i></p>';
+                                                else if($list->Kaizen_status == "Recorded")
+                                                $output .='<p>'. $list->Kaizen_status .' <i class="fas fa-clipboard-list text-primary"></i></p>';
+                                                else if($list->Kaizen_status == "Approved")
+                                                $output .='<p>'. $list->Kaizen_status .' <i class="far fa-thumbs-up text-primary"></i></p>';
+                                                else
+                                                $output .='<p>'. $list->Kaizen_status .' <i class="fas fa-times-circle text-danger"></i></p>';
+                                                
+                                                $output .=   
+                                            '
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">Details</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $output .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $output .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $output .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $output .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $output .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $output .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $output .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $output .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        ';
+                                            if($req->session()->has("login")){
+    
+                                                if($acc->kpkNum == "393560"){
+                                                    $output .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                }
+                                            }
+                                                $output.=
+                                            '
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+            }else{
+                $output = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
+            
+            if($req->session()->has("login")){
+                if($total_my > 0){
+                    if($req->session()->has("login")){
+                        foreach($myData as $list){
+    
+                            $myoutput .= 
+                                    '<a class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-4 align-self-center">
+                                                <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                                <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="row">
+                                                    <div class="col-10 align-self-center">
+                                                        
+                                                        <div class="row mb-2">
+                                                            <div class="col-2">
+                                                                <i class="fas fa-map-pin"></i>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                '.$list->Kaizen_dept.'
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <i class="fas fa-user"></i>
+                                                            </div>
+                                                            <div class="col">';
+                                                            
+                                                                    foreach($memberlist as $members){
+                                                                        if($list->Kaizen_ID == $members->Kaizen_ID){
+                                                                            if($members->member_roles == "Leader")
+                                                                                $myoutput .= $members->Fullname;
+                                                                        }
+                                                                    }
+                                                                    $myoutput.=
+                                                                    
+                                                                    '
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 align-self-center">
+                                                <div class="row mb-2">
+                                                    <div class="col-2">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        ';
+                                                        foreach($datelist as $date){
+                                                            if($list->Kaizen_ID == $date->Kaizen_ID){
+                                                                
+                                                                    $fdate = $date->Kaizen_DateFrom;
+                                                                    $tdate = $date->Kaizen_DateTo;
+    
+                                                                    $datetime1 = new DateTime($fdate);
+                                                                    $datetime2 = new DateTime($tdate);
+                                                                    $interval = $datetime1->diff($datetime2);
+                                                                    $days = $interval->format('%a');
+                                                                
+                                                                $myoutput .= $days+1;
+                                                            }
+                                                        }
+                                                        $myoutput.=
+                                                        '
+                                                        Day(s)
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <i class="fas fa-info-circle"></i>                 
+                                                    </div>
+                                                    <div class="col-10">
+                                                    ';
+                                                        if($list->Kaizen_status == "Waiting")
+                                                        $myoutput .= '<p>'. $list->Kaizen_status .' <i class="fas fa-exclamation-circle text-warning"></i></p>';
+                                                        else if($list->Kaizen_status == "Completed")
+                                                        $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-check-circle text-success"></i></p>';
+                                                        else if($list->Kaizen_status == "Recorded")
+                                                        $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-clipboard-list text-primary"></i></p>';
+                                                        else if($list->Kaizen_status == "Approved")
+                                                        $myoutput .='<p>'. $list->Kaizen_status .' <i class="far fa-thumbs-up text-primary"></i></p>';
+                                                        else
+                                                        $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-times-circle text-danger"></i></p>';
+                                                        
+                                                    $myoutput .=   
+                                                    '
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-2 align-self-center">
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#mykz'.$list->Kaizen_ID.'">Details</button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="modal fade" id="mykz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header bg-danger">
+                                                <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row p-2">
+                                                    <div class="col-3">
+                                                        Type
+                                                    </div>    
+                                                    <div class="col">
+                                                        '. $list->Kaizen_type .'
+                                                    </div>
+                                                </div>
+                                                <div class="row  p-2 rounded">
+                                                    <div class="col-3">
+                                                        Status
+                                                    </div>    
+                                                    <div class="col">
+                                                        '. $list->Kaizen_status .'
+                                                    </div>
+                                                </div>
+                                                <div class="row  p-2 rounded">
+                                                    <div class="col-3">
+                                                        Date
+                                                    </div>    
+                                                    <div class="col">
+                                                    ';
+                                                        foreach($datelist as $dates){
+                                                            if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                                $myoutput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                            }
+                                                        
+                                                        $myoutput .=
+                                                        '
+                                                    </div>
+                                                </div>
+                                                <div class="row p-2">
+                                                    <div class="col-3">
+                                                        Department
+                                                    </div>    
+                                                    <div class="col">
+                                                        '. $list->Kaizen_dept .'
+                                                    </div>
+                                                </div>
+                                                <div class="row p-2  rounded">
+                                                    <div class="col-3">
+                                                        Member
+                                                    </div>
+                                                    <div class="col">';
+                                                    foreach($memberlist as $mem)
+                                                        if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                            $myoutput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                            $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                <div class="row p-2">
+                                                    <div class="col-3">
+                                                        Scope
+                                                    </div>
+                                                    <div class="col">';
+                                                    foreach($scopelist as $scope){
+                                                            if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                                $myoutput .= '<li>'. $scope->scope .'</li>';
+                                                        }
+                                                        $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                <div class="row p-2  rounded">
+                                                    <div class="col-3">
+                                                        Background
+                                                    </div>
+                                                    <div class="col">
+                                                    ';
+                                                    foreach($backlist as $back){
+                                                            if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                                $myoutput .= '<li>'. $back->background .'</li>';
+                                                        }
+                                                        $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                <div class="row p-2">
+                                                    <div class="col-3">
+                                                        Baseline
+                                                    </div>
+                                                    <div class="col">
+                                                    ';
+                                                    foreach($baselist as $base){
+                                                            if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                                $myoutput .= '<li>'. $base->baseline .'</li>';
+                                                        }
+                                                        $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                <div class="row p-2  rounded">
+                                                    <div class="col-3">
+                                                        Goals
+                                                    </div>
+                                                    <div class="col">
+                                                    ';
+                                                    foreach($goalslist as $goal){
+                                                            if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                                $myoutput .= '<li>'. $goal->goals .'</li>';
+                                                        }
+                                                        $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                <div class="row p-2">
+                                                    <div class="col-3">
+                                                        Deliverable
+                                                    </div>
+                                                    <div class="col">
+                                                    ';
+                                                    foreach($delivlist as $deliv){
+                                                            if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                                $myoutput .= '<li>'. $deliv->deliverable .'</li>';
+                                                        }
+                                                        $myoutput .=
+                                                        '
+                                                    </div> 
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                ';
+                                                    if($req->session()->has("login")){
+    
+                                                        if($acc->kpkNum == "393560"){}
+                                                            $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                    }
+                                                        $myoutput.=
+                                                    '
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ';
+                        }
+                    }
+                }else{
+                    $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
+                }
+            }
+            
+    
+    
+            
+            
+            $data = array(
+                'table_data'  => $myoutput,
+                'total_data'  => $output,
+                );
+    
+            return response()->json($data);
+           
+            
+          }
     }
 
     public function store(Request $req)
@@ -283,12 +846,6 @@ class kaizenCont extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
@@ -509,8 +1066,15 @@ class kaizenCont extends Controller
 
             // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
             $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+
+            if(!Session::get('login')){
+                return view('kaizenform-admin.listapprove-page', compact('totWait'));
+            }else{
+                $id = Session::get('id');
+                $acc = User::where('id', '=', $id)->first();
+                return view('kaizenform-admin.listapprove-page', compact('acc', 'id', 'totWait'));
+            }
             
-            return view('kaizenform-admin.listapprove-page', compact('cancel_kaizen' ,'approve_kaizen' ,'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
         }
     }
 
@@ -543,6 +1107,655 @@ class kaizenCont extends Controller
             $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
             return view('kaizenform-admin.approval-page', compact('user', 'rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
         }
+    }
+
+    public function searchApprove(Request $req){
+        if($req->ajax()){
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+            $memberlist = View_Member::all();
+            $scopelist = Kaizen_Scope::all();
+            $baselist = Kaizen_Baseline::all();
+            $backlist = Kaizen_Background::all();
+            $goalslist = Kaizen_Goals::all();
+            $delivlist = Kaizen_Deliverable::all();
+            $datelist = Kaizen_Date::all();
+            $output = '';
+            $myoutput = '';
+            $yououtput = '';
+            $query = $req->get('query');
+            $type = $req->get('type');
+            $dept = $req->get('dept');
+            if($query != ' ' || $type != ' ' || $dept != ' '){
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->where('Kaizen_status', 'Waiting')
+                ->get();
+    
+                $myData = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->where('Kaizen_status', 'Approved')
+                ->get();
+
+                $youData = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->where('Kaizen_status', 'Canceled')
+                ->get();
+                
+    
+            }else{
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+                $myData = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+            }
+            $total_row = $data->count();
+            $total_my = $myData->count();
+            $total_you = $youData->count();
+            if($total_row > 0){
+                foreach($data as $list){
+    
+                    $output .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateFrom)).'</div>';
+                                        }
+                                        $output .=
+                                        '
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
+                                        }
+                                        $output .=
+                                        '
+                                    </div>
+                                                    
+                                    <div class="col-3 align-self-center text-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">View</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $output .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $output .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $output .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $output .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $output .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $output .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $output .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $output .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCancel" data-dismiss="modal">Cancel <i class="far fa-times-circle"></i></button>
+                                        <a href="/kaizen-form/update-kaizen/'. $list->Kaizen_ID .'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
+                                        <a href="/kaizen-form/approval-kaizen/'. $list->Kaizen_ID .'" class="btn btn-success">Approve <i class="far fa-thumbs-up"></i></a>
+                                    </div>
+                                    
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="modalCancelTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title text-light" id="exampleModalLongTitle">Cancel Kaizen '.$list->Kaizen_ID.'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to cancel this kaizen ?
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <a href="/kaizen-form/cancel-kaizen/'. $list->Kaizen_ID .'" class="btn btn-primary">Yes</a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+            }else{
+                $output = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
+            
+            if($total_my > 0){
+                
+                foreach($myData as $list){
+    
+                    $myoutput .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateFrom)).'</div>';
+                                        }
+                                        $myoutput .=
+                                        '
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
+                                        }
+                                        $myoutput .=
+                                        '
+                                    </div>
+                                                    
+                                    <div class="col-3 align-self-center text-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">View</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $myoutput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $myoutput .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $myoutput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCan" data-dismiss="modal">Cancel <i class="far fa-times-circle"></i></button>
+                                        <a href="/kaizen-form/update-kaizen/'. $list->Kaizen_ID .'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
+                                        <a href="/kaizen-form/approval-kaizen/'. $list->Kaizen_ID .'" class="btn btn-success">Re-Approve <i class="far fa-thumbs-up"></i></a>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="modalCan" tabindex="-1" role="dialog" aria-labelledby="modalCanTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title text-light" id="exampleModalLongTitle">Cancel Kaizen '.$list->Kaizen_ID.'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to cancel this kaizen ?
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <a href="/kaizen-form/cancel-kaizen/'. $list->Kaizen_ID .'" class="btn btn-primary">Yes</a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+                
+            }else{
+                $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
+            
+            if($total_you > 0){
+                
+                foreach($youData as $list){
+    
+                    $yououtput .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $yououtput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateFrom)).'</div>';
+                                        }
+                                        $yououtput .=
+                                        '
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $yououtput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
+                                        }
+                                        $yououtput .=
+                                        '
+                                    </div>
+                                                    
+                                    <div class="col-3 align-self-center text-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">View</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $yououtput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $yououtput .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $yououtput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $yououtput .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $yououtput .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $yououtput .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $yououtput .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $yououtput .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $yououtput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+                
+            }else{
+                $yououtput = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
+    
+            
+            $data = array(
+                'table_data'  => $myoutput,
+                'total_data'  => $output,
+                'total_cancel'  => $yououtput,
+                );
+    
+            return response()->json($data);
+           
+            
+          }
     }
 
     public function approvemail(Request $req){
@@ -815,35 +2028,462 @@ class kaizenCont extends Controller
     }
 
     public function searchData(Request $req){
-        Session::put('kaizen', TRUE);
-        Session::forget('home');
+
+        // Session::put('kaizen', TRUE);
+        // Session::forget('home');
 
 
-        $search = $req->search;
-        $type = $req->kztype;
-        $status = $req->status;
-        $dept = $req->department;
-        $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-        $memberlist = View_Member::all();
+        // $search = $req->search;
+        // $type = $req->kztype;
+        // $status = $req->status;
+        // $dept = $req->department;
+        // $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+        // $memberlist = View_Member::all();
 
-        $scopelist = Kaizen_Scope::all();
-        $baselist = Kaizen_Baseline::all();
-        $backlist = Kaizen_Background::all();
-        $goalslist = Kaizen_Goals::all();
-        $delivlist = Kaizen_Deliverable::all();
-        $datelist = Kaizen_Date::all();
+        // $scopelist = Kaizen_Scope::all();
+        // $baselist = Kaizen_Baseline::all();
+        // $backlist = Kaizen_Background::all();
+        // $goalslist = Kaizen_Goals::all();
+        // $delivlist = Kaizen_Deliverable::all();
+        // $datelist = Kaizen_Date::all();
 
-        $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        if(!Session::get('login')){
-            return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-            // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
-        }else{
+        // $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
+        // if(!Session::get('login')){
+        //     return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        //     // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        // }else{
+        //     $id = Session::get('id');
+        //     $acc = User::where('id', '=', $id)->first();
+        //     $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+            
+        //     return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
+        // }
+        if($req->ajax()){
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
-            $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
+            $memberlist = View_Member::all();
+            $scopelist = Kaizen_Scope::all();
+            $baselist = Kaizen_Baseline::all();
+            $backlist = Kaizen_Background::all();
+            $goalslist = Kaizen_Goals::all();
+            $delivlist = Kaizen_Deliverable::all();
+            $datelist = Kaizen_Date::all();
+            $output = '';
+            $myoutput = '';
+            $query = $req->get('query');
+            $type = $req->get('type');
+            $dept = $req->get('dept');
+            if($query != ' ' || $type != ' ' || $dept != ' '){
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->where('Kaizen_status', 'Approved')
+                ->get();
+    
+                $myData = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')
+                ->where('Kaizen_title', 'like', '%'. $query . '%')
+                ->where('Kaizen_type', 'like', '%'. $type .'%')
+                ->where('Kaizen_dept', 'like', '%'. $dept .'%')
+                ->where('Kaizen_status', 'Recorded')
+                ->get();
+                
+    
+            }else{
+                $data = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+                $myData = View_ListDate::orderBy('Kaizen_DateFrom', 'DESC')->get();
+            }
+            $total_row = $data->count();
+            $total_my = $myData->count();
+            if($total_row > 0){
+                foreach($data as $list){
+    
+                    $output .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateFrom)).'</div>';
+                                        }
+                                        $output .=
+                                        '
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
+                                        }
+                                        $output .=
+                                        '
+                                    </div>
+                                                    
+                                    <div class="col-3 align-self-center text-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">View</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $output .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $output .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $output .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $output .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $output .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $output .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $output .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $output .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $output .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                                        if(Session::has("login")){
+                                            if($acc->kpkNum == "393560"){
+                                                $output .= '<a href="/kaizen-form/attendance-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Attend <i class="fas fa-user-check"></i></a>';
+                                            }
+                                        }
+                                        $output.=
+                                        '
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+            }else{
+                $output = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
             
-            return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        }
+            if($total_my > 0){
+                
+                foreach($myData as $list){
+    
+                    $myoutput .= 
+                            '<a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-5 align-self-center">
+                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateFrom)).'</div>';
+                                        }
+                                        $myoutput .=
+                                        '
+                                    </div>
+                                    <div class="col-2 align-self-center">
+                                        Date From';
+                                        foreach($datelist as $date){
+                                            if($list->Kaizen_ID == $date->Kaizen_ID)
+                                            $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
+                                        }
+                                        $myoutput .=
+                                        '
+                                    </div>
+                                                    
+                                    <div class="col-3 align-self-center text-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allkz'.$list->Kaizen_ID.'">View</button>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" id="allkz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Type
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_type .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Status
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_status .'
+                                            </div>
+                                        </div>
+                                        <div class="row  p-2 rounded">
+                                            <div class="col-3">
+                                                Date
+                                            </div>    
+                                            <div class="col">
+                                            ';
+                                                foreach($datelist as $dates){
+                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                        $myoutput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                    }
+                                                
+                                                $myoutput .=
+                                                '
+                                            </div>
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Department
+                                            </div>    
+                                            <div class="col">
+                                                '. $list->Kaizen_dept .'
+                                            </div>
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Member
+                                            </div>
+                                            <div class="col">';
+                                            foreach($memberlist as $mem)
+                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                    $myoutput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                    $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Scope
+                                            </div>
+                                            <div class="col">';
+                                            foreach($scopelist as $scope){
+                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $scope->scope .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Background
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($backlist as $back){
+                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $back->background .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Baseline
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($baselist as $base){
+                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $base->baseline .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2  rounded">
+                                            <div class="col-3">
+                                                Goals
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($goalslist as $goal){
+                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $goal->goals .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        <div class="row p-2">
+                                            <div class="col-3">
+                                                Deliverable
+                                            </div>
+                                            <div class="col">
+                                            ';
+                                            foreach($delivlist as $deliv){
+                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                        $myoutput .= '<li>'. $deliv->deliverable .'</li>';
+                                                }
+                                                $myoutput .=
+                                                '
+                                            </div> 
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                                        if(Session::has("login")){
+                                            if($acc->kpkNum == "393560"){
+                                                $myoutput .= '<a href="/kaizen-form/attendance-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update Attendance <i class="fas fa-user-edit"></i></a>';
+                                            }
+                                        }
+                                        $myoutput.=
+                                        '
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                }
+                
+            }else{
+                $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
+            }
+            
+    
+    
+            
+            
+            $data = array(
+                'table_data'  => $myoutput,
+                'total_data'  => $output,
+                );
+    
+            return response()->json($data);
+           
+            
+          }
     }
 
     public function cancelkaizen($kzid){
@@ -927,8 +2567,9 @@ class kaizenCont extends Controller
             }
         }
         $total_row = $data->count();
-        $total_my = $myData->count();
-
+        if($req->session()->has("login")){
+            $total_my = $myData->count();
+        }
         if($total_row > 0){
             foreach($data as $list){
 
@@ -1176,255 +2817,257 @@ class kaizenCont extends Controller
         }else{
             $output = '<h4 class="text-center mt-3">No Data Found</h4>';
         }
+        
+        if($req->session()->has("login")){
+            if($total_my > 0){
+                if($req->session()->has("login")){
+                    foreach($myData as $list){
 
-        if($total_my > 0){
-            if($req->session()->has("login")){
-                foreach($myData as $list){
-
-                    $myoutput .= 
-                            '<a class="list-group-item">
-                                <div class="row">
-                                    <div class="col-4 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="row">
-                                            <div class="col-10 align-self-center">
-                                                
-                                                <div class="row mb-2">
-                                                    <div class="col-2">
-                                                        <i class="fas fa-map-pin"></i>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        '.$list->Kaizen_dept.'
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-2">
-                                                        <i class="fas fa-user"></i>
-                                                    </div>
-                                                    <div class="col">';
+                        $myoutput .= 
+                                '<a class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-4 align-self-center">
+                                            <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
+                                            <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <div class="col-10 align-self-center">
                                                     
-                                                            foreach($memberlist as $members){
-                                                                if($list->Kaizen_ID == $members->Kaizen_ID){
-                                                                    if($members->member_roles == "Leader")
-                                                                        $myoutput .= $members->Fullname;
+                                                    <div class="row mb-2">
+                                                        <div class="col-2">
+                                                            <i class="fas fa-map-pin"></i>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            '.$list->Kaizen_dept.'
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                        <div class="col">';
+                                                        
+                                                                foreach($memberlist as $members){
+                                                                    if($list->Kaizen_ID == $members->Kaizen_ID){
+                                                                        if($members->member_roles == "Leader")
+                                                                            $myoutput .= $members->Fullname;
+                                                                    }
                                                                 }
-                                                            }
-                                                            $myoutput.=
-                                                            
-                                                            '
+                                                                $myoutput.=
+                                                                
+                                                                '
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-3 align-self-center">
-                                        <div class="row mb-2">
-                                            <div class="col-2">
-                                                <i class="far fa-calendar-alt"></i>
+                                        <div class="col-3 align-self-center">
+                                            <div class="row mb-2">
+                                                <div class="col-2">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </div>
+                                                <div class="col-8">
+                                                    ';
+                                                    foreach($datelist as $date){
+                                                        if($list->Kaizen_ID == $date->Kaizen_ID){
+                                                            
+                                                                $fdate = $date->Kaizen_DateFrom;
+                                                                $tdate = $date->Kaizen_DateTo;
+
+                                                                $datetime1 = new DateTime($fdate);
+                                                                $datetime2 = new DateTime($tdate);
+                                                                $interval = $datetime1->diff($datetime2);
+                                                                $days = $interval->format('%a');
+                                                            
+                                                            $myoutput .= $days+1;
+                                                        }
+                                                    }
+                                                    $myoutput.=
+                                                    '
+                                                    Day(s)
+                                                </div>
                                             </div>
-                                            <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <i class="fas fa-info-circle"></i>                 
+                                                </div>
+                                                <div class="col-10">
                                                 ';
-                                                foreach($datelist as $date){
-                                                    if($list->Kaizen_ID == $date->Kaizen_ID){
-                                                        
-                                                            $fdate = $date->Kaizen_DateFrom;
-                                                            $tdate = $date->Kaizen_DateTo;
-
-                                                            $datetime1 = new DateTime($fdate);
-                                                            $datetime2 = new DateTime($tdate);
-                                                            $interval = $datetime1->diff($datetime2);
-                                                            $days = $interval->format('%a');
-                                                        
-                                                        $myoutput .= $days+1;
-                                                    }
-                                                }
-                                                $myoutput.=
+                                                    if($list->Kaizen_status == "Waiting")
+                                                    $myoutput .= '<p>'. $list->Kaizen_status .' <i class="fas fa-exclamation-circle text-warning"></i></p>';
+                                                    else if($list->Kaizen_status == "Completed")
+                                                    $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-check-circle text-success"></i></p>';
+                                                    else if($list->Kaizen_status == "Recorded")
+                                                    $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-clipboard-list text-primary"></i></p>';
+                                                    else if($list->Kaizen_status == "Approved")
+                                                    $myoutput .='<p>'. $list->Kaizen_status .' <i class="far fa-thumbs-up text-primary"></i></p>';
+                                                    else
+                                                    $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-times-circle text-danger"></i></p>';
+                                                    
+                                                $myoutput .=   
                                                 '
-                                                Day(s)
+                                                </div>
+                                            
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <i class="fas fa-info-circle"></i>                 
-                                            </div>
-                                            <div class="col-10">
-                                            ';
-                                                if($list->Kaizen_status == "Waiting")
-                                                $myoutput .= '<p>'. $list->Kaizen_status .' <i class="fas fa-exclamation-circle text-warning"></i></p>';
-                                                else if($list->Kaizen_status == "Completed")
-                                                $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-check-circle text-success"></i></p>';
-                                                else if($list->Kaizen_status == "Recorded")
-                                                $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-clipboard-list text-primary"></i></p>';
-                                                else if($list->Kaizen_status == "Approved")
-                                                $myoutput .='<p>'. $list->Kaizen_status .' <i class="far fa-thumbs-up text-primary"></i></p>';
-                                                else
-                                                $myoutput .='<p>'. $list->Kaizen_status .' <i class="fas fa-times-circle text-danger"></i></p>';
-                                                
-                                            $myoutput .=   
-                                            '
-                                            </div>
-                                        
+                                        <div class="col-2 align-self-center">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#mykz'.$list->Kaizen_ID.'">Details</button>
                                         </div>
                                     </div>
-                                    <div class="col-2 align-self-center">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#mykz'.$list->Kaizen_ID.'">Details</button>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="modal fade" id="mykz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header bg-danger">
-                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row p-2">
-                                            <div class="col-3">
-                                                Type
-                                            </div>    
-                                            <div class="col">
-                                                '. $list->Kaizen_type .'
-                                            </div>
+                                </a>
+                                <div class="modal fade" id="mykz'. $list->Kaizen_ID .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">'. $list->Kaizen_title .'</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div class="row  p-2 rounded">
-                                            <div class="col-3">
-                                                Status
-                                            </div>    
-                                            <div class="col">
-                                                '. $list->Kaizen_status .'
+                                        <div class="modal-body">
+                                            <div class="row p-2">
+                                                <div class="col-3">
+                                                    Type
+                                                </div>    
+                                                <div class="col">
+                                                    '. $list->Kaizen_type .'
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row  p-2 rounded">
-                                            <div class="col-3">
-                                                Date
-                                            </div>    
-                                            <div class="col">
-                                            ';
-                                                foreach($datelist as $dates){
-                                                    if($list->Kaizen_ID == $dates->Kaizen_ID)
-                                                        $myoutput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
-                                                    }
-                                                
-                                                $myoutput .=
-                                                '
+                                            <div class="row  p-2 rounded">
+                                                <div class="col-3">
+                                                    Status
+                                                </div>    
+                                                <div class="col">
+                                                    '. $list->Kaizen_status .'
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row p-2">
-                                            <div class="col-3">
-                                                Department
-                                            </div>    
-                                            <div class="col">
-                                                '. $list->Kaizen_dept .'
-                                            </div>
-                                        </div>
-                                        <div class="row p-2  rounded">
-                                            <div class="col-3">
-                                                Member
-                                            </div>
-                                            <div class="col">';
-                                            foreach($memberlist as $mem)
-                                                if($list->Kaizen_ID == $mem->Kaizen_ID)
-                                                    $myoutput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                            <div class="row  p-2 rounded">
+                                                <div class="col-3">
+                                                    Date
+                                                </div>    
+                                                <div class="col">
+                                                ';
+                                                    foreach($datelist as $dates){
+                                                        if($list->Kaizen_ID == $dates->Kaizen_ID)
+                                                            $myoutput .= date("d M Y", strtotime($dates->Kaizen_DateFrom))  .'-'.   date("d M Y", strtotime($dates->Kaizen_DateTo));
+                                                        }
+                                                    
                                                     $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        <div class="row p-2">
-                                            <div class="col-3">
-                                                Scope
+                                                    '
+                                                </div>
                                             </div>
-                                            <div class="col">';
-                                            foreach($scopelist as $scope){
-                                                    if($list->Kaizen_ID == $scope->Kaizen_ID)
-                                                        $myoutput .= '<li>'. $scope->scope .'</li>';
-                                                }
-                                                $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        <div class="row p-2  rounded">
-                                            <div class="col-3">
-                                                Background
+                                            <div class="row p-2">
+                                                <div class="col-3">
+                                                    Department
+                                                </div>    
+                                                <div class="col">
+                                                    '. $list->Kaizen_dept .'
+                                                </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="row p-2  rounded">
+                                                <div class="col-3">
+                                                    Member
+                                                </div>
+                                                <div class="col">';
+                                                foreach($memberlist as $mem)
+                                                    if($list->Kaizen_ID == $mem->Kaizen_ID)
+                                                        $myoutput .= '<li>'.$mem->Fullname .'('.$mem->member_roles.')</li>';
+                                                        $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            <div class="row p-2">
+                                                <div class="col-3">
+                                                    Scope
+                                                </div>
+                                                <div class="col">';
+                                                foreach($scopelist as $scope){
+                                                        if($list->Kaizen_ID == $scope->Kaizen_ID)
+                                                            $myoutput .= '<li>'. $scope->scope .'</li>';
+                                                    }
+                                                    $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            <div class="row p-2  rounded">
+                                                <div class="col-3">
+                                                    Background
+                                                </div>
+                                                <div class="col">
+                                                ';
+                                                foreach($backlist as $back){
+                                                        if($list->Kaizen_ID == $back->Kaizen_ID)
+                                                            $myoutput .= '<li>'. $back->background .'</li>';
+                                                    }
+                                                    $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            <div class="row p-2">
+                                                <div class="col-3">
+                                                    Baseline
+                                                </div>
+                                                <div class="col">
+                                                ';
+                                                foreach($baselist as $base){
+                                                        if($list->Kaizen_ID == $base->Kaizen_ID)
+                                                            $myoutput .= '<li>'. $base->baseline .'</li>';
+                                                    }
+                                                    $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            <div class="row p-2  rounded">
+                                                <div class="col-3">
+                                                    Goals
+                                                </div>
+                                                <div class="col">
+                                                ';
+                                                foreach($goalslist as $goal){
+                                                        if($list->Kaizen_ID == $goal->Kaizen_ID)
+                                                            $myoutput .= '<li>'. $goal->goals .'</li>';
+                                                    }
+                                                    $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            <div class="row p-2">
+                                                <div class="col-3">
+                                                    Deliverable
+                                                </div>
+                                                <div class="col">
+                                                ';
+                                                foreach($delivlist as $deliv){
+                                                        if($list->Kaizen_ID == $deliv->Kaizen_ID)
+                                                            $myoutput .= '<li>'. $deliv->deliverable .'</li>';
+                                                    }
+                                                    $myoutput .=
+                                                    '
+                                                </div> 
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             ';
-                                            foreach($backlist as $back){
-                                                    if($list->Kaizen_ID == $back->Kaizen_ID)
-                                                        $myoutput .= '<li>'. $back->background .'</li>';
-                                                }
-                                                $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        <div class="row p-2">
-                                            <div class="col-3">
-                                                Baseline
-                                            </div>
-                                            <div class="col">
-                                            ';
-                                            foreach($baselist as $base){
-                                                    if($list->Kaizen_ID == $base->Kaizen_ID)
-                                                        $myoutput .= '<li>'. $base->baseline .'</li>';
-                                                }
-                                                $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        <div class="row p-2  rounded">
-                                            <div class="col-3">
-                                                Goals
-                                            </div>
-                                            <div class="col">
-                                            ';
-                                            foreach($goalslist as $goal){
-                                                    if($list->Kaizen_ID == $goal->Kaizen_ID)
-                                                        $myoutput .= '<li>'. $goal->goals .'</li>';
-                                                }
-                                                $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        <div class="row p-2">
-                                            <div class="col-3">
-                                                Deliverable
-                                            </div>
-                                            <div class="col">
-                                            ';
-                                            foreach($delivlist as $deliv){
-                                                    if($list->Kaizen_ID == $deliv->Kaizen_ID)
-                                                        $myoutput .= '<li>'. $deliv->deliverable .'</li>';
-                                                }
-                                                $myoutput .=
-                                                '
-                                            </div> 
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        ';
-                                            if($req->session()->has("login")){
+                                                if($req->session()->has("login")){
 
-                                                if($acc->kpkNum == "393560"){}
-                                                    $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
-                                            }
-                                                $myoutput.=
-                                            '
-                                    </div>
+                                                    if($acc->kpkNum == "393560"){}
+                                                        $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                }
+                                                    $myoutput.=
+                                                '
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            ';
+                                ';
+                    }
                 }
+            }else{
+                $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
             }
-        }else{
-            $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
         }
         
 

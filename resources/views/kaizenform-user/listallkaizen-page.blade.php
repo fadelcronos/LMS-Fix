@@ -16,8 +16,8 @@
 
         <div class="container-fluid">
             <!-- Begin ALL Kaizen Page Content -->
-            <form action="{{ url('/kaizen-form/list-kaizen')}}" method="post">
-                @csrf
+            <!-- <form action="{{ url('/kaizen-form/list-kaizen')}}" method="post">
+                @csrf -->
                 <div class="row">
                     <div class="col-md-2 ml-4">
                         <div class="form-group row">  
@@ -26,7 +26,7 @@
                                 <div class="pt-2 pl-2 pr-2 pb-3">
                                     <h5 class="text-dark">Filter</h5>
                                     <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold text-danger">Kaizen Type</label>
-                                    <select class="form-control form-control-sm" id="exampleSelect1" name="kztype">
+                                    <select class="form-control form-control-sm" id="kztype" name="kztype">
                                         <option value="" selected>All Kaizen Type</option>
                                         <option value="BPK">BPK</option>
                                         <option value="SFK">SFK</option>
@@ -149,232 +149,8 @@
                                 <!-- tab all kaizen -->
                                 <div class="tab-pane fade show active" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
                                     <div class="pt-2 pb-2">Search result(s) for all Kaizen</div>
-                                    <div class="list-group vertical-scrollable">
-                                        @foreach($kaizen_list as $list)
-                                            <a class="list-group-item">
-                                                <div class="row">
-                                                    <div class="col-4 align-self-center">
-                                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">{{ $list->Kaizen_title }}</h5></div>
-                                                        <div class="row align-self-end">Kaizen Type : {{ $list->Kaizen_type }}</div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-10 align-self-center">
-                                                                
-                                                                <div class="row mb-2">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-map-pin"></i>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        {{ $list->Kaizen_dept }}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-user"></i>
-                                                                    </div>
-                                                                    <div class="col">
-                                                                        @foreach($memberlist as $members)
-                                                                            @if($list->Kaizen_ID == $members->Kaizen_ID)
-                                                                                @if($members->member_roles == 'Leader')
-                                                                                    {{$members->Fullname}}
-                                                                                @endif
-                                                                            @endif
-                                                                        @endforeach 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 align-self-center">
-                                                        <div class="row mb-2">
-                                                            <div class="col-2">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                @foreach($datelist as $date)
-                                                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
-                                                                        @php
-                                                                            $fdate = $date->Kaizen_DateFrom;
-                                                                            $tdate = $date->Kaizen_DateTo;
-
-                                                                            $datetime1 = new DateTime($fdate);
-                                                                            $datetime2 = new DateTime($tdate);
-                                                                            $interval = $datetime1->diff($datetime2);
-                                                                            $days = $interval->format('%a');
-                                                                        @endphp
-                                                                        {{$days+1}}
-                                                                    @endif
-                                                                @endforeach
-                                                                Day(s)
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="row">
-                                                            Status
-                                                        </div> -->
-                                                        <div class="row">
-                                                            <div class="col-2">
-                                                                <i class="fas fa-info-circle"></i>                 
-                                                            </div>
-                                                            <div class="col-10">
-                                                                @if($list->Kaizen_status == 'Waiting')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Completed')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Recorded')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-clipboard-list text-primary"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Approved')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i></p>
-                                                                @else
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-times-circle text-danger"></i></p>
-                                                                @endif
-                                                            </div>
-                                                        
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-2 align-self-center">
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#allkz{{$list->Kaizen_ID}}">Details</button>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="modal fade" id="allkz{{ $list->Kaizen_ID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">{{ $list->Kaizen_title }}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Type
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_type }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row  p-2 rounded">
-                                                            <div class="col-3">
-                                                                Status
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_status }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row  p-2 rounded">
-                                                            <div class="col-3">
-                                                                Date
-                                                            </div>    
-                                                            <div class="col">
-                                                                @foreach($datelist as $dates)
-                                                                    @if($list->Kaizen_ID == $dates->Kaizen_ID)
-                                                                        {{ date("d M Y", strtotime($dates->Kaizen_DateFrom)) }}  -  {{ date("d M Y", strtotime($dates->Kaizen_DateTo)) }}
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Department
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_dept }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row p-2  rounded">
-                                                            <div class="col-3">
-                                                                Member
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($memberlist as $mem)
-                                                                @if($list->Kaizen_ID == $mem->Kaizen_ID)
-                                                                    <li>{{ $mem->Fullname }} ({{ $mem->member_roles }})</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Scope
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($scopelist as $scope)
-                                                                    @if($list->Kaizen_ID == $scope->Kaizen_ID)
-                                                                    
-                                                                        <li>{{ $scope->scope }}</li>
-                                                                    
-                                                                    @endif
-                                                                @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2  rounded">
-                                                            <div class="col-3">
-                                                                Background
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($backlist as $back)
-                                                                @if($list->Kaizen_ID == $back->Kaizen_ID)
-                                                                    <li>{{ $back->background }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Baseline
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($baselist as $base)
-                                                                @if($list->Kaizen_ID == $base->Kaizen_ID)
-                                                                    <li>{{ $base->baseline }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2  rounded">
-                                                            <div class="col-3">
-                                                                Goals
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($goalslist as $goal)
-                                                                @if($list->Kaizen_ID == $goal->Kaizen_ID)
-                                                                    <li>{{ $goal->goals }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Deliverable
-                                                            </div>
-                                                            <div class="col">
-                                                                @if(count($delivlist) > 0)      
-                                                                    @foreach($delivlist as $deliv)
-                                                                        @if($list->Kaizen_ID == $deliv->Kaizen_ID)
-                                                                            <li>{{ $deliv->deliverable }}</li>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>-</p>
-                                                                @endif
-                                                            </div> 
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        @if(Session::has('login'))
-                                                            @if($acc->kpkNum == '393560')
-                                                                <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
-                                                            @endif
-                                                        @endif
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                    <div class="list-group vertical-scrollable" id="bodyAcc">
+                                        
                                     </div>
                                     
                                     <!-- Modal All Kaizen-->
@@ -386,251 +162,11 @@
                                 @if(Session::has('login'))
                                 <div class="tab-pane fade" id="nav-mykz" role="tabpanel" aria-labelledby="nav-mykz-tab">
                                     <div class="pt-2 pb-2">Search result(s) for my Kaizen</div>
+                                    <div class="list-group vertical-scrollable" id="myAcc">
 
-                                    <div class="list-group vertical-scrollable">
-                                        @foreach($myKaizen_list as $list)
-                                            <a class="list-group-item">
-                                                <div class="row">
-                                                    <div class="col-4 align-self-center">
-                                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">{{ $list->Kaizen_title }}</h5></div>
-                                                        <div class="row align-self-end">Kaizen Type : {{ $list->Kaizen_type }}</div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-10 align-self-center">
-                                                                
-                                                                <div class="row mb-2">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-map-pin"></i>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        {{ $list->Kaizen_dept }}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-2">
-                                                                        <i class="fas fa-user"></i>
-                                                                    </div>
-                                                                    <div class="col">
-                                                                        @foreach($memberlist as $members)
-                                                                            @if($list->Kaizen_ID == $members->Kaizen_ID)
-                                                                                @if($members->member_roles == 'Leader')
-                                                                                    {{$members->Fullname}}
-                                                                                @endif
-                                                                            @endif
-                                                                        @endforeach 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 align-self-center">
-                                                        <div class="row mb-2">
-                                                            <div class="col-2">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                @foreach($datelist as $date)
-                                                                    @if($list->Kaizen_ID == $date->Kaizen_ID)
-                                                                        @php
-                                                                            $fdate = $date->Kaizen_DateFrom;
-                                                                            $tdate = $date->Kaizen_DateTo;
-
-                                                                            $datetime1 = new DateTime($fdate);
-                                                                            $datetime2 = new DateTime($tdate);
-                                                                            $interval = $datetime1->diff($datetime2);
-                                                                            $days = $interval->format('%a');
-                                                                        @endphp
-                                                                        {{$days+1}}
-                                                                    @endif
-                                                                @endforeach
-                                                                Day(s)
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-2">
-                                                                <i class="fas fa-info-circle"></i>
-                                                            </div>
-                                                            <div class="col-10">
-                                                                @if($list->Kaizen_status == 'Waiting')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-exclamation-circle text-warning"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Completed')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-check-circle text-success"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Recorded')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-clipboard-list text-primary"></i></p>
-                                                                @elseif($list->Kaizen_status == 'Approved')
-                                                                    <p>{{ $list->Kaizen_status }} <i class="far fa-thumbs-up text-primary"></i></p>
-                                                                @else
-                                                                    <p>{{ $list->Kaizen_status }} <i class="fas fa-times-circle text-danger"></i></p>
-                                                                @endif
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-2 align-self-center">
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#mykz{{ $list->Kaizen_ID }}">Details</button>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="modal fade" id="mykz{{ $list->Kaizen_ID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="text font-weight-bold text-light text-uppercase" id="exampleModalLongTitle">{{ $list->Kaizen_title }}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Type
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_type }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row p-2 rounded">
-                                                            <div class="col-3">
-                                                                Status
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_status }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row  p-2 rounded">
-                                                            <div class="col-3">
-                                                                Date
-                                                            </div>    
-                                                            <div class="col">
-                                                                @foreach($datelist as $dates)
-                                                                    @if($list->Kaizen_ID == $dates->Kaizen_ID)
-                                                                        {{ date("d M Y", strtotime($dates->Kaizen_DateFrom)) }}  -  {{ date("d M Y", strtotime($dates->Kaizen_DateTo)) }}
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Department
-                                                            </div>    
-                                                            <div class="col">
-                                                                {{ $list->Kaizen_dept }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row p-2 rounded">
-                                                            <div class="col-3">
-                                                                Member
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($memberlist as $mem)
-                                                                @if($list->Kaizen_ID == $mem->Kaizen_ID)
-                                                                    <li>{{ $mem->Fullname }} ({{ $mem->member_roles }})</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Scope
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($scopelist as $scope)
-                                                                    @if($list->Kaizen_ID == $scope->Kaizen_ID)
-                                                                    
-                                                                        <li>{{ $scope->scope }}</li>
-                                                                    
-                                                                    @endif
-                                                                @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2 rounded">
-                                                            <div class="col-3">
-                                                                Background
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($backlist as $back)
-                                                                @if($list->Kaizen_ID == $back->Kaizen_ID)
-                                                                    <li>{{ $back->background }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Baseline
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($baselist as $base)
-                                                                @if($list->Kaizen_ID == $base->Kaizen_ID)
-                                                                    <li>{{ $base->baseline }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2 rounded">
-                                                            <div class="col-3">
-                                                                Goals
-                                                            </div>
-                                                            <div class="col">
-                                                            @foreach($goalslist as $goal)
-                                                                @if($list->Kaizen_ID == $goal->Kaizen_ID)
-                                                                    <li>{{ $goal->goals }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                            </div> 
-                                                        </div>
-                                                        <div class="row p-2">
-                                                            <div class="col-3">
-                                                                Deliverable
-                                                            </div>
-                                                            <div class="col">
-                                                                @if(count($delivlist) > 0)      
-                                                                    @foreach($delivlist as $deliv)
-                                                                        @if($list->Kaizen_ID == $deliv->Kaizen_ID)
-                                                                            <li>{{ $deliv->deliverable }}</li>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>-</p>
-                                                                @endif
-                                                            </div> 
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="/kaizen-form/update-kaizen/{{ $list->Kaizen_ID }}" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        @endforeach
                                     </div>
 
-                                    <!-- Modal My Kaizen-->
-                                    <div class="modal fade" id="mykzModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h3>Kaizen Title</h3>
-                                                    <h5>Kaizen Type</h5>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, a, doloribus quidem sunt distinctio ad magni quia nostrum facere temporibus suscipit accusantium expedita, tenetur sed aliquid at eos eius quae.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 @endif
                             </div>
@@ -639,8 +175,77 @@
 
                     </div>
                 </div>
-            </form>  
+            <!-- </form>   -->
         </div>
         <!-- /.container-fluid -->
+       
+
+       <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script>
+    $(document).ready(function(){
+
+        fetch_customer_data();
+
+        function fetch_customer_data(query = '', type = '', status = '', dept = '')
+        {
+            $.ajax({
+                url:"{{ route('actionlist') }}",
+                method:'GET',
+                data:{query:query, type:type, status:status, dept:dept,},
+                dataType:'json',
+                beforeSend: function(){
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
+                },
+                success:function(data){
+                    // var output = '';
+                    // $('#bodyAcc').html(data.table_data);
+                    // $.each(data, function(index, ))
+                    // console.log(data.total_data);
+                    $('#bodyAcc').html(data. total_data);
+                    $('#myAcc').html(data.table_data);
+                },
+                error:function(){
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
+                },
+            });
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            var type = $('#kztype').val();
+            var status = $('[name=status]:checked').val();
+
+            var dept = $('[name=department]:checked').val();
+            fetch_customer_data(query, type, status, dept);
+            });
+
+        $(document).on('change', '#kztype', function(){
+            var query = $('#search').val();
+            var type = $('#kztype').val();
+            var status = $('[name=status]:checked').val();
+
+            var dept = $('[name=department]:checked').val();
+            fetch_customer_data(query, type, status, dept);
+        });
+
+        $(document).on('click', '[name=status]', function(){
+            var query = $('#search').val();
+            var type = $('#kztype').val();
+            var status = $('[name=status]:checked').val();
+            var dept = $('[name=department]:checked').val();
+            fetch_customer_data(query, type, status, dept);
+        });
+
+        $(document).on('click', '[name=department]', function(){
+            var query = $('#search').val();
+            var type = $('#kztype').val();
+            var status = $('[name=status]:checked').val();
+            var dept = $('[name=department]:checked').val();
+            fetch_customer_data(query, type, status, dept);
+        });
+    });
+  </script>
     
 @endsection

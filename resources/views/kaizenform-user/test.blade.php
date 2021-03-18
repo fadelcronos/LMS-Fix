@@ -193,14 +193,22 @@
                 method:'GET',
                 data:{query:query, type:type, status:status, dept:dept,},
                 dataType:'json',
+                beforeSend: function(){
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
+                },
                 success:function(data){
                     // var output = '';
                     // $('#bodyAcc').html(data.table_data);
                     // $.each(data, function(index, ))
                     // console.log(data.total_data);
-                    $('#bodyAcc').html(data.total_data);
+                    $('#bodyAcc').html(data. total_data);
                     $('#myAcc').html(data.table_data);
-                }
+                },
+                error:function(){
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
+                },
             });
         }
 
