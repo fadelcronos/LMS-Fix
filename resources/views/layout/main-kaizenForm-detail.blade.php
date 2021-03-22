@@ -51,10 +51,10 @@
       @else
         <a style="padding-top: 30px" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/homepage') }}">
       @endif
-        <div class="sidebar-brand-icon rotate-n-15 p-2 pb-3">
-          <img class="img-fluid" src="../../img/MATTEL LOGO WHITE.png" alt="">
+        <div class="sidebar-brand-icon p-2 pb-3">
+          <img class="" src="../../img/MATTEL LOGO WHITE.png" style="height:3.5em; width:auto"  alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">kaizen form</div>
+        <div class="sidebar-brand-text mx-3 font1">kaizen form</div>
       </a>
 
       <!-- Divider -->
@@ -64,58 +64,85 @@
       <li class="nav-item @yield('listKaizen')">
         <a class="nav-link" href="{{url('/kaizen-form/list-kaizen')}}">
           <i class="fas fa-list"></i>
-          <span>List Kaizen</span></a>
+          <span class="font2">List Kaizen</span></a>
       </li>
       <hr class="sidebar-divider my-0">
 
-      <li class="nav-item @yield('addKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-          <i class="fas fa-plus"></i>
-          <span>Add Kaizen</span></a>
-      </li>
+      @if(Session::has('login'))
+        <li class="nav-item @yield('addKaizen')">
+          <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
+            <i class="fas fa-plus"></i>
+            <span class="font2">Add Kaizen</span></a>
+        </li>
 
-      <!-- <hr class="sidebar-divider my-0">
+        <!-- <hr class="sidebar-divider my-0">
 
-      <li class="nav-item @yield('updateKaizen')">
-        <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
-          <i class="fas fa-edit"></i>
-          <span>Update Kaizen</span></a>
-      </li> -->
+        <li class="nav-item @yield('updateKaizen')">
+          <a class="nav-link" href="{{url('/kaizen-form/update-kaizen')}}">
+            <i class="fas fa-edit"></i>
+            <span>Update Kaizen</span></a>
+        </li> -->
 
-      <hr class="sidebar-divider my-0">
+        <hr class="sidebar-divider my-0">
 
-      @if(Session::has('admin') && $acc->kpkNum == '393560')
-      <li class="nav-item @yield('approvalKaizen')">
-        <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
-          <i class="fas fa-check-square"></i>
-          <span>Approval Kaizen</span>
-          @if(count($totWait) <= 0)
-          @else
-          <span class="badge-notify text-red rounded font-weight-bold pr-2 pl-2 pt-1 pb-1">{{ count($totWait)}}</span>
-          @endif 
-        </a>
-      </li>
+        @if(Session::has('admin') && $acc->kpkNum == '393560')
+          <li class="nav-item @yield('approvalKaizen')">
+            <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
+              <i class="fas fa-check-square"></i>
+              <span class="font2">Approval Kaizen</span>
+              @if(count($totWait) <= 0)
+              @else
+                <span class="badge-notify text-red rounded font-weight-bold pr-2 pl-2 pt-1 pb-1">{{ count($totWait)}}</span>
+              @endif 
+            
+            </a>
+          </li>
 
-      <hr class="sidebar-divider my-0">
+          <hr class="sidebar-divider my-0">
           
           <li class="nav-item @yield('attendance')">
           <a class="nav-link" href="{{url('/kaizen-form/attendance-kaizen')}}">
             <i class="fas fa-user-edit"></i>
-            <span>Attendance</span></a>
+            <span class="font2">Attendance</span></a>
           </li>
 
           <hr class="sidebar-divider my-0">
+        @endif
+
+        <li class="nav-item @yield('dashboard')">
+          <a class="nav-link" href="{{url('/kaizen-form/dashboard')}}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="font2">Dashboard</span>
+          </a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
+      @else
+        <li class="nav-item @yield('addKaizen')">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModalCenter" href="">
+            <i class="fas fa-plus"></i>
+            <span class="font2">Add Kaizen</span></a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item @yield('updateKaizen')">
+          <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-edit"></i>
+            <span class="font2">Update Kaizen</span></a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item @yield('dashboard')">
+          <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="font2">Dashboard</span>
+          </a>
+        </li>
+
+        <hr class="sidebar-divider my-0">
       @endif
-
-      <li class="nav-item @yield('dashboard')">
-        <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
-          <i class="fas fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-
-      <hr class="sidebar-divider my-0">
-
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -213,7 +240,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Lean Management System 2021</span>
+            <span>Copyright &copy; Fadel Cahyo LSC Intern</span>
           </div>
         </div>
       </footer>

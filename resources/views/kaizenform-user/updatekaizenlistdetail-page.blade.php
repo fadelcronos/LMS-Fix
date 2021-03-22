@@ -298,17 +298,17 @@
                 <div class="row justify-content-end pt-2">
                   <div class="col-md-3 pt-2 ">
                     @if($acc->kpkNum == '393560')
-                      <button type="submit" class="btn btn-customyel btn-block text-uppercase">
-                          UPDATE
+                      <button type="submit" class="btn btn-danger btn-block font2">
+                          Update
                       </button>
                     @else
                       @if($rolesKaizen->member_roles == 'Leader' || $rolesKaizen->member_roles == 'Facilitator' || $rolesKaizen->member_roles == 'Sponsor')
-                        <button type="submit" class="btn btn-customyel btn-user btn-block text-uppercase">
-                          UPDATE
+                        <button type="submit" class="btn btn-danger btn-block font2">
+                          Update
                         </button>
                       @else
-                        <button class="btn btn-customyel btn-user btn-block text-uppercase" disabled>
-                          UPDATE
+                        <button class="btn btn-danger btn-block font2" disabled>
+                          Update
                         </button>
                       @endif
                       

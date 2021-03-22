@@ -118,8 +118,8 @@
                   
                   <div class="row justify-content-center">
                     <div class="col-md-3">
-                      <button type="submit" class="btn btn-customyel btn-block text-uppercase p-2">
-                          APPROVE
+                      <button type="submit" class="btn btn-danger btn-block p-2">
+                          Approve
                       </button>
                       <input type="text" name="userKpk" value={{ $acc->kpkNum }} hidden>
                     </div>

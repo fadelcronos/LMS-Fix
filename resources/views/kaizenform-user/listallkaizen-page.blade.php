@@ -14,19 +14,17 @@
 <!-- Main Content -->
 
 
-        <div class="container-fluid">
+        <div class="container">
             <!-- Begin ALL Kaizen Page Content -->
             <!-- <form action="{{ url('/kaizen-form/list-kaizen')}}" method="post">
                 @csrf -->
-                <div class="row">
-                    <div class="col-md-2 ml-4">
-                        <div class="form-group row">  
+                <div class="row mt-4">
+                    <div class="col-3">
                             <div class="border-0 shadow-lg rounded ml-2 mr-2">
-                                
                                 <div class="pt-2 pl-2 pr-2 pb-3">
-                                    <h5 class="text-dark">Filter</h5>
-                                    <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold text-danger">Kaizen Type</label>
-                                    <select class="form-control form-control-sm" id="kztype" name="kztype">
+                                    <h5 class="text-dark font2 font-weight-bold">Filter</h5>
+                                    <label for="exampleSelect1" class="bmd-label-floating blk font-weight-bold text-danger font2">Kaizen Type</label>
+                                    <select class="form-control form-control-sm font2" id="kztype" name="kztype">
                                         <option value="" selected>All Kaizen Type</option>
                                         <option value="BPK">BPK</option>
                                         <option value="SFK">SFK</option>
@@ -35,8 +33,8 @@
                                     </select>
                                 </div>
 
-                                <div class="pl-2 pr-2 pb-3">
-                                    <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold text-danger">STATUS</label>
+                                <div class="pl-2 pr-2 pb-3 ">
+                                    <label for="exampleSelect1" class="bmd-label-floating blk font-weight-bold text-danger font2">Status</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="stat0" value="" checked>
                                         <label class="form-check-label" for="stat0">All</label>
@@ -64,7 +62,7 @@
                                 </div>
 
                                 <div class="pl-2 pr-2 pb-3">
-                                    <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold text-danger">Department</label>
+                                    <label for="exampleSelect1" class="bmd-label-floating blk font-weight-bold text-danger font2">Department</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="department" id="dept0" value="" checked>
                                         <label class="form-check-label" for="dept0">All Department</label>
@@ -87,11 +85,11 @@
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="department" id="dept5" value="Manufacturing East">
-                                        <label class="form-check-label" for="dept5">Manufacturing East Plant</label>    
+                                        <label class="form-check-label" for="dept5">Manufacturing East</label>    
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="department" id="dept6" value="Manufacturing West">
-                                        <label class="form-check-label" for="dept6">Manufacturing West Plant</label>    
+                                        <label class="form-check-label" for="dept6">Manufacturing West</label>    
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="department" id="dept7" value="Materials">
@@ -107,39 +105,23 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
-
-                    <div class="col-md-9 ml-4">
-                        
-                        <div class="search-form pt-2 pb-3">
-                            @csrf
-                            <div class="row">
-                                <div class="col-10">
-                                @if(Session::has('msgSearch'))
-                                    <input class="form-control" id="search" name="search" type="text" placeholder="Search Kaizen..."  value="aaa">
-                                @else
-                                    <input class="form-control" id="search" name="search" type="text" placeholder="Search Kaizen..."  value="">
-                                @endif
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-danger" type="submit">Search 
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                    <!-- <a class="btn btn-customyel" href="{{url('/kaizen-form/list-kaizen')}}">
-                                        <i class="fas fa-redo-alt fa-sm"></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--nav tab-->
+                    <div class="col-9 ">
                         <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active text-danger" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">All Kaizen</a>
+                            <div class="nav nav-tabs d-flex" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active text-dark" id="nav-allkz-tab" data-toggle="tab" href="#nav-allkz" role="tab" aria-controls="nav-allkz" aria-selected="true">All Kaizen</a>
                                 @if(Session::has('login'))
-                                    <a class="nav-item nav-link text-danger" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">My Kaizen</a>
+                                    <a class="nav-item nav-link text-dark" id="nav-mykz-tab" data-toggle="tab" href="#nav-mykz" role="tab" aria-controls="nav-mykz" aria-selected="false">My Kaizen</a>
                                 @endif
+                                <div class="ml-auto">
+                                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="search" name="search" placeholder="Search Kaizen...">
+                                        <div class="input-group-prepend rounded-right">
+                                            <div class="input-group-text rounded-right"><i class="fas fa-search"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </nav>
 
@@ -149,13 +131,7 @@
                                 <!-- tab all kaizen -->
                                 <div class="tab-pane fade show active" id="nav-allkz" role="tabpanel" aria-labelledby="nav-allkz-tab">
                                     <div class="pt-2 pb-2">Search result(s) for all Kaizen</div>
-                                    <div class="list-group vertical-scrollable" id="bodyAcc">
-                                        
-                                    </div>
-                                    
-                                    <!-- Modal All Kaizen-->
-                                    
-
+                                    <div class="list-group vertical-scrollable" id="bodyAcc"></div>
                                 </div>
                                 
                                 <!-- tab my kaizen -->
@@ -194,8 +170,8 @@
                 data:{query:query, type:type, status:status, dept:dept,},
                 dataType:'json',
                 beforeSend: function(){
-                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
-                    $('#myAcc').html('<h4 class="text-center mt-3 text-blk">Loading...</h4>');
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 font2">Loading...</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 font2">Loading...</h4>');
                 },
                 success:function(data){
                     // var output = '';
@@ -206,8 +182,8 @@
                     $('#myAcc').html(data.table_data);
                 },
                 error:function(){
-                    $('#bodyAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
-                    $('#myAcc').html('<h4 class="text-center mt-3 text-danger">Error getting data</h4>');
+                    $('#bodyAcc').html('<h4 class="text-center mt-3 font2">Error getting data</h4>');
+                    $('#myAcc').html('<h4 class="text-center mt-3 font2">Error getting data</h4>');
                 },
             });
         }

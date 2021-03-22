@@ -87,7 +87,7 @@
         <div class="sidebar-brand-icon p-2 pb-3">
           <img class="" src="../img/MATTEL LOGO WHITE.png" style="height:3.5em; width:auto"  alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">kaizen form</div>
+        <div class="sidebar-brand-text mx-3 font1">kaizen form</div>
       </a>
 
       <!-- Divider -->
@@ -97,7 +97,7 @@
       <li class="nav-item @yield('listKaizen')">
         <a class="nav-link" href="{{url('/kaizen-form/list-kaizen')}}">
           <i class="fas fa-list"></i>
-          <span>List Kaizen</span></a>
+          <span class="font2">List Kaizen</span></a>
       </li>
       <hr class="sidebar-divider my-0">
 
@@ -105,7 +105,7 @@
         <li class="nav-item @yield('addKaizen')">
           <a class="nav-link" href="{{url('/kaizen-form/add-kaizen')}}">
             <i class="fas fa-plus"></i>
-            <span>Add Kaizen</span></a>
+            <span class="font2">Add Kaizen</span></a>
         </li>
 
         <!-- <hr class="sidebar-divider my-0">
@@ -122,7 +122,7 @@
           <li class="nav-item @yield('approvalKaizen')">
             <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
               <i class="fas fa-check-square"></i>
-              <span>Approval Kaizen</span>
+              <span class="font2">Approval Kaizen</span>
               @if(count($totWait) <= 0)
               @else
                 <span class="badge-notify text-red rounded font-weight-bold pr-2 pl-2 pt-1 pb-1">{{ count($totWait)}}</span>
@@ -136,7 +136,7 @@
           <li class="nav-item @yield('attendance')">
           <a class="nav-link" href="{{url('/kaizen-form/attendance-kaizen')}}">
             <i class="fas fa-user-edit"></i>
-            <span>Attendance</span></a>
+            <span class="font2">Attendance</span></a>
           </li>
 
           <hr class="sidebar-divider my-0">
@@ -145,7 +145,7 @@
         <li class="nav-item @yield('dashboard')">
           <a class="nav-link" href="{{url('/kaizen-form/dashboard')}}">
             <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span class="font2">Dashboard</span>
           </a>
         </li>
 
@@ -154,7 +154,7 @@
         <li class="nav-item @yield('addKaizen')">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModalCenter" href="">
             <i class="fas fa-plus"></i>
-            <span>Add Kaizen</span></a>
+            <span class="font2">Add Kaizen</span></a>
         </li>
 
         <hr class="sidebar-divider my-0">
@@ -162,7 +162,7 @@
         <li class="nav-item @yield('updateKaizen')">
           <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
             <i class="fas fa-edit"></i>
-            <span>Update Kaizen</span></a>
+            <span class="font2">Update Kaizen</span></a>
         </li>
 
         <hr class="sidebar-divider my-0">
@@ -170,7 +170,7 @@
         <li class="nav-item @yield('dashboard')">
           <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModalCenter">
             <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span class="font2">Dashboard</span>
           </a>
         </li>
 
@@ -202,29 +202,29 @@
               @if(Session::has('user'))
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle font2" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
                         <span class="mr-2 ml-2 d-lg-inline text-red-600 small"><div class="text-red">{{ $acc->Fullname }}</div></span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/user/details') }}">
+                        <a class="dropdown-item font2" href="{{ url('/user/details') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-danger-400"></i>
                             My Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/user/details') }}">
+                        <a class="dropdown-item font2" href="{{ url('/user/details') }}">
                         <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-danger-400"></i>
                             Edit Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/user/changepassword') }}">
+                        <a class="dropdown-item font2" href="{{ url('/user/changepassword') }}">
                             <i class="fas fa-key fa-sm fa-fw mr-2 text-danger-400"></i>
                             Change Password
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">
+                        <a class="dropdown-item font2" href="{{ url('/logout') }}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"></i>
                             Logout
                         </a>
@@ -232,29 +232,29 @@
                 </li>
               @else
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle font2" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../adminimg/{{ $acc->image }}">
                         <span class="mr-2 ml-2 d-lg-inline text-red-600 small"><div class="text-red">{{ $acc->Fullname }}</div></span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/admin-profile') }}">
+                        <a class="dropdown-item font2" href="{{ url('/admin-profile') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-danger-400"></i>
                             My Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/admin-edit') }}">
+                        <a class="dropdown-item font2" href="{{ url('/admin-edit') }}">
                         <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-danger-400"></i>
                             Edit Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/admin-changepassword') }}">
+                        <a class="dropdown-item font2" href="{{ url('/admin-changepassword') }}">
                             <i class="fas fa-key fa-sm fa-fw mr-2 text-danger-400"></i>
                             Change Password
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">
+                        <a class="dropdown-item font2" href="{{ url('/logout') }}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"></i>
                             Logout
                         </a>
@@ -319,7 +319,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Lean Management System 2021</span>
+            <span>Copyright &copy; Fadel Cahyo LSC Intern</span>
           </div>
         </div>
       </footer>

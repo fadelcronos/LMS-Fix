@@ -99,7 +99,7 @@
                 <div class="row justify-content-end pt-2">
                   <div class="col-md-3 pt-2 ">
                     @if($acc->kpkNum == '393560')
-                    <button type="submit" class="btn btn-customyel btn-block text-uppercase">
+                    <button type="submit" class="btn btn-danger btn-block">
                           Record Attendance
                     </button>
                     @endif
