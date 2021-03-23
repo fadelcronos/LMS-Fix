@@ -42,7 +42,7 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="adminimg/{{ $acc->image }}">
-               <h2 class="text-primary fontApple" style="font-weight: 600;">Hello, {{ $acc->Fullname }}</h2>
+               <h2 class="font0 font-weight-bold" style="color:#D12421">Hello, {{ $acc->Fullname }}</h2>
                 <div class="inline">
                   <a href="{{ url('/admin-profile') }}" class="text-red">Account Settings</a>
                 </div>
@@ -53,7 +53,7 @@
 
           <div class="row mt-4">
             <div class="col">
-              <h2 class="text text-red text-center">Main Menu</h2>
+              <h2 class="text-red text-center font4 font-weight-bold">Main Menu</h2>
             </div>
           </div>
             <div class="row">
@@ -61,7 +61,7 @@
                 <div class="card card_three text-center" onclick="goWeb(1)">
                   <div class="title">
                     <i class="fa fa-chart-line" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Kaizen Form</h2>
+                    <h2 class="font4 font-weight-bold">Kaizen Form</h2>
                   </div>
                 </div>
               </div>
@@ -69,7 +69,7 @@
                 <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-file-alt" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Project Form</h2>
+                    <h2 class="font4 font-weight-bold">Project Form</h2>
                   </div>
                 </div>
               </div>
@@ -77,14 +77,14 @@
                 <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-users" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Kerja Bersama</h2>
+                    <h2 class="font4 font-weight-bold">Kerja Bersama</h2>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row mt-5">
               <div class="col text-center">
-                <h2 class="text text-red">Admin Menu</h2>
+                <h2 class="text-red text-center font4 font-weight-bold">Admin Menu</h2>
               </div>
             </div>
             <div class="row">
@@ -92,7 +92,7 @@
                   <div class="card card_three text-center" onclick="goWeb(4)">
                     <div class="title">
                       <i class="fa fa-user-friends" aria-hidden="true"></i>
-                      <h2 class="fontApple" style="font-weight:400;">List User</h2>
+                      <h2 class="font4 font-weight-bold">List User</h2>
                     </div>
                   </div>
                 </div>
@@ -100,7 +100,7 @@
                   <div class="card card_three text-center" onclick="goWeb(5)">
                     <div class="title">
                       <i class="fa fa-user-plus" aria-hidden="true"></i>
-                      <h2 class="fontApple" style="font-weight:400;">Add User</h2>
+                      <h2 class="font4 font-weight-bold">Add User</h2>
                     </div>
                   </div>
                 </div>

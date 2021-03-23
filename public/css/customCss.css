@@ -92,6 +92,10 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
     color: #e74a3b !important;
 }
 
+.font0{
+    font-size: 20px !important;
+}
+
 .font1{
     font-size: 18px !important;
 }
@@ -102,4 +106,8 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
 
 .font3{
     font-size: 14px !important;
+}
+
+.font4{
+    font-size: 22px !important;
 }

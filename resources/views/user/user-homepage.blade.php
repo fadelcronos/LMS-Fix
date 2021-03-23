@@ -46,7 +46,7 @@
             <div class="col d-flex justify-content-center">
               <div class="title text-center">
               <img class="rounded-circle z-depth-2" style="width: 150px; height:150px;" alt="" src="userimg/{{ $acc->image }}">
-               <h2 class="fontApple" style="font-weight: 600; color:#D12421">Hello, {{ $acc->Fullname }}</h2>
+               <h2 class="font0 font-weight-bold" style="color:#D12421">Hello, {{ $acc->Fullname }}</h2>
                 <div class="inline">
                   <a href="{{ url('/user/details') }}" class="text-red">Account Settings</a>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="card card_three text-center" onclick="goWeb(1)">
                   <div class="title">
                     <i class="fa fa-chart-line" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Kaizen Form</h2>
+                    <h2 class="font4 font-weight-bold">Kaizen Form</h2>
                   </div>
                 </div>
               </div>
@@ -83,7 +83,7 @@
                 <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-file-alt" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Project Form</h2>
+                    <h2 class="font4 font-weight-bold">Project Form</h2>
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@
                 <div class="card card_three text-center">
                   <div class="title">
                     <i class="fa fa-users" aria-hidden="true"></i>
-                    <h2 class="fontApple" style="font-weight:400;">Kerja Bersama</h2>
+                    <h2 class="font4 font-weight-bold">Kerja Bersama</h2>
                   </div>
                 </div>
               </div>

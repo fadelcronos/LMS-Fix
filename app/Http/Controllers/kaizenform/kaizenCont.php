@@ -1161,8 +1161,8 @@ class kaizenCont extends Controller
                             '<a class="list-group-item">
                                 <div class="row">
                                     <div class="col-5 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-start"><h5 class="text-danger font-weight-bold font2">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen '. $list->Kaizen_type .'</div>
                                         <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -1354,7 +1354,7 @@ class kaizenCont extends Controller
                             ';
                 }
             }else{
-                $output = '<h4 class="text-center mt-3">No Data Found</h4>';
+                $output = '<h4 class="text-center mt-3 font2">No Data Found</h4>';
             }
             
             if($total_my > 0){
@@ -1365,8 +1365,8 @@ class kaizenCont extends Controller
                             '<a class="list-group-item">
                                 <div class="row">
                                     <div class="col-5 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-start"><h5 class="font-weight-bold font2 text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen '. $list->Kaizen_type .'</div>
                                         <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -1558,7 +1558,7 @@ class kaizenCont extends Controller
                 }
                 
             }else{
-                $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
+                $myoutput = '<h4 class="text-center mt-3 font2">No Data Found</h4>';
             }
             
             if($total_you > 0){
@@ -1569,8 +1569,8 @@ class kaizenCont extends Controller
                             '<a class="list-group-item">
                                 <div class="row">
                                     <div class="col-5 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-start"><h5 class="font-weight-bold font2 text-danger">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen '. $list->Kaizen_type .'</div>
                                         <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -1740,7 +1740,7 @@ class kaizenCont extends Controller
                 }
                 
             }else{
-                $yououtput = '<h4 class="text-center mt-3">No Data Found</h4>';
+                $yououtput = '<h4 class="text-center mt-3 font2">No Data Found</h4>';
             }
     
             
@@ -2100,8 +2100,8 @@ class kaizenCont extends Controller
                             '<a class="list-group-item">
                                 <div class="row">
                                     <div class="col-5 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-start"><h5 class="text-danger font-weight-bold font2">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen '. $list->Kaizen_type .'</div>
                                         <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -2277,7 +2277,7 @@ class kaizenCont extends Controller
                             ';
                 }
             }else{
-                $output = '<h4 class="text-center mt-3">No Data Found</h4>';
+                $output = '<h4 class="text-center mt-3 font2">No Data Found</h4>';
             }
             
             if($total_my > 0){
@@ -2288,8 +2288,8 @@ class kaizenCont extends Controller
                             '<a class="list-group-item">
                                 <div class="row">
                                     <div class="col-5 align-self-center">
-                                        <div class="row align-self-start"><h5 class="text-uppercase text-danger">'. $list->Kaizen_title .'</h5></div>
-                                        <div class="row align-self-end">Kaizen Type : '. $list->Kaizen_type .'</div>
+                                        <div class="row align-self-start"><h5 class="text-danger font-weight-bold font2">'. $list->Kaizen_title .'</h5></div>
+                                        <div class="row align-self-end">Kaizen '. $list->Kaizen_type .'</div>
                                         <div class="row align-self-end">Kaizen ID : '. $list->Kaizen_ID .'</div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -2466,7 +2466,7 @@ class kaizenCont extends Controller
                 }
                 
             }else{
-                $myoutput = '<h4 class="text-center mt-3">No Data Found</h4>';
+                $myoutput = '<h4 class="text-center mt-3 font2">No Data Found</h4>';
             }
             
     

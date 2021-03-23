@@ -27,10 +27,10 @@
 
               <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <a class="nav-item nav-link active text-danger" id="nav-main-tab" data-toggle="tab" href="#nav-main" role="tab" aria-controls="nav-main" aria-selected="true">Main</a>
-                      <a class="nav-item nav-link text-danger" id="nav-member-tab" data-toggle="tab" href="#nav-member" role="tab" aria-controls="nav-member" aria-selected="false">Members</a>
-                      <a class="nav-item nav-link text-danger" id="nav-detail-tab" data-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="false">Details</a>
-                      <a class="nav-item nav-link text-danger" id="nav-action-tab" data-toggle="tab" href="#nav-action" role="tab" aria-controls="nav-action" aria-selected="false">Action Plan</a>
+                      <a class="nav-item nav-link active text-dark" id="nav-main-tab" data-toggle="tab" href="#nav-main" role="tab" aria-controls="nav-main" aria-selected="true">Main</a>
+                      <a class="nav-item nav-link text-dark" id="nav-member-tab" data-toggle="tab" href="#nav-member" role="tab" aria-controls="nav-member" aria-selected="false">Members</a>
+                      <a class="nav-item nav-link text-dark" id="nav-detail-tab" data-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="false">Details</a>
+                      <a class="nav-item nav-link text-dark" id="nav-action-tab" data-toggle="tab" href="#nav-action" role="tab" aria-controls="nav-action" aria-selected="false">Action Plan</a>
                   </div>
               </nav>
 
@@ -40,11 +40,11 @@
                     <div class="list-group vertical-scrollable">
                       <div class="form-group row justify-content-center">
                         <div class="col-md-8 border-0 rounded pt-2 pb-2">
-                          <label for="exampleInputEmail" class="bmd-label-floating blk text-uppercase font-weight-bold">Title</label>
+                          <label for="exampleInputEmail" class="bmd-label-floating blk  font-weight-bold">Title</label>
                           <input required type="text" class="form-control form-control" id="exampleInputEmail" name="kztitle" value="{{ $main->Kaizen_title }}">
                         </div>
                         <div class="col-md-3 border-0 rounded pt-2 pb-2">
-                          <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Kaizen Type</label>
+                          <label for="exampleSelect1" class="bmd-label-floating blk  font-weight-bold">Kaizen Type</label>
                           <select class="form-control" id="exampleSelect1" name="kztypes" required>
                           <option value="{{ $main->Kaizen_type }}" selected hidden>{{$main->Kaizen_type}}</option>
                               <option value="BPK">BPK</option>
@@ -56,7 +56,7 @@
                       </div>
                       <div class="form-group row justify-content-center ">
                         <div class="col-md-6 border-0 rounded pt-2 pb-2">
-                          <label for="exampleSelect1" class="bmd-label-floating blk text-uppercase font-weight-bold">Department</label>
+                          <label for="exampleSelect1" class="bmd-label-floating blk  font-weight-bold">Department</label>
                           <select class="form-control" name="kzdept" id="kzdept" required>
                               <option value="{{ $main->Kaizen_dept }}" selected hidden>{{ $main->Kaizen_dept }}</option>
                               <option value="EHS">EHS</option>
@@ -73,11 +73,11 @@
                         <div class="col-md-5 border-0 rounded pt-2 pb-2">
                           <div id="date" class="row justify-content-center">
                             <div class="col-md-" id="dates">
-                              <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold"> Date From</label>
+                              <label for="dat" class="bmd-label-floating blk  font-weight-bold"> Date From</label>
                               <input class="form-control" type="date" name="dateFrom" value="{{ $dates->Kaizen_DateFrom }}" required>
                             </div>
                             <div class="col-md-6 pt-md-0 pt-2">
-                              <label for="dat" class="bmd-label-floating blk text-uppercase font-weight-bold">Date To</label>
+                              <label for="dat" class="bmd-label-floating blk  font-weight-bold">Date To</label>
                               <input class="form-control" type="date" name="dateTo" value="{{ $dates->Kaizen_DateTo }}" required>
                             </div>
                           </div>
@@ -93,7 +93,7 @@
                     <div class="list-group vertical-scrollable">
                       <div class="form-group row justify-content-center d-flex">
                         <div class="col-md-10 border-0 rounded pt-2 pb-2">
-                          <label for="myTab" class="bmd-label-floating blk text-uppercase font-weight-bold">Members</label>
+                          <label for="myTab" class="bmd-label-floating blk  font-weight-bold">Members</label>
                           <div class="row justify-content-center">
                             <div class="col-10 text-center">
                               <select class="" style="width: 100%;" id="nameEmp" name="">
@@ -152,7 +152,7 @@
                       <div class="col-md-10 border-0  rounded pt-2 pb-2">
                         <div class="row justify-content-center">
                           <div class="col border-0 rounded pt-2 pb-2">
-                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Scope</label>
+                            <label for="exampleTextarea" class="bmd-label-floating blk  font-weight-bold">Scope</label>
                             <table class="table" id="scopeTab">
                               <tbody id="scopeRow">
                                 @foreach($scopes as $scp)
@@ -178,7 +178,7 @@
                         </div>              
                         <div class="row justify-content-center">
                           <div class="col border-0 rounded pt-2 pb-2">
-                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Background</label>
+                            <label for="exampleTextarea" class="bmd-label-floating blk  font-weight-bold">Background</label>
                             <table class="table" id="backTab">
                               <tbody id="backRow">
                                 @foreach($backs as $back)
@@ -205,7 +205,7 @@
                         </div>              
                         <div class="row justify-content-center">
                           <div class="col border-0 rounded pt-2 pb-2">
-                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Baseline</label>
+                            <label for="exampleTextarea" class="bmd-label-floating blk  font-weight-bold">Baseline</label>
                             <table class="table" id="baseTab">
                               <tbody id="baseRow">
                                 @foreach($bases as $base)
@@ -231,7 +231,7 @@
                         </div>              
                         <div class="row justify-content-center">
                           <div class="col border-0 rounded pt-2 pb-2">
-                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Goals</label>
+                            <label for="exampleTextarea" class="bmd-label-floating blk  font-weight-bold">Goals</label>
                             <table class="table" id="goalsTab">
                               <tbody id="goalsRow">
                                 @foreach($goals as $goal)
@@ -258,7 +258,7 @@
                         </div>              
                         <div class="row justify-content-center">
                           <div class="col border-0 rounded pt-2 pb-2">
-                            <label for="exampleTextarea" class="bmd-label-floating blk text-uppercase font-weight-bold">Deliverables</label>
+                            <label for="exampleTextarea" class="bmd-label-floating blk  font-weight-bold">Deliverables</label>
                             <table class="table" id="delivTab">
                               <tbody id="delivRow">
                                 @foreach($delivs as $deliv)

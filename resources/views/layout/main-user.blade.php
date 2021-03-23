@@ -73,26 +73,26 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle img-forprof" src="../userimg/{{ $acc->image }}">
-                        <span class="mr-2 ml-2 d-lg-inline text-danger small">{{ $acc->Fullname }}</span>
+                        <span class="mr-2 ml-2 d-lg-inline text-danger small font3">{{ $acc->Fullname }}</span>
                         <i class="fas fa-caret-down ml-1 text-red"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ url('/user/details') }}">
+                        <a class="dropdown-item font3" href="{{ url('/user/details') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-danger-400"></i>
                             My Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/user/edit') }}">
+                        <a class="dropdown-item font3" href="{{ url('/user/edit') }}">
                         <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-danger-400"></i>
                             Edit Profile
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/user/changepassword') }}">
+                        <a class="dropdown-item font3" href="{{ url('/user/changepassword') }}">
                             <i class="fas fa-key fa-sm fa-fw mr-2 text-danger-400"></i>
                             Change Password
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">
+                        <a class="dropdown-item font3" href="{{ url('/logout') }}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger-400"></i>
                             Logout
                         </a>
