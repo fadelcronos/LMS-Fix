@@ -15,13 +15,14 @@ class detailprofileCont extends Controller
     public function index(User $acc){
         Session::put('home', TRUE);
         Session::forget('kaizen');
+
         if(!Session::get('login')){
             return view('user.user-homePage');
         }else{
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
             if(Session::get('admin')){
-                return redirect()->back();
+                return redirect('/admin-homepage');
             }else{
                 return view('user.user-homePage', compact('acc'));
             }
