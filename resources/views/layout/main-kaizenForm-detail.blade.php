@@ -21,6 +21,9 @@
   <link href="../../css/customCss.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+
+  
   <style>
   .vertical-scrollable { 
       height:60vh;
@@ -240,7 +243,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Fadel Cahyo LSC Intern</span>
+            <span>Copyright &copy; LSC Intern 2021</span>
           </div>
         </div>
       </footer>
