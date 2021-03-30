@@ -319,7 +319,7 @@
                         </div>
                       </div> -->
                       <div class="form-group row justify-content-end mr-3">
-                          <button type="button" id="addIssue" class="btn btn-danger justify-content-center">Add Issue</button>
+                          <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" id="addIssueBtn" class="btn btn-danger justify-content-center">Add Issue</button>
                       </div>
                       <table class="table table-striped">
                         <thead>
@@ -338,7 +338,9 @@
 
                       
                     </div>
-                    <div id="finding-dialog" title="add issue">
+                    
+
+                    <!-- <div id="finding-dialog" title="add issue">
                       <div class="form-group">
                         <label>Enter First Name</label>
                         <input type="text" name="first_name" id="first_name" class="form-control" />
@@ -353,7 +355,8 @@
                         <input type="hidden" name="row_id" id="hidden_row_id" />
                         <button type="button" name="save" id="save" class="btn btn-info">Save</button>
                       </div>
-                    </div>
+                    </div> -->
+
                   </div>
                 </div>
                 <div class="row justify-content-end pt-2">
@@ -380,29 +383,130 @@
              
               <input type="text" name="kzroom" id="kzidi" hidden value="{{ $main->Kaizen_room }}">
           </form>
-        </div>
+
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Finding Form</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
+                                        <textarea required class="form-control" id="issueDesc" rows="3" placeholder="Type issue here..." name="issueDesc"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
+                                        <textarea required class="form-control" id="actionDesc" rows="3" placeholder="Type action here..." name="actionDesc"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
+                                        <select class="form-control font2" name="selectKPI" id="selectKPI" required>
+                                            <option value="" hidden>Select KPI</option>
+                                            <option value="Quality">Quality</option>
+                                            <option value="Cost">Cost</option>
+                                            <option value="Safety">Safety</option>
+                                            <option value="Delivery">Delivery</option>
+                                            <option value="Moral">Moral</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
+                                            <input required class="form-control" type="text" id="beforeAct" name="beforeAct" placeholder="Before value">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
+                                            <input required class="form-control" type="text" id="afterAct" name="afterAct" placeholder="After value">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
+                                        <select class="form-control font2" id="selectUM" name="selectUM" required>
+                                            <option value="" hidden>Select Unit Measurement</option>
+                                            <option value="PPM">PPM</option>
+                                            <option value="Cm">Cm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
+                                            <input required class="form-control" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
+                                            <input required class="form-control" id="dueDate" name="dueDate" type="date">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
+                                        <select class="form-control font2" id="selectRemarks" name="selectRemarks" required>
+                                            <option value="" hidden>Select Remarks</option>
+                                            <option value="On-Going">On-Going</option>
+                                            <option value="Done">Done</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
+                                        <select class="form-control font2" >
+                                            <option>Default select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Add Finding</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
        
         <script>
-          $(document).ready(function(){
-            var count = 0;
-            $('#finding-dialog').dialog({
-              autoOpen:false,
-              width:400
-            });
+          // $(document).ready(function(){
+          //   var count = 0;
+          //   $('#finding-dialog').dialog({
+          //     autoOpen:false,
+          //     width:400
+          //   });
 
-            $('#addIssue').click(function(){
-              $('#finding-dialog').dialog('option', 'title', 'Add Data');
-              $('#first_name').val('');
-              $('#last_name').val('');
-              $('#error_first_name').text('');
-              $('#error_last_name').text('');
-              $('#first_name').css('border-color', '');
-              $('#last_name').css('border-color', '');
-              $('#save').text('Save');
-              $('#finding-dialog').dialog('open');
-            });
-          });
+          //   $('#addIssue').click(function(){
+          //     $('#finding-dialog').dialog('option', 'title', 'Add Data');
+          //     $('#first_name').val('');
+          //     $('#last_name').val('');
+          //     $('#error_first_name').text('');
+          //     $('#error_last_name').text('');
+          //     $('#first_name').css('border-color', '');
+          //     $('#last_name').css('border-color', '');
+          //     $('#save').text('Save');
+          //     $('#finding-dialog').dialog('open');
+          //   });
+          // });
         </script>
 
 @endsection
