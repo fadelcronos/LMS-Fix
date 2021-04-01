@@ -275,6 +275,11 @@
               placeholder: "Select a Name or KPK",
               allowClear: true
           });
+          
+        $("#nameRplus").select2({
+              placeholder: "Select a Name or KPK",
+              allowClear: true
+          });
   </script>
 
 

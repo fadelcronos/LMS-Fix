@@ -25,37 +25,20 @@ var i=2;
           cl3.innerHTML = "<select class='form-control' id='role' name='role[]' style='width:auto' required><option value='' selected disabled hidden>Select Roles</option><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
           cl4.innerHTML = "<button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
           
-          // if(z == 2){
-          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-          // }else{
-          //   row[z-2].deleteCell(3);
-          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-          // }
-
-          // console.log(z);
           
           var x = document.getElementById("myRows").rows.length;
-          // console.log(x);
 
           document.getElementById("totRow").value=x;
       
   }
 
   function delRow(r){
-    // var x = document.getElementById("myRows").rows.length;
     var i = r.parentNode.parentNode.rowIndex;
     var y = document.getElementById("myTab").deleteRow(i);
     var x = document.getElementById("myRows").rows.length;
     console.log(x);
     document.getElementById("totRow").value=x;
     
-    
-    // var table = document.getElementById("myRows");
-    // var row = table.rows;
-    // var z = document.getElementById("myRows").rows.length+1;
-    // var cl4 = row[z].insertCell(3);
-    // cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-
 
   }
 
@@ -246,7 +229,34 @@ function delDeliv(r){
   document.getElementById("totRowDeliv").value=x;
 
 }
+function addRplus(){
+  var names = $('#nameRplus option:selected').val();
+  var emp = names.split("- ");
+  // console.log(re[0]);
 
+  var table = document.getElementById("rplusRow");
+  var row = table.rows;
+
+  
+  
+  var z = document.getElementById("rplusRow").rows.length+1;
+        
+  var rw = table.insertRow(-1);
+  var cl1 = rw.insertCell(0);
+  var cl2 = rw.insertCell(1);
+  var cl3 = rw.insertCell(2);
+
+                              
+  cl1.innerHTML = "<input class='form-control font2' name='kpkRplus[]' type='text' value='"+ emp[1] +"' readonly></input>";
+  cl2.innerHTML = "<input class='form-control font2' name='nameRplus[]' type='text' value='"+ emp[0] +"' readonly></input>";
+  cl3.innerHTML = "<button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+  
+}
+function delRowRplus(r){
+  var i = r.parentNode.parentNode.rowIndex;
+  var y = document.getElementById("rplusTab").deleteRow(i);
+  var x = document.getElementById("rplusRow").rows.length;
+}
 
 
 function changeInput(){

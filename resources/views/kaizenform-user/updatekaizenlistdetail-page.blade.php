@@ -99,7 +99,7 @@
                               <select class="" style="width: 100%;" id="nameEmp" name="">
                                   <option value="" selected disabled hidden></option>
                                   @foreach($employee as $emp)
-                                    <option id="test1">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
+                                    <option id="test2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
                                   @endforeach
                               </select>
                             </div>
@@ -319,7 +319,7 @@
                         </div>
                       </div> -->
                       <div class="form-group row justify-content-end mr-3">
-                          <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" id="addIssueBtn" class="btn btn-danger justify-content-center">Add Issue</button>
+                          <button onclick="getFindingID()" type="button" data-toggle="modal" data-target=".bd-example-modal-lg" id="addIssueBtn" class="btn btn-danger justify-content-center">Add Issue</button>
                       </div>
                       <table class="table table-striped">
                         <thead>
@@ -335,28 +335,7 @@
                           
                         </tbody>
                       </table>
-
-                      
                     </div>
-                    
-
-                    <!-- <div id="finding-dialog" title="add issue">
-                      <div class="form-group">
-                        <label>Enter First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control" />
-                        <span id="error_first_name" class="text-danger"></span>
-                      </div>
-                      <div class="form-group">
-                        <label>Enter Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control" />
-                        <span id="error_last_name" class="text-danger"></span>
-                      </div>
-                      <div class="form-group" align="center">
-                        <input type="hidden" name="row_id" id="hidden_row_id" />
-                        <button type="button" name="save" id="save" class="btn btn-info">Save</button>
-                      </div>
-                    </div> -->
-
                   </div>
                 </div>
                 <div class="row justify-content-end pt-2">
@@ -400,13 +379,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                         <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
-                                        <textarea required class="form-control" id="issueDesc" rows="3" placeholder="Type issue here..." name="issueDesc"></textarea>
+                                        <textarea required class="form-control font2" id="issueDesc" rows="3" placeholder="Type issue here..." name="issueDesc"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                         <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
-                                        <textarea required class="form-control" id="actionDesc" rows="3" placeholder="Type action here..." name="actionDesc"></textarea>
+                                        <textarea required class="form-control font2" id="actionDesc" rows="3" placeholder="Type action here..." name="actionDesc"></textarea>
                                         </div>
                                     </div>
                                     
@@ -426,13 +405,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
-                                            <input required class="form-control" type="text" id="beforeAct" name="beforeAct" placeholder="Before value">
+                                            <input required class="form-control font2" type="text" id="beforeAct" name="beforeAct" placeholder="Before value">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
-                                            <input required class="form-control" type="text" id="afterAct" name="afterAct" placeholder="After value">
+                                            <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -448,13 +427,13 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
-                                            <input required class="form-control" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value">
+                                            <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
-                                            <input required class="form-control" id="dueDate" name="dueDate" type="date">
+                                            <input required class="form-control font2" id="dueDate" name="dueDate" type="date">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -467,18 +446,43 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
-                                        <select class="form-control font2" >
-                                            <option>Default select</option>
+                                        <select class="" style="width: 100%;" id="nameRplus" name="">
+                                            <option value="" selected disabled hidden></option>
+                                            @foreach($employee as $emp)
+                                              <option id="test1" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                    <div class="col-md-1 mt-4">
+                                      <button onclick="addRplus()" type="button" class="btn btn-danger font2"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    
                                 </div>
+                                <div class="row">
+                                  <div class="col-md-7">
+                                      <table class="table table-striped" id="rplusTab">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">KPK</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Remove</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="rplusRow">
+                                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Add Finding</button>
+                            <input id="findingID" name="findingID" hidden></input>
                         </div>
                     </form>
                 </div>
@@ -488,25 +492,15 @@
 
        
         <script>
-          // $(document).ready(function(){
-          //   var count = 0;
-          //   $('#finding-dialog').dialog({
-          //     autoOpen:false,
-          //     width:400
-          //   });
+          function getFindingID() {
+          var date = new Date();
+          var str = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate() + "" +  date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+          var findId = "FID"+str;
+          var a = document.getElementById("findingID").value = findId;
+          console.log(findId);
+        }
 
-          //   $('#addIssue').click(function(){
-          //     $('#finding-dialog').dialog('option', 'title', 'Add Data');
-          //     $('#first_name').val('');
-          //     $('#last_name').val('');
-          //     $('#error_first_name').text('');
-          //     $('#error_last_name').text('');
-          //     $('#first_name').css('border-color', '');
-          //     $('#last_name').css('border-color', '');
-          //     $('#save').text('Save');
-          //     $('#finding-dialog').dialog('open');
-          //   });
-          // });
+
         </script>
 
 @endsection
