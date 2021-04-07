@@ -75,7 +75,7 @@ Route::get('/kaizen-form/cancel-kaizen/{kzid}','kaizenform\KaizenCont@cancelkaiz
 Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kaizen
 Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //approved kaizen
 
-
+Route::post('/kaizen-form/add-finding','kaizenform\KaizenCont@addFinding')->name('addFinding'); //list kaizen to be approved
 // Route::get('/test','kaizenform\KaizenCont@testKaiPage'); //approved kaizen
 // Route::get('/test/action','kaizenform\KaizenCont@testSearch')->name('actionsearch'); //approved kaizen
 

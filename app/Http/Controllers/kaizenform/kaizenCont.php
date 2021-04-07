@@ -26,6 +26,8 @@ use App\View_KaizenRoles;
 use App\View_UpdateList;
 use App\View_Member;
 use App\View_ListDate;
+use App\Kaizen_Finding;
+use App\Kaizen_Rplus;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -823,7 +825,8 @@ class kaizenCont extends Controller
         $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
         // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        
+        $findings = Kaizen_Finding::where('Kaizen_ID', $kzid)->get();
+        $Rplus = Kaizen_Rplus::all();
 
         // dd($scopes);
         // dd($member);
@@ -835,7 +838,7 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
             $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
-            return view('kaizenform-user.updatekaizenlistdetail-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+            return view('kaizenform-user.updatekaizenlistdetail-page', compact('Rplus' ,'findings' ,'rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
         }
     }
 
@@ -2027,35 +2030,7 @@ class kaizenCont extends Controller
 
     public function searchData(Request $req){
 
-        // Session::put('kaizen', TRUE);
-        // Session::forget('home');
-
-
-        // $search = $req->search;
-        // $type = $req->kztype;
-        // $status = $req->status;
-        // $dept = $req->department;
-        // $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-        // $memberlist = View_Member::all();
-
-        // $scopelist = Kaizen_Scope::all();
-        // $baselist = Kaizen_Baseline::all();
-        // $backlist = Kaizen_Background::all();
-        // $goalslist = Kaizen_Goals::all();
-        // $delivlist = Kaizen_Deliverable::all();
-        // $datelist = Kaizen_Date::all();
-
-        // $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        // if(!Session::get('login')){
-        //     return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        //     // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
-        // }else{
-        //     $id = Session::get('id');
-        //     $acc = User::where('id', '=', $id)->first();
-        //     $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-            
-        //     return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        // }
+        
         if($req->ajax()){
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
@@ -2496,6 +2471,36 @@ class kaizenCont extends Controller
                 'Kaizen_status' => 'Canceled',
             ]);
             return redirect('/kaizen-form/approval-kaizen')->with('showModal', 'a')->with('alert', 'Kaizen Canceled');
+        }
+    }
+
+    public function addFinding(Request $req){
+        $KZ_finding = new Kaizen_Finding;
+        $KZ_Rplus = new Kaizen_Rplus;
+
+        $KZ_finding->Finding_ID = $req->findingID;
+        $KZ_finding->Kaizen_ID = $req->kzidRplus;
+        $KZ_finding->KPI = $req->selectKPI;
+        $KZ_finding->Issue_desc = $req->issueDesc;
+        $KZ_finding->Actions_desc = $req->actionDesc;
+        $KZ_finding->Before_act = $req->beforeAct;
+        $KZ_finding->After_act = $req->afterAct;
+        $KZ_finding->Unit_measure = $req->selectUM;
+        $KZ_finding->Goals_act = $req->goalsAct;
+        $KZ_finding->Due_date = $req->dueDate;
+        $KZ_finding->Remarks = $req->selectRemarks;
+
+        $KZ_finding->save();
+
+        $dataMembers = [];
+        $names = $req->nameRplus;
+        $kpk = $req->kpkRplus;
+        
+        foreach($names as $key => $n){
+                $dataMembers = [
+                ['Finding_ID' => $req->findingID, 'kpkNum' => $kpk[$key]]
+            ];
+            $KZ_Rplus->insert($dataMembers);
         }
     }
 
