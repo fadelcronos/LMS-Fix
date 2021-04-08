@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Mail;
 use App\View_KaizenRoles;
 use App\View_UpdateList;
 use App\View_Member;
+use App\View_RplusName;
 use App\View_ListDate;
 use App\Kaizen_Finding;
 use App\Kaizen_Rplus;
@@ -826,7 +827,7 @@ class kaizenCont extends Controller
         // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
         $findings = Kaizen_Finding::where('Kaizen_ID', $kzid)->get();
-        $Rplus = Kaizen_Rplus::all();
+        $Rplus = View_RplusName::all();
 
         // dd($scopes);
         // dd($member);
@@ -2501,6 +2502,20 @@ class kaizenCont extends Controller
                 ['Finding_ID' => $req->findingID, 'kpkNum' => $kpk[$key]]
             ];
             $KZ_Rplus->insert($dataMembers);
+        }
+    }
+
+    public function deleteFinding($fid){
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+
+            Kaizen_Rplus::where('Finding_ID', $fid)->delete();
+            Kaizen_Finding::where('Finding_ID', $fid)->delete();
+
+            return redirect()->back()->with('showModal', 'a')->with('alert', '1 Finding Deleted');
         }
     }
 

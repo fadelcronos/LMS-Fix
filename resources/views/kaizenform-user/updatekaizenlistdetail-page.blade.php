@@ -340,8 +340,8 @@
                             <td scope="col">{{ $finding->Remarks }}</td>
                             <td scope="col">
                               <button title="Detail" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-detail-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-eye"></i></button>
-                              <button title="Edit" type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                              <button title="Delete" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                              <button title="Edit" type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-edit-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-edit"></i></button>
+                              <button title="Delete" type="button" class="btn btn-danger" data-toggle="modal" data-toggle="modal" data-target="#deleteFindingModal{{$finding->Finding_ID}}"><i class="fas fa-trash-alt"></i></button>
                             </td>
                           </tr>
                         @endforeach
@@ -503,130 +503,277 @@
                 </div>
               </div>
             </div>
-            @foreach($findings as $finding)
-            <div class="modal fade bd-detail-modal-lg{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger">
-                        <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Finding Form</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                    <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
-                                    <textarea required class="form-control font2" id="issueDesc" rows="3" disabled name="issueDesc">{{$finding->Issue_desc}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                    <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
-                                    <textarea required class="form-control font2" id="actionDesc" rows="3" disabled name="actionDesc">{{$finding->Actions_desc}}</textarea>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
-                                    <select class="form-control font2" name="selectKPI" id="selectKPI" required disabled>
-                                        <option value="{{$finding->KPI}}" selected hidden>{{$finding->KPI}}</option>
-                                        <option value="Quality">Quality</option>
-                                        <option value="Cost">Cost</option>
-                                        <option value="Safety">Safety</option>
-                                        <option value="Delivery">Delivery</option>
-                                        <option value="Moral">Moral</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
-                                        <input disabled required class="form-control font2" type="text" id="beforeAct" name="beforeAct" value="{{$finding->Before_act}}" placeholder="Before value">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
-                                        <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value" value="{{$finding->After_act}}" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
-                                    <select class="form-control font2" id="selectUM" name="selectUM" required disabled>
-                                        <option value="{{$finding->Unit_measure}}" hidden>{{$finding->Unit_measure}}</option>
-                                        <option value="PPM">PPM</option>
-                                        <option value="Cm">Cm</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
-                                        <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value" disabled value="{{$finding->Goals_act}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
-                                        <input required class="form-control font2" id="dueDate" name="dueDate" type="date" disabled value="{{$finding->Due_date}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
-                                    <select class="form-control font2" id="selectRemarks" name="selectRemarks" required disabled>
-                                        <option value="{{$finding->Remarks}}" hidden>{{$finding->Remarks}}</option>
-                                        <option value="On-Going">On-Going</option>
-                                        <option value="Done">Done</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
-                                    @foreach($Rplus as $rp)
-                                      @if($finding->Finding_ID == $rp->Finding_ID)
-                                    <div class="font2">{{$rp->kpkNum}}</div>
-                                      @endif
-                                    @endforeach
-                                </div>
-                                
-                                
-                            </div>
-                            <div class="row">
-                              <div class="col-md-7">
-                                  <table class="table table-striped" id="rplusTab">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">KPK</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Remove</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody id="rplusRow">
-                                      
-                                    </tbody>
-                                  </table>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Add Finding</button>
-                        <input id="findingID" name="findingID" hidden></input>
-                        <input type="text" name="kzidRplus" hidden value="{{ $main->Kaizen_ID }}">
 
-                    </div>
+            <!-- Detail Modal -->
+            @foreach($findings as $finding)
+              <div class="modal fade bd-detail-modal-lg{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header bg-danger">
+                          <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Finding Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="container-fluid">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                      <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
+                                      <textarea required class="form-control font2" id="issueDesc" rows="3" disabled name="issueDesc">{{$finding->Issue_desc}}</textarea>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                      <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
+                                      <textarea required class="form-control font2" id="actionDesc" rows="3" disabled name="actionDesc">{{$finding->Actions_desc}}</textarea>
+                                      </div>
+                                  </div>
+                                  
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
+                                      <select class="form-control font2" name="selectKPI" id="selectKPI" required disabled>
+                                          <option value="{{$finding->KPI}}" selected hidden>{{$finding->KPI}}</option>
+                                          <option value="Quality">Quality</option>
+                                          <option value="Cost">Cost</option>
+                                          <option value="Safety">Safety</option>
+                                          <option value="Delivery">Delivery</option>
+                                          <option value="Moral">Moral</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
+                                          <input disabled required class="form-control font2" type="text" id="beforeAct" name="beforeAct" value="{{$finding->Before_act}}" placeholder="Before value">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
+                                          <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value" value="{{$finding->After_act}}" disabled>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
+                                      <select class="form-control font2" id="selectUM" name="selectUM" required disabled>
+                                          <option value="{{$finding->Unit_measure}}" hidden>{{$finding->Unit_measure}}</option>
+                                          <option value="PPM">PPM</option>
+                                          <option value="Cm">Cm</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
+                                          <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value" disabled value="{{$finding->Goals_act}}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
+                                          <input required class="form-control font2" id="dueDate" name="dueDate" type="date" disabled value="{{$finding->Due_date}}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
+                                      <select class="form-control font2" id="selectRemarks" name="selectRemarks" required disabled>
+                                          <option value="{{$finding->Remarks}}" hidden>{{$finding->Remarks}}</option>
+                                          <option value="On-Going">On-Going</option>
+                                          <option value="Done">Done</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
+                                      @foreach($Rplus as $rp)
+                                        @if($finding->Finding_ID == $rp->Finding_ID)
+                                      <div class="font2 text-dark">{{$rp->Fullname}} - {{$rp->kpkNum}}</div>
+                                        @endif
+                                      @endforeach
+                                  </div>
+                                  
+                                  
+                              </div>
+                            
+                              
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
                 </div>
               </div>
-            </div>
             @endforeach
+
+            <!-- Edit Modal -->
+            @foreach($findings as $finding)
+              <div class="modal fade bd-edit-modal-lg{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header bg-danger">
+                          <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Finding Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="container-fluid">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                      <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
+                                      <textarea required class="form-control font2" id="issueDesc" rows="3"  name="issueDesc">{{$finding->Issue_desc}}</textarea>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                      <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
+                                      <textarea required class="form-control font2" id="actionDesc" rows="3"  name="actionDesc">{{$finding->Actions_desc}}</textarea>
+                                      </div>
+                                  </div>
+                                  
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
+                                      <select class="form-control font2" name="selectKPI" id="selectKPI" required >
+                                          <option value="{{$finding->KPI}}" selected hidden>{{$finding->KPI}}</option>
+                                          <option value="Quality">Quality</option>
+                                          <option value="Cost">Cost</option>
+                                          <option value="Safety">Safety</option>
+                                          <option value="Delivery">Delivery</option>
+                                          <option value="Moral">Moral</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
+                                          <input  required class="form-control font2" type="text" id="beforeAct" name="beforeAct" value="{{$finding->Before_act}}" placeholder="Before value">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
+                                          <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value" value="{{$finding->After_act}}" >
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
+                                      <select class="form-control font2" id="selectUM" name="selectUM" required >
+                                          <option value="{{$finding->Unit_measure}}" hidden>{{$finding->Unit_measure}}</option>
+                                          <option value="PPM">PPM</option>
+                                          <option value="Cm">Cm</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
+                                          <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value"  value="{{$finding->Goals_act}}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
+                                          <input required class="form-control font2" id="dueDate" name="dueDate" type="date"  value="{{$finding->Due_date}}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
+                                      <select class="form-control font2" id="selectRemarks" name="selectRemarks" required >
+                                          <option value="{{$finding->Remarks}}" hidden>{{$finding->Remarks}}</option>
+                                          <option value="On-Going">On-Going</option>
+                                          <option value="Done">Done</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                    <div class="col-md-5">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
+                                        <select class="" style="width: 100%;" id="nameRplus{{$finding->Finding_ID}}" name="">
+                                            <option value="" selected disabled hidden></option>
+                                            @foreach($employee as $emp)
+                                              <option id="test1" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 mt-4">
+                                      <button onclick="addRplus({{$finding->Finding_ID}})" type="button" class="btn btn-danger font2"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-7">
+                                      <table class="table table-striped" id="rplusTab{{$finding->Finding_ID}}">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">KPK</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Remove</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="rplusRow{{$finding->Finding_ID}}">
+                                          @foreach($Rplus as $rp)
+                                          @if($finding->Finding_ID == $rp->Finding_ID)
+                                          <tr>
+                                            <td>
+                                              <input type="text" class="form-control font2" name="kpkRplus[]" readonly value="{{ $rp->kpkNum }}">
+                                            </td>
+                                            <td>
+                                              <input type="text" class="form-control font2" name="kpkRplus[]" readonly value="{{ $rp->Fullname }}">
+                                            </td>
+                                            <td>
+                                              <button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>
+                                            </td>
+                                          </tr>
+                                          @endif
+                                          @endforeach
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                </div>
+                            
+                              
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+
+            @foreach($findings as $finding)
+              <div class="modal fade" id="deleteFindingModal{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                      <h5 class="modal-title font2 text-light" id="exampleModalCenterTitle">Delete Finding ?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="font2">Are you sure want to delete this finding {{$finding->Issue_desc}} ?</div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                      <a href="/kaizen-form/delete-finding/{{$finding->Finding_ID}}" class="btn btn-danger">Yes</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+            
+
           </div>
 
           

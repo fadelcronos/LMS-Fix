@@ -229,6 +229,33 @@ function delDeliv(r){
   document.getElementById("totRowDeliv").value=x;
 
 }
+function addRpluss(fid){
+  var names = $('#nameRplus'+ fid +' option:selected').val();
+  var emp = names.split("- ");
+  // console.log(re[0]);
+  var table = document.getElementById("rplusRow"+fid);
+  var row = table.rows;
+
+  
+  
+  var z = document.getElementById("rplusRow").rows.length+1;
+        
+  var rw = table.insertRow(-1);
+  var cl1 = rw.insertCell(0);
+  var cl2 = rw.insertCell(1);
+  var cl3 = rw.insertCell(2);
+
+                              
+  cl1.innerHTML = "<input class='form-control font2' name='kpkRplus[]' type='text' value='"+ emp[1] +"' readonly></input>";
+  cl2.innerHTML = "<input class='form-control font2' name='nameRplus[]' type='text' value='"+ emp[0] +"' readonly></input>";
+  cl3.innerHTML = "<button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+  
+}
+function delRowRplus(r, fid){
+  var i = r.parentNode.parentNode.rowIndex;
+  var y = document.getElementById("rplusTab").deleteRow(i);
+  var x = document.getElementById("rplusRow").rows.length;
+}
 function addRplus(){
   var names = $('#nameRplus option:selected').val();
   var emp = names.split("- ");
