@@ -1179,7 +1179,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -1383,7 +1383,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -1587,7 +1587,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $yououtput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -2090,7 +2090,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -2278,7 +2278,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';

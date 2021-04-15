@@ -325,8 +325,8 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">KPI</th>
                             <th scope="col">Issue</th>
+                            <th scope="col">Action</th>
                             <th scope="col">status</th>
                             <th scope="col"></th>
                           </tr>
@@ -335,12 +335,25 @@
                         @foreach($findings as $finding)
                           <tr>
                             <td scope="col">1</td>
-                            <td scope="col">{{ $finding->KPI }}</td>
+                            <td scope="col" hidden>{{ $finding->KPI }}</td>
                             <td scope="col">{{ $finding->Issue_desc }}</td>
+                            <td scope="col">{{ $finding->Actions_desc }}</td>
+                            <td scope="col" hidden>{{ $finding->Before_act }}</td>
+                            <td scope="col" hidden>{{ $finding->After_act }}</td>
+                            <td scope="col" hidden>{{ $finding->Unit_measure }}</td>
+                            <td scope="col" hidden>{{ $finding->Goals_act }}</td>
+                            <td scope="col" hidden>{{ $finding->Due_date }}</td>
                             <td scope="col">{{ $finding->Remarks }}</td>
+                            <td scope="col" hidden>
+                              @foreach($Rplus as $rp)
+                                @if($finding->Finding_ID == $rp->Finding_ID)
+                                {{$rp->Fullname}}
+                                @endif
+                              @endforeach
+                            </td>
                             <td scope="col">
                               <button title="Detail" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-detail-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-eye"></i></button>
-                              <button title="Edit" type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-edit-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-edit"></i></button>
+                              <button title="Edit" type="button" class="btn btn-success editBtn"><i class="fas fa-edit"></i></button>
                               <button title="Delete" type="button" class="btn btn-danger" data-toggle="modal" data-toggle="modal" data-target="#deleteFindingModal{{$finding->Finding_ID}}"><i class="fas fa-trash-alt"></i></button>
                             </td>
                           </tr>
@@ -612,8 +625,7 @@
             @endforeach
 
             <!-- Edit Modal -->
-            @foreach($findings as $finding)
-              <div class="modal fade bd-edit-modal-lg{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+              <div class="modal fade bd-edit-modal-lg" id="editFindings" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                       <div class="modal-header bg-danger">
@@ -628,13 +640,13 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                       <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
-                                      <textarea required class="form-control font2" id="issueDesc" rows="3"  name="issueDesc">{{$finding->Issue_desc}}</textarea>
+                                      <textarea required class="form-control font2" id="issueDesc" rows="3"  name="issueDesc"></textarea>
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="form-group">
                                       <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
-                                      <textarea required class="form-control font2" id="actionDesc" rows="3"  name="actionDesc">{{$finding->Actions_desc}}</textarea>
+                                      <textarea required class="form-control font2" id="actionDesc" rows="3"  name="actionDesc"></textarea>
                                       </div>
                                   </div>
                                   
@@ -643,7 +655,7 @@
                                   <div class="col-md-3">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
                                       <select class="form-control font2" name="selectKPI" id="selectKPI" required >
-                                          <option value="{{$finding->KPI}}" selected hidden>{{$finding->KPI}}</option>
+                                          <option value="" selected hidden></option>
                                           <option value="Quality">Quality</option>
                                           <option value="Cost">Cost</option>
                                           <option value="Safety">Safety</option>
@@ -654,19 +666,19 @@
                                   <div class="col-md-3">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
-                                          <input  required class="form-control font2" type="text" id="beforeAct" name="beforeAct" value="{{$finding->Before_act}}" placeholder="Before value">
+                                          <input  required class="form-control font2" type="text" id="beforeAct" name="beforeAct" value="" placeholder="Before value">
                                       </div>
                                   </div>
                                   <div class="col-md-3">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
-                                          <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value" value="{{$finding->After_act}}" >
+                                          <input required class="form-control font2" type="text" id="afterAct" name="afterAct" placeholder="After value" value="" >
                                       </div>
                                   </div>
                                   <div class="col-md-3">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
                                       <select class="form-control font2" id="selectUM" name="selectUM" required >
-                                          <option value="{{$finding->Unit_measure}}" hidden>{{$finding->Unit_measure}}</option>
+                                          <option value="" hidden></option>
                                           <option value="PPM">PPM</option>
                                           <option value="Cm">Cm</option>
                                       </select>
@@ -676,19 +688,19 @@
                                   <div class="col-md-4">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
-                                          <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value"  value="{{$finding->Goals_act}}">
+                                          <input required class="form-control font2" id="goalsAct" name="goalsAct" type="text" placeholder="Goals value"  value="">
                                       </div>
                                   </div>
                                   <div class="col-md-4">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
-                                          <input required class="form-control font2" id="dueDate" name="dueDate" type="date"  value="{{$finding->Due_date}}">
+                                          <input required class="form-control font2" id="dueDate" name="dueDate" type="date"  value="">
                                       </div>
                                   </div>
                                   <div class="col-md-4">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
                                       <select class="form-control font2" id="selectRemarks" name="selectRemarks" required >
-                                          <option value="{{$finding->Remarks}}" hidden>{{$finding->Remarks}}</option>
+                                          <option value="" hidden></option>
                                           <option value="On-Going">On-Going</option>
                                           <option value="Done">Done</option>
                                       </select>
@@ -697,7 +709,7 @@
                               <div class="row">
                                     <div class="col-md-5">
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
-                                        <select class="" style="width: 100%;" id="nameRplus{{$finding->Finding_ID}}" name="">
+                                        <select class="" style="width: 100%;" id="nameRplus" name="">
                                             <option value="" selected disabled hidden></option>
                                             @foreach($employee as $emp)
                                               <option id="test1" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
@@ -705,13 +717,13 @@
                                         </select>
                                     </div>
                                     <div class="col-md-1 mt-4">
-                                      <button onclick="addRplus({{$finding->Finding_ID}})" type="button" class="btn btn-danger font2"><i class="fas fa-plus"></i></button>
+                                      <button onclick="addRplus()" type="button" class="btn btn-danger font2"><i class="fas fa-plus"></i></button>
                                     </div>
                                     
                                 </div>
                                 <div class="row">
                                   <div class="col-md-7">
-                                      <table class="table table-striped" id="rplusTab{{$finding->Finding_ID}}">
+                                      <table class="table table-striped" id="rplusTab">
                                         <thead>
                                           <tr>
                                             <th scope="col">KPK</th>
@@ -719,22 +731,8 @@
                                             <th scope="col">Remove</th>
                                           </tr>
                                         </thead>
-                                        <tbody id="rplusRow{{$finding->Finding_ID}}">
-                                          @foreach($Rplus as $rp)
-                                          @if($finding->Finding_ID == $rp->Finding_ID)
-                                          <tr>
-                                            <td>
-                                              <input type="text" class="form-control font2" name="kpkRplus[]" readonly value="{{ $rp->kpkNum }}">
-                                            </td>
-                                            <td>
-                                              <input type="text" class="form-control font2" name="kpkRplus[]" readonly value="{{ $rp->Fullname }}">
-                                            </td>
-                                            <td>
-                                              <button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>
-                                            </td>
-                                          </tr>
-                                          @endif
-                                          @endforeach
+                                        <tbody id="rplusRow">
+
                                         </tbody>
                                       </table>
                                     </div>
@@ -749,7 +747,6 @@
                   </div>
                 </div>
               </div>
-            @endforeach
 
             @foreach($findings as $finding)
               <div class="modal fade" id="deleteFindingModal{{$finding->Finding_ID}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -762,7 +759,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div class="font2">Are you sure want to delete this finding {{$finding->Issue_desc}} ?</div>
+                      <div class="font2">Are you sure want to delete this finding ?</div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -781,37 +778,55 @@
           <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
        
         <script>
-          function getFindingID() {
-          var date = new Date();
-          var str = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate() + "" +  date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
-          var findId = "FID"+str;
-          var a = document.getElementById("findingID").value = findId;
-          console.log(findId);
-        }
+              function getFindingID() {
+              var date = new Date();
+              var str = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate() + "" +  date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+              var findId = "FID"+str;
+              var a = document.getElementById("findingID").value = findId;
+              console.log(findId);
+            }
+            
 
-        $(document).ready(function(){
-          $('#findingForm').on('submit', function(e){
-            e.preventDefault();
-            $.ajax({
-              url:"{{ route('addFinding') }}",
-              method: "POST",
-              data: $('#findingForm').serialize(),
-              success:function(res){
-                console.log(res);
-                alert("Finding Saved");
-                // $('#submitUpdate').click;
-                location.reload();
-              },
-              error: function(err){
-                console.log(err);
-                alert("Data Not Saved");
-              }
+            $(document).ready(function(){
+              $('#findingForm').on('submit', function(e){
+                e.preventDefault();
+                $.ajax({
+                  url:"{{ route('addFinding') }}",
+                  method: "POST",
+                  data: $('#findingForm').serialize(),
+                  success:function(res){
+                    console.log(res);
+                    alert("Finding Saved");
+                    // $('#submitUpdate').click;
+                    location.reload();
+                  },
+                  error: function(err){
+                    console.log(err);
+                    alert("Data Not Saved");
+                  }
 
+                })
+              })
             })
-          })
-        })
 
 
         </script>
+         
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('.editBtn').on('click', function(){
+              $('#editFindings').modal('show');
+
+              $tr = $(this).closest('tr');
+
+              var data = $tr.children('td').map(function() {
+                return $(this).text();
+              }).get();
+              console.log(data);
+
+            })
+          })
+        </script>
+        
 
 @endsection
