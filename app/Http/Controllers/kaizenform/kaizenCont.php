@@ -2494,12 +2494,12 @@ class kaizenCont extends Controller
         $KZ_finding->save();
 
         $dataMembers = [];
-        $names = $req->nameRplus;
-        $kpk = $req->kpkRplus;
+        $names = $req->rplusKpk;
+        // $kpk = $req->kpkRplus;
         
         foreach($names as $key => $n){
                 $dataMembers = [
-                ['Finding_ID' => $req->findingID, 'kpkNum' => $kpk[$key]]
+                ['Finding_ID' => $req->findingID, 'kpkNum' => $names[$key]]
             ];
             $KZ_Rplus->insert($dataMembers);
         }

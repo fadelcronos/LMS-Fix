@@ -277,9 +277,8 @@
               allowClear: true
           });
           
-        $("#nameRplus").select2({
+        $(".js-example-placeholder-multiple").select2({
               placeholder: "Select a Name or KPK",
-              allowClear: true
           });
 
           
