@@ -2519,6 +2519,16 @@ class kaizenCont extends Controller
         }
     }
 
+    public function editFinding(Request $req, $fid){
+        $a = "issueDesc".$fid;
+        
+        Kaizen_Finding::where('Finding_ID', $fid)->update([
+            'Issue_desc' => $req->$a
+        ]);
+        
+        return redirect()->back();
+        
+    }
 
 
 

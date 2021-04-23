@@ -334,7 +334,7 @@
                         <tbody>
                         @foreach($findings as $finding)
                           <tr>
-                            <td scope="col">1</td>
+                            <td scope="col">{{ $loop->iteration }}</td>
                             <td scope="col" hidden>{{ $finding->KPI }}</td>
                             <td scope="col">{{ $finding->Issue_desc }}</td>
                             <td scope="col">{{ $finding->Actions_desc }}</td>
@@ -345,15 +345,18 @@
                             <td scope="col" hidden>{{ $finding->Due_date }}</td>
                             <td scope="col">{{ $finding->Remarks }}</td>
                             <td scope="col" hidden>
-                              @foreach($Rplus as $rp)
-                                @if($finding->Finding_ID == $rp->Finding_ID)
-                                {{$rp->Fullname}}
-                                @endif
-                              @endforeach
+
+                             <select class="hides" style="width: 100%;" id="rplusHidden" multiple>
+                                  @foreach($Rplus as $rp)
+                                    @if($finding->Finding_ID == $rp->Finding_ID)
+                                      <option selected value="{{ $rp->kpkNum }}" class="font2">{{ $rp->Fullname }}- {{ $rp->kpkNum }}</option>
+                                    @endif
+                                  @endforeach
+                            </select>
                             </td>
                             <td scope="col">
                               <button title="Detail" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-detail-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-eye"></i></button>
-                              <button title="Edit" type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-edit-modal-lg{{$finding->Finding_ID}}"><i class="fas fa-edit"></i></button>
+                              <button title="Edit" type="button" class="btn btn-success editBtn"><i class="fas fa-edit"></i></button>
                               <button title="Delete" type="button" class="btn btn-danger" data-toggle="modal" data-toggle="modal" data-target="#deleteFindingModal{{$finding->Finding_ID}}"><i class="fas fa-trash-alt"></i></button>
                             </td>
                           </tr>
@@ -625,7 +628,8 @@
             @endforeach
 
             <!-- Edit Modal -->
-            <form action="">
+            <form method="get">
+            @csrf
               @foreach($findings as $finding)
                 <div class="modal fade bd-edit-modal-lg{{$finding->Finding_ID}}" id="editFindings" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
                   <div class="modal-dialog modal-lg">
@@ -714,7 +718,7 @@
                                           <select class="js-example-placeholder-multiple" style="width: 100%;" id="nameRplus" name="updateRplus[]" multiple>
                                                 @foreach($Rplus as $rp)
                                                   @if($finding->Finding_ID == $rp->Finding_ID)
-                                                    <option selected value="{{ $rp->KPK }}" class="font2">{{ $rp->Fullname }}- {{ $rp->KPK }}</option>
+                                                    <option selected value="{{ $rp->KPK }}" class="font2">{{ $rp->Fullname }}- {{ $rp->kpkNum }}</option>
                                                   @endif
                                                 @endforeach
   
@@ -727,7 +731,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                          <a href="" class="btn btn-primary">Update</a>
+                          <a href="/kaizen-form/edit-finding/{{ $finding->Finding_ID }}" class="btn btn-primary">Update</a>
                           <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -758,6 +762,107 @@
                 </div>
               </div>
             @endforeach
+
+            <div class="modal fade bd-edit-modal-lg" id="editFindingss" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Update Finding</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
+                                        <textarea required class="form-control font2" id="issueDescUpdate" rows="3"  name="issueDesc" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
+                                        <textarea required class="form-control font2" id="actionDescUpdate" rows="3"  name="actionDesc"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
+                                        <select class="form-control font2" name="selectKPI" id="selectKPIUpdate" required >
+                                            <option value="" selected hidden></option>
+                                            <option value="Quality">Quality</option>
+                                            <option value="Cost">Cost</option>
+                                            <option value="Safety">Safety</option>
+                                            <option value="Delivery">Delivery</option>
+                                            <option value="Moral">Moral</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
+                                            <input  required class="form-control font2" type="text" id="beforeActUpdate" name="beforeAct" value="" placeholder="Before value">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
+                                            <input required class="form-control font2" type="text" id="afterActUpdate" name="afterAct" placeholder="After value" value="" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
+                                        <select class="form-control font2" id="selectUMUpdate" name="selectUM" required >
+                                            <option value="" hidden></option>
+                                            <option value="PPM">PPM</option>
+                                            <option value="Cm">Cm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
+                                            <input required class="form-control font2" id="goalsActUpdate" name="goalsAct" type="text" placeholder="Goals value"  value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
+                                            <input required class="form-control font2" id="dueDateUpdate" name="dueDate" type="date"  value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
+                                        <select class="form-control font2" id="selectRemarksUpdate" name="selectRemarks" required >
+                                            <option value="" hidden></option>
+                                            <option value="On-Going">On-Going</option>
+                                            <option value="Done">Done</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                      <div class="col-md-6">
+                                          <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
+                                          <select class="js-example-placeholder-multiple empRplus" style="width: 100%;" id="nameRplusUpdate" name="updateRplus[]" multiple>
+                                              @foreach($employee as $emp)
+                                                <option value="{{ $emp->KPK }}" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
+                                              @endforeach
+                                          </select>
+                                      </div>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <a href="/kaizen-form/edit-finding/" class="btn btn-primary">Update</a>
+                          <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
             
 
           </div>
@@ -804,15 +909,29 @@
         <script type="text/javascript">
           $(document).ready(function() {
             $('.editBtn').on('click', function(){
-              $('#editFindings').modal('show');
-
+              $('#editFindingss').modal('show');
+              var selectedEmp = [];
+              $.each($(".empRplus option:selected"), function(){            
+                  selectedEmp.push($(this).val());
+              });
               $tr = $(this).closest('tr');
-
               var data = $tr.children('td').map(function() {
                 return $(this).text();
               }).get();
               console.log(data);
+              $('#issueDescUpdate').val(data[2]);
+              $('#actionDescUpdate').val(data[3]);
+              $('#selectKPIUpdate').val(data[1]);
+              $('#beforeActUpdate').val(data[4]);
+              $('#afterActUpdate').val(data[5]);
+              $('#selectUMUpdate').val(data[6]);
+              $('#goalsActUpdate').val(data[7]);
+              $('#dueDateUpdate').val(data[8]);
+              $('#selectRemarksUpdate').val(data[9]);
+              
+              $('#nameRplusUpdate').val(data[10]);
 
+              alert(selectedEmp.join(", "));
             })
           })
         </script>
