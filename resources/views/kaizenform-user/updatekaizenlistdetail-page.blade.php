@@ -346,7 +346,7 @@
                             <td scope="col">{{ $finding->Remarks }}</td>
                             <td scope="col" hidden>
 
-                             <select class="hides" style="width: 100%;" id="rplusHidden" multiple>
+                             <select class="hides" style="width: 100%;" id="rplusHidden" name="rplusHidden" multiple>
                                   @foreach($Rplus as $rp)
                                     @if($finding->Finding_ID == $rp->Finding_ID)
                                       <option selected value="{{ $rp->kpkNum }}" class="font2">{{ $rp->Fullname }}- {{ $rp->kpkNum }}</option>
@@ -366,25 +366,32 @@
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-end pt-2">
-                  <div class="col-md-3 pt-2 ">
+                
+                <div class="row">
+                  <div class="col d-flex justify-content-start">
+                    <a href="{{ url('/kaizen-form/list-kaizen') }}" type="button" class="btn btn-secondary font2 text-light">
+                      <i class="fas fa-angle-left"></i> Go Back
+                    </a>
+                  </div>
+                  <div class="col d-flex justify-content-end">
                     @if($acc->kpkNum == '393560')
-                      <button id="submitUpdate" type="submit" class="btn btn-danger btn-block font2">
-                          Update
+                      <button id="submitUpdate" type="submit" class="btn btn-primary font2 text-light">
+                          Update <i class="fas fa-edit"></i>
                       </button>
                     @else
                       @if($rolesKaizen->member_roles == 'Leader' || $rolesKaizen->member_roles == 'Facilitator' || $rolesKaizen->member_roles == 'Sponsor')
-                        <button id="submitUpdate" type="submit" class="btn btn-danger btn-block font2">
-                          Update
+                        <button id="submitUpdate" type="submit" class="btn btn-primary font2 text-light">
+                          Update <i class="fas fa-edit"></i>
                         </button>
                       @else
-                        <button class="btn btn-danger btn-block font2" disabled>
-                          Update
+                        <button class="btn btn-primary font2 text-light" disabled>
+                          Update <i class="fas fa-edit"></i>
                         </button>
                       @endif
                       
                     @endif
                   </div>
+
                 </div>
               </div>
              
@@ -448,7 +455,8 @@
                                         <select class="form-control font2" id="selectUM" name="selectUM" required>
                                             <option value="" hidden>Select Unit Measurement</option>
                                             <option value="PPM">PPM</option>
-                                            <option value="Cm">Cm</option>
+                                            <option value="Cm">CM</option>
+                                            <option value="Cm">Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -469,8 +477,10 @@
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
                                         <select class="form-control font2" id="selectRemarks" name="selectRemarks" required>
                                             <option value="" hidden>Select Remarks</option>
+                                            <option value="Not Started">Not Started</option>
                                             <option value="On-Going">On-Going</option>
                                             <option value="Done">Done</option>
+                                            <option value="Canceled">Canceled</option>
                                         </select>
                                     </div>
                                 </div>
@@ -629,7 +639,7 @@
 
             <!-- Edit Modal -->
             <form method="get">
-            @csrf
+              @csrf
               @foreach($findings as $finding)
                 <div class="modal fade bd-edit-modal-lg{{$finding->Finding_ID}}" id="editFindings" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
                   <div class="modal-dialog modal-lg">
@@ -738,7 +748,7 @@
                   </div>
                 </div>
               @endforeach
-            </form>
+            </form> 
 
             <!-- Delete Modal -->
             @foreach($findings as $finding)
@@ -911,14 +921,23 @@
             $('.editBtn').on('click', function(){
               $('#editFindingss').modal('show');
               var selectedEmp = [];
-              $.each($(".empRplus option:selected"), function(){            
-                  selectedEmp.push($(this).val());
-              });
+             
               $tr = $(this).closest('tr');
+              $td = $(this).closest('td');
               var data = $tr.children('td').map(function() {
                 return $(this).text();
               }).get();
-              console.log(data);
+
+              // $.each($(".hides option:selected"), function(){            
+              //     selectedEmp.push($(this).text());
+              // });
+
+              // var emp = $td.children('.hides option:selected').map(function() {
+              //   return $(this).text();
+              // }).get();
+
+              // console.log(emp);
+              selectedEmp.push(data[10]);
               $('#issueDescUpdate').val(data[2]);
               $('#actionDescUpdate').val(data[3]);
               $('#selectKPIUpdate').val(data[1]);
@@ -928,10 +947,9 @@
               $('#goalsActUpdate').val(data[7]);
               $('#dueDateUpdate').val(data[8]);
               $('#selectRemarksUpdate').val(data[9]);
+              $('#nameRplusUpdate option:selected').val("a");
+              console.log(selectedEmp);
               
-              $('#nameRplusUpdate').val(data[10]);
-
-              alert(selectedEmp.join(", "));
             })
           })
         </script>

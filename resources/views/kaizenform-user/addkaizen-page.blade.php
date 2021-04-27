@@ -305,10 +305,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-end pt-2"> 
-                  <div class="col-md-3">
-                    <button type="submit" id="btnSubmit" class="btn btn-block btn-danger font2" style="display:none;" disabled>
-                        Submit
+                <div class="row"> 
+                  <div class="col d-flex justify-content-end">
+                    <button type="submit" id="btnSubmit" class="btn btn-danger font2" style="display:none;" disabled>
+                        Submit <i class="fas fa-record-vinyl"></i>
                     </button>
                   </div>
                 </div>
