@@ -78,7 +78,8 @@ Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //appro
 Route::post('/kaizen-form/add-finding','kaizenform\KaizenCont@addFinding')->name('addFinding'); //list kaizen to be approved
 
 Route::get('/kaizen-form/delete-finding/{fid}','kaizenform\KaizenCont@deleteFinding'); //delete finding
-Route::get('/kaizen-form/edit-finding/{fid}','kaizenform\KaizenCont@editFinding'); //delete finding
+
+Route::post('/kaizen-form/edit-finding','kaizenform\KaizenCont@editFinding')->name('editFinding'); //edit finding
 // Route::get('/test','kaizenform\KaizenCont@testKaiPage'); //approved kaizen
 // Route::get('/test/action','kaizenform\KaizenCont@testSearch')->name('actionsearch'); //approved kaizen
 

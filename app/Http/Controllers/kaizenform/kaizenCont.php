@@ -2519,15 +2519,45 @@ class kaizenCont extends Controller
         }
     }
 
-    public function editFinding(Request $req, $fid){
-        $a = "issueDesc".$fid;
+    public function editFinding(Request $req){
+        $findingID = $req->editFID;
         
-        Kaizen_Finding::where('Finding_ID', $fid)->update([
-            'Issue_desc' => $req->$a
-        ]);
+        // dd($findingID);
         
-        return redirect()->back();
+        Kaizen_Rplus::where('Finding_ID', '=', $findingID)->delete();
+        Kaizen_Finding::where('Finding_ID', '=', $findingID)->delete();
         
+        
+        
+        $KZ_finding = new Kaizen_Finding;
+        $KZ_Rplus = new Kaizen_Rplus;
+        
+        $KZ_finding->Finding_ID = $findingID;
+
+        $KZ_finding->Kaizen_ID = $req->kzid;
+        $KZ_finding->KPI = $req->selectKPIUpdate;
+        $KZ_finding->Issue_desc = $req->issueDescUpdate;
+        $KZ_finding->Actions_desc = $req->actionDescUpdate;
+        $KZ_finding->Before_act = $req->beforeActUpdate;
+        $KZ_finding->After_act = $req->afterActUpdate;
+        $KZ_finding->Unit_measure = $req->selectUMUpdate;
+        $KZ_finding->Goals_act = $req->goalsActUpdate;
+        $KZ_finding->Due_date = $req->dueDateUpdate;
+        $KZ_finding->Remarks = $req->selectRemarksUpdate;
+
+        $KZ_finding->save();
+
+        $dataMembers = [];
+        $names = $req->updateRplus;
+        
+        foreach($names as $key => $n){
+                $dataMembers = [
+                ['Finding_ID' => $findingID, 'kpkNum' => $names[$key]]
+            ];
+            $KZ_Rplus->insert($dataMembers);
+        }
+        
+        return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Finding edited');
     }
 
 

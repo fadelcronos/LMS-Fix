@@ -11,6 +11,7 @@
 
 @section('container')
 
+
 <div class="container" >
 
           <form class="user" method="post" action="{{ url('/kaizen-form/update-kaizen') }}">
@@ -84,7 +85,7 @@
                         </div>
                       </div>
                       <div class="form-group row justify-content-center mt-5">
-                        <button type="button" id="nextMems" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                        <!-- <button type="button" id="nextMems" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button> -->
                       </div>
                       
                     </div>
@@ -138,8 +139,8 @@
                             </table>
                           </div>
                           <div class="form-group row justify-content-center mt-5">
-                            <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
-                            <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button>
+                            <!-- <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
+                            <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button> -->
                           </div>
                             <input type="text" id="totRow" name="totRow" hidden value="1">
                         </div>
@@ -344,8 +345,8 @@
                             <td scope="col" hidden>{{ $finding->Goals_act }}</td>
                             <td scope="col" hidden>{{ $finding->Due_date }}</td>
                             <td scope="col">{{ $finding->Remarks }}</td>
+                            <td scope="col" hidden>{{ $finding->Finding_ID }}</td>
                             <td scope="col" hidden>
-
                              <select class="hides" style="width: 100%;" id="rplusHidden" name="rplusHidden" multiple>
                                   @foreach($Rplus as $rp)
                                     @if($finding->Finding_ID == $rp->Finding_ID)
@@ -374,18 +375,21 @@
                     </a>
                   </div>
                   <div class="col d-flex justify-content-end">
+                    <button type="button" id="nextMems" class="btn btn-danger justify-content-center mr-3">Next <i class="fas fa-chevron-circle-right"></i></button>
+                    <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2" hidden><i class="fas fa-chevron-circle-left"></i> Back</button>
+                    <button type="button" id="nextDet" class="btn btn-danger justify-content-center mr-3" hidden>Next <i class="fas fa-chevron-circle-right"></i></button>
                     @if($acc->kpkNum == '393560')
                       <button id="submitUpdate" type="submit" class="btn btn-primary font2 text-light">
-                          Update <i class="fas fa-edit"></i>
+                          Update <i class="fas fa-sync-alt"></i>
                       </button>
                     @else
                       @if($rolesKaizen->member_roles == 'Leader' || $rolesKaizen->member_roles == 'Facilitator' || $rolesKaizen->member_roles == 'Sponsor')
                         <button id="submitUpdate" type="submit" class="btn btn-primary font2 text-light">
-                          Update <i class="fas fa-edit"></i>
+                          Update <i class="fas fa-sync-alt"></i>
                         </button>
                       @else
                         <button class="btn btn-primary font2 text-light" disabled>
-                          Update <i class="fas fa-edit"></i>
+                          Update <i class="fas fa-sync-alt"></i>
                         </button>
                       @endif
                       
@@ -398,6 +402,7 @@
               <input type="text" name="kzroom" id="kzidi" hidden value="{{ $main->Kaizen_room }}">
           </form>
 
+            <!-- Add Finding Modal -->
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -494,27 +499,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <!-- <div class="col-md-1 mt-4">
-                                      <button onclick="addRplus()" type="button" class="btn btn-danger font2"><i class="fas fa-plus"></i></button>
-                                    </div> -->
-                                    
                                 </div>
-                                <!-- <div class="row">
-                                  <div class="col-md-7">
-                                      <table class="table table-striped" id="rplusTab">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">KPK</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Remove</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody id="rplusRow">
-                                          
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                </div> -->
+                                
                                 
                             </div>
                         </div>
@@ -660,30 +646,34 @@
               </div>
             @endforeach
 
-            <form method="POST">
-              @csrf
-              <div class="modal fade bd-edit-modal-lg" id="editFindingss" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                      <div class="modal-header bg-danger">
-                          <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Update Finding</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                          </button>
-                      </div>
+            <!-- Edit modal -->
+            
+            <div class="modal fade bd-edit-modal-lg" id="editFindingss" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >`
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title font2 font-weight-bold text-light" id="exampleModalCenterTitle">Update Finding</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="editFind" action="{{ url('/kaizen-form/edit-finding') }}" method="POST">
+                      @csrf
                       <div class="modal-body">
                           <div class="container-fluid">
                               <div class="row">
+                                <input type="text" id="editFID" name="editFID" hidden>
+                                <input type="text" id="editFID" name="kzid" value="{{ $main->Kaizen_ID }}" hidden>
                                   <div class="col-md-6">
                                       <div class="form-group">
                                       <label for="issueDesc" class="font2 text-dark font-weight-bold">Issue</label>
-                                      <textarea required class="form-control font2" id="issueDescUpdate" rows="3"  name="issueDesc" ></textarea>
+                                      <textarea required class="form-control font2" id="issueDescUpdate" rows="3"  name="issueDescUpdate"></textarea>
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="form-group">
                                       <label for="actionDesc" class="font2 text-dark font-weight-bold">Action</label>
-                                      <textarea required class="form-control font2" id="actionDescUpdate" rows="3"  name="actionDesc"></textarea>
+                                      <textarea required class="form-control font2" id="actionDescUpdate" rows="3"  name="actionDescUpdate"></textarea>
                                       </div>
                                   </div>
                                   
@@ -691,7 +681,7 @@
                               <div class="row">
                                   <div class="col-md-3">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
-                                      <select class="form-control font2" name="selectKPI" id="selectKPIUpdate" required >
+                                      <select class="form-control font2" name="selectKPIUpdate" id="selectKPIUpdate" required >
                                           <option value="" selected hidden></option>
                                           <option value="Quality">Quality</option>
                                           <option value="Cost">Cost</option>
@@ -703,18 +693,18 @@
                                   <div class="col-md-3">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Before</label>
-                                          <input  required class="form-control font2" type="text" id="beforeActUpdate" name="beforeAct" value="" placeholder="Before value">
+                                          <input  required class="form-control font2" type="text" id="beforeActUpdate" name="beforeActUpdate" placeholder="Before value">
                                       </div>
                                   </div>
                                   <div class="col-md-3">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">After</label>
-                                          <input required class="form-control font2" type="text" id="afterActUpdate" name="afterAct" placeholder="After value" value="" >
+                                          <input required class="form-control font2" type="text" id="afterActUpdate" name="afterActUpdate" placeholder="After value">
                                       </div>
                                   </div>
                                   <div class="col-md-3">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Unit Measurement</label>
-                                      <select class="form-control font2" id="selectUMUpdate" name="selectUM" required >
+                                      <select class="form-control font2" id="selectUMUpdate" name="selectUMUpdate" required >
                                           <option value="" hidden></option>
                                           <option value="PPM">PPM</option>
                                           <option value="Cm">Cm</option>
@@ -725,18 +715,18 @@
                                   <div class="col-md-4">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Goals</label>
-                                          <input required class="form-control font2" id="goalsActUpdate" name="goalsAct" type="text" placeholder="Goals value"  value="">
+                                          <input required class="form-control font2" id="goalsActUpdate" name="goalsActUpdate" type="text" placeholder="Goals value">
                                       </div>
                                   </div>
                                   <div class="col-md-4">
                                       <div class="form-group">
                                           <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Due Date</label>
-                                          <input required class="form-control font2" id="dueDateUpdate" name="dueDate" type="date"  value="">
+                                          <input required class="form-control font2" id="dueDateUpdate" name="dueDateUpdate" type="date"  value="">
                                       </div>
                                   </div>
                                   <div class="col-md-4">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
-                                      <select class="form-control font2" id="selectRemarksUpdate" name="selectRemarks" required >
+                                      <select class="form-control font2" id="selectRemarksUpdate" name="selectRemarksUpdate" required >
                                           <option value="" hidden></option>
                                           <option value="On-Going">On-Going</option>
                                           <option value="Done">Done</option>
@@ -746,7 +736,7 @@
                               <div class="row">
                                     <div class="col-md-6">
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
-                                        <select class="js-example-placeholder-multiple empRplus" style="width: 100%;" id="nameRplusUpdate" name="updateRplus[]" multiple required>
+                                        <select class="js-example-placeholder-multiple empRplus" style="width: 100%;" id="" name="updateRplus[]" multiple required>
                                             @foreach($employee as $emp)
                                               <option value="{{ $emp->KPK }}" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
                                             @endforeach
@@ -759,17 +749,15 @@
                         <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update</button>
                       </div>
-                  </div>
+                    </form>
                 </div>
               </div>
-            </form>
+            </div>
+           
 
           </div>
-
-          
-
-          <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-       
+        
+        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script>
               function getFindingID() {
               var date = new Date();
@@ -817,16 +805,7 @@
                 return $(this).text();
               }).get();
 
-              // $.each($(".hides option:selected"), function(){            
-              //     selectedEmp.push($(this).text());
-              // });
-
-              // var emp = $td.children('.hides option:selected').map(function() {
-              //   return $(this).text();
-              // }).get();
-
-              // console.log(emp);
-              // selectedEmp.push(data[10]);
+              console.log(data);
               $('#issueDescUpdate').val(data[2]);
               $('#actionDescUpdate').val(data[3]);
               $('#selectKPIUpdate').val(data[1]);
@@ -835,12 +814,31 @@
               $('#selectUMUpdate').val(data[6]);
               $('#goalsActUpdate').val(data[7]);
               $('#dueDateUpdate').val(data[8]);
-              $('#selectRemarksUpdate').val(data[9]);s
-              // $('#nameRplusUpdate option:selected').val("a");
-              // console.log(selectedEmp);
+              $('#selectRemarksUpdate').val(data[9]);
+              $('#editFID').val(data[10]);
               
-            })
-          })
+            });
+
+            // $('#updateEditBtn').on('submit', function(e){
+            //   e.preventDefault();
+            //   // var fid = $('#editFID').val();
+            //   $.ajax({
+            //     url:"{{ route('editFinding') }}",
+            //     method: "POST",
+            //     data: $('#editFind').serialize(),
+            //     success:function(res){
+            //       console.log(res);
+            //       alert("Finding data updated");
+            //       // location.reload();
+            //     },
+            //     error: function(err){
+            //       console.log(err);
+            //       alert('There is something wrong when edit the data');
+            //     }
+            //   });
+            // });
+
+          });
         </script>
         
 
