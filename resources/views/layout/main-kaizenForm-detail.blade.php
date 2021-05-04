@@ -21,6 +21,9 @@
   <link href="../../css/customCss.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+
+  
   <style>
   .vertical-scrollable { 
       height:60vh;
@@ -39,6 +42,36 @@
 </head>
 
 <body id="page-top" onload="getDate()">
+
+@if(Session::has('showModal'))
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if(Session('alert'))
+            <div class="alert alert-danger">
+              <div>{{Session('alert')}}</div>
+            </div>
+          @endif
+          @if(Session('alert-success'))
+            <div class="alert alert-success">
+              <div>{{Session('alert-success')}}</div>
+            </div>
+          @endif
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-customyel" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+@endif
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -146,9 +179,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      <div class="text-center d-none d-md-inline">
+      <!-- <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+      </div> -->
 
       <!-- Sidebar Toggler (Sidebar) -->
       <!-- <div class="text-center d-none d-md-inline">
@@ -263,7 +296,9 @@
   <!-- Custom scripts for all pages-->
   <script src="../../js/sb-admin-2.min.js"></script>
   <script src="../../js/kaiform.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="../../js/modal/showModal.js"></script>
+  
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
   <script type="text/javascript">
@@ -272,6 +307,13 @@
               placeholder: "Select a Name or KPK",
               allowClear: true
           });
+          
+        $(".js-example-placeholder-multiple").select2({
+              placeholder: "Select a Name or KPK",
+          });
+
+          
+          
   </script>
 
 

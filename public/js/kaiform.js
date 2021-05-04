@@ -25,37 +25,20 @@ var i=2;
           cl3.innerHTML = "<select class='form-control' id='role' name='role[]' style='width:auto' required><option value='' selected disabled hidden>Select Roles</option><option value='Sponsor'>Sponsor</option><option value='Facilitator'>Facilitator</option><option value='Leader'>Leader</option><option value='Co-Leader'>Co-Leader</option><option value='Participant'>Participant</option></select>";
           cl4.innerHTML = "<button type='button' onclick='delRow(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
           
-          // if(z == 2){
-          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-          // }else{
-          //   row[z-2].deleteCell(3);
-          //   cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-          // }
-
-          // console.log(z);
           
           var x = document.getElementById("myRows").rows.length;
-          // console.log(x);
 
           document.getElementById("totRow").value=x;
       
   }
 
   function delRow(r){
-    // var x = document.getElementById("myRows").rows.length;
     var i = r.parentNode.parentNode.rowIndex;
     var y = document.getElementById("myTab").deleteRow(i);
     var x = document.getElementById("myRows").rows.length;
     console.log(x);
     document.getElementById("totRow").value=x;
     
-    
-    // var table = document.getElementById("myRows");
-    // var row = table.rows;
-    // var z = document.getElementById("myRows").rows.length+1;
-    // var cl4 = row[z].insertCell(3);
-    // cl4.innerHTML = "<button type='button' onclick='delRow()'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
-
 
   }
 
@@ -246,9 +229,61 @@ function delDeliv(r){
   document.getElementById("totRowDeliv").value=x;
 
 }
+function addRpluss(fid){
+  var names = $('#nameRplus'+ fid +' option:selected').val();
+  var emp = names.split("- ");
+  // console.log(re[0]);
+  var table = document.getElementById("rplusRow"+fid);
+  var row = table.rows;
 
+  
+  
+  var z = document.getElementById("rplusRow").rows.length+1;
+        
+  var rw = table.insertRow(-1);
+  var cl1 = rw.insertCell(0);
+  var cl2 = rw.insertCell(1);
+  var cl3 = rw.insertCell(2);
 
+                              
+  cl1.innerHTML = "<input class='form-control font2' name='kpkRplus[]' type='text' value='"+ emp[1] +"' readonly></input>";
+  cl2.innerHTML = "<input class='form-control font2' name='nameRplus[]' type='text' value='"+ emp[0] +"' readonly></input>";
+  cl3.innerHTML = "<button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+  
+}
+function delRowRplus(r, fid){
+  var i = r.parentNode.parentNode.rowIndex;
+  var y = document.getElementById("rplusTab").deleteRow(i);
+  var x = document.getElementById("rplusRow").rows.length;
+}
+function addRplus(){
+  var names = $('#nameRplus option:selected').val();
+  var emp = names.split("- ");
+  // console.log(re[0]);
 
+  var table = document.getElementById("rplusRow");
+  var row = table.rows;
+
+  
+  
+  var z = document.getElementById("rplusRow").rows.length+1;
+        
+  var rw = table.insertRow(-1);
+  var cl1 = rw.insertCell(0);
+  var cl2 = rw.insertCell(1);
+  var cl3 = rw.insertCell(2);
+
+                              
+  cl1.innerHTML = "<input class='form-control font2' name='kpkRplus[]' type='text' value='"+ emp[1] +"' readonly></input>";
+  cl2.innerHTML = "<input class='form-control font2' name='nameRplus[]' type='text' value='"+ emp[0] +"' readonly></input>";
+  cl3.innerHTML = "<button type='button' onclick='delRowRplus(this)'  class='btn btn-danger'><i class='fas fa-trash'></i></button>";
+  
+}
+function delRowRplus(r){
+  var i = r.parentNode.parentNode.rowIndex;
+  var y = document.getElementById("rplusTab").deleteRow(i);
+  var x = document.getElementById("rplusRow").rows.length;
+}
 function changeInput(){
   var x = document.getElementById("kpi1").value;
 
@@ -260,7 +295,6 @@ function changeInput(){
   }
 
 }
-
 function getData(){
   // var x = document.getElementById("myRows").rows.length;
   document.getElementById("totRow").value = "Yeayyy";
@@ -305,36 +339,128 @@ $(document).on('change', function() {
 
 });
 
-$('#nextMem').click(function(){
-  $('#nav-main-tab').removeClass('active');
-  $('#nav-main').removeClass('show active');
-  $('#nav-member-tab').addClass('active');
-  $('#nav-member').addClass('show active');
-});
-$('#nextMems').click(function(){
-  $('#nav-main-tab').removeClass('active');
-  $('#nav-main').removeClass('show active');
-  $('#nav-member-tab').addClass('active');
-  $('#nav-member').addClass('show active');
-});
-$('#nextDet').click(function(){
-  $('#nav-member-tab').removeClass('active');
-  $('#nav-member').removeClass('show active');
-  $('#nav-detail-tab').addClass('active');
-  $('#nav-detail').addClass('show active');
-  $('#btnSubmit').show();
-});
-$('#befMain').click(function(){
-  $('#nav-member-tab').removeClass('active');
-  $('#nav-member').removeClass('show active');
-  $('#nav-main-tab').addClass('active');
-  $('#nav-main').addClass('show active');
-});
-$('#befMem').click(function(){
-  $('#nav-detail-tab').removeClass('active');
-  $('#nav-detail').removeClass('show active');
-  $('#nav-member-tab').addClass('active');
-  $('#nav-member').addClass('show active');
+$( document ).ready(function() {
+//Next prev in Update Kaizen Detail
+  $('#befMems').fadeOut();
+  $('#nextMems').fadeIn();
+  $('#submitUpdate').fadeIn();
+ var pageTab = 1;
+ if($('#nav-main-tab').click(function(){
+  pageTab = 1;
+  $('#befMems').fadeOut();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeOut();
+  $('#nextTabAdd').fadeIn();
+  $('#submitUpdate').fadeIn();
+ }));
+ if($('#nav-member-tab').click(function(){
+  pageTab = 2;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeIn();
+  $('#nextTabAdd').fadeIn();
+  $('#submitUpdate').fadeIn();
+  
+ }));
+ if($('#nav-detail-tab').click(function(){
+  pageTab = 3;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeIn();
+  $('#nextTabAdd').fadeOut();
+  $('#submitUpdate').fadeIn();
+ }));
+ if($('#nav-action-tab').click(function(){
+  pageTab = 4;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeOut();
+  $('#submitUpdate').fadeOut();
+
+ }));
+
+  $('#nextMems').click(function(){
+    if(pageTab == 1){
+      $('#nav-member-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#nav-detail-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      pageTab = 3;
+    }else if(pageTab == 3){
+      $('#nav-action-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeOut();
+      pageTab = 4;
+    }
+    console.log(pageTab);
+  });
+
+  $('#befMems').click(function(){
+    if(pageTab == 4){
+      $('#nav-detail-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+      pageTab = 3;
+    }else if(pageTab == 3){
+      $('#nav-member-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#nav-main-tab').trigger('click');
+      pageTab = 1;
+      $('#befMems').fadeOut();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+    }
+    console.log(pageTab);
+  });
+
+  $('.nav .nav-tab').on('click', function(){
+    tabtext = $("#nav-tab .active").text();
+  })
+
+
+  //Pre Kaizen
+  $('#prevTabAdd').fadeOut();
+  $('#nextTabAdd').fadeIn();
+  
+  $('#nextTabAdd').click(function(){
+    if(pageTab == 1){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-member-tab').trigger('click');
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeOut();
+      $('#nav-detail-tab').trigger('click');
+      pageTab = 3;
+    }
+  });
+
+  $('#prevTabAdd').click(function(){
+    if(pageTab == 3){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-member-tab').trigger('click');
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#prevTabAdd').fadeOut();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-main-tab').trigger('click');
+      pageTab = 1;
+    }
+  });
+ 
 });
 
 $('#nav-detail-tab').click(function(){

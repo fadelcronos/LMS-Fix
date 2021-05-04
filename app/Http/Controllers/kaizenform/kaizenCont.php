@@ -25,7 +25,10 @@ use Illuminate\Support\Facades\Mail;
 use App\View_KaizenRoles;
 use App\View_UpdateList;
 use App\View_Member;
+use App\View_RplusName;
 use App\View_ListDate;
+use App\Kaizen_Finding;
+use App\Kaizen_Rplus;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -392,7 +395,7 @@ class kaizenCont extends Controller
                                             if($req->session()->has("login")){
     
                                                 if($acc->kpkNum == "393560"){
-                                                    $output .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                    $output .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-success">Edit <i class="fas fa-edit"></i></a>';
                                                 }
                                             }
                                                 $output.=
@@ -642,7 +645,7 @@ class kaizenCont extends Controller
                                                     if($req->session()->has("login")){
     
                                                         if($acc->kpkNum == "393560"){}
-                                                            $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                            $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-success">Edit <i class="fas fa-edit"></i></a>';
                                                     }
                                                         $myoutput.=
                                                     '
@@ -823,7 +826,8 @@ class kaizenCont extends Controller
         $delivs = Kaizen_Deliverable::where('Kaizen_ID', $kzid)->get();
         // $totWait = View_UpdateList::latest('Kaizen_ID')->where('Kaizen_status', 'Waiting')->get();
         $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        
+        $findings = Kaizen_Finding::where('Kaizen_ID', $kzid)->get();
+        $Rplus = View_RplusName::all();
 
         // dd($scopes);
         // dd($member);
@@ -835,7 +839,7 @@ class kaizenCont extends Controller
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
             $rolesKaizen = View_KaizenRoles::where('Kaizen_ID', $kzid)->where('kpkNum', $acc->kpkNum)->first();
-            return view('kaizenform-user.updatekaizenlistdetail-page', compact('rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
+            return view('kaizenform-user.updatekaizenlistdetail-page', compact('Rplus' ,'findings' ,'rolesKaizen', 'totWait' ,'acc', 'employee', 'main', 'member', 'dates', 'scopes', 'backs', 'bases', 'goals', 'delivs'));
         }
     }
 
@@ -1175,7 +1179,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -1379,7 +1383,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -1583,7 +1587,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $yououtput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -2027,35 +2031,7 @@ class kaizenCont extends Controller
 
     public function searchData(Request $req){
 
-        // Session::put('kaizen', TRUE);
-        // Session::forget('home');
-
-
-        // $search = $req->search;
-        // $type = $req->kztype;
-        // $status = $req->status;
-        // $dept = $req->department;
-        // $kaizen_list = Kaizen_Main::latest('Kaizen_ID')->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-        // $memberlist = View_Member::all();
-
-        // $scopelist = Kaizen_Scope::all();
-        // $baselist = Kaizen_Baseline::all();
-        // $backlist = Kaizen_Background::all();
-        // $goalslist = Kaizen_Goals::all();
-        // $delivlist = Kaizen_Deliverable::all();
-        // $datelist = Kaizen_Date::all();
-
-        // $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
-        // if(!Session::get('login')){
-        //     return view('kaizenform-user.listallkaizen-page', compact('datelist', 'totWait', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        //     // return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
-        // }else{
-        //     $id = Session::get('id');
-        //     $acc = User::where('id', '=', $id)->first();
-        //     $myKaizen_list = View_UpdateList::latest('Kaizen_ID')->where('kpkNum', $acc->kpkNum)->where('Kaizen_title', 'LIKE', '%'. $search. '%')->where('Kaizen_type', 'LIKE', '%'. $type. '%')->where('Kaizen_status', 'LIKE', '%'. $status. '%')->where('Kaizen_dept', 'LIKE', '%'. $dept. '%')->get();
-            
-        //     return view('kaizenform-admin.attendance-page', compact('myKaizen_list', 'datelist', 'totWait', 'acc', 'kaizen_list', 'memberlist', 'scopelist', 'baselist', 'backlist', 'goalslist', 'delivlist'));
-        // }
+        
         if($req->ajax()){
             $id = Session::get('id');
             $acc = User::where('id', '=', $id)->first();
@@ -2114,7 +2090,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $output .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -2302,7 +2278,7 @@ class kaizenCont extends Controller
                                         '
                                     </div>
                                     <div class="col-2 align-self-center">
-                                        Date From';
+                                        Date To';
                                         foreach($datelist as $date){
                                             if($list->Kaizen_ID == $date->Kaizen_ID)
                                             $myoutput .= '<div class="text">'. date("d M Y", strtotime($date->Kaizen_DateTo)).'</div>';
@@ -2499,6 +2475,90 @@ class kaizenCont extends Controller
         }
     }
 
+    public function addFinding(Request $req){
+        $KZ_finding = new Kaizen_Finding;
+        $KZ_Rplus = new Kaizen_Rplus;
+
+        $KZ_finding->Finding_ID = $req->findingID;
+        $KZ_finding->Kaizen_ID = $req->kzidRplus;
+        $KZ_finding->KPI = $req->selectKPI;
+        $KZ_finding->Issue_desc = $req->issueDesc;
+        $KZ_finding->Actions_desc = $req->actionDesc;
+        $KZ_finding->Before_act = $req->beforeAct;
+        $KZ_finding->After_act = $req->afterAct;
+        $KZ_finding->Unit_measure = $req->selectUM;
+        $KZ_finding->Goals_act = $req->goalsAct;
+        $KZ_finding->Due_date = $req->dueDate;
+        $KZ_finding->Remarks = $req->selectRemarks;
+
+        $KZ_finding->save();
+
+        $dataMembers = [];
+        $names = $req->rplusKpk;
+        // $kpk = $req->kpkRplus;
+        
+        foreach($names as $key => $n){
+                $dataMembers = [
+                ['Finding_ID' => $req->findingID, 'kpkNum' => $names[$key]]
+            ];
+            $KZ_Rplus->insert($dataMembers);
+        }
+    }
+
+    public function deleteFinding($fid){
+        if(!Session::get('login')){
+            return redirect('/login')->with('showModal', 'a')->with('alert', 'You must be login first');
+        }else{
+            $id = Session::get('id');
+            $acc = User::where('id', '=', $id)->first();
+
+            Kaizen_Rplus::where('Finding_ID', $fid)->delete();
+            Kaizen_Finding::where('Finding_ID', $fid)->delete();
+
+            return redirect()->back()->with('showModal', 'a')->with('alert', '1 Finding Deleted');
+        }
+    }
+
+    public function editFinding(Request $req){
+        $findingID = $req->editFID;
+        
+        // dd($findingID);
+        
+        Kaizen_Rplus::where('Finding_ID', '=', $findingID)->delete();
+        Kaizen_Finding::where('Finding_ID', '=', $findingID)->delete();
+        
+        
+        
+        $KZ_finding = new Kaizen_Finding;
+        $KZ_Rplus = new Kaizen_Rplus;
+        
+        $KZ_finding->Finding_ID = $findingID;
+
+        $KZ_finding->Kaizen_ID = $req->kzid;
+        $KZ_finding->KPI = $req->selectKPIUpdate;
+        $KZ_finding->Issue_desc = $req->issueDescUpdate;
+        $KZ_finding->Actions_desc = $req->actionDescUpdate;
+        $KZ_finding->Before_act = $req->beforeActUpdate;
+        $KZ_finding->After_act = $req->afterActUpdate;
+        $KZ_finding->Unit_measure = $req->selectUMUpdate;
+        $KZ_finding->Goals_act = $req->goalsActUpdate;
+        $KZ_finding->Due_date = $req->dueDateUpdate;
+        $KZ_finding->Remarks = $req->selectRemarksUpdate;
+
+        $KZ_finding->save();
+
+        $dataMembers = [];
+        $names = $req->updateRplus;
+        
+        foreach($names as $key => $n){
+                $dataMembers = [
+                ['Finding_ID' => $findingID, 'kpkNum' => $names[$key]]
+            ];
+            $KZ_Rplus->insert($dataMembers);
+        }
+        
+        return redirect()->back()->with('showModal', 'a')->with('alert-success', 'Finding edited');
+    }
 
 
 
