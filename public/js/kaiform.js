@@ -339,79 +339,129 @@ $(document).on('change', function() {
 
 });
 
-
-
-
-
 $( document ).ready(function() {
- var tabtext = $("#nav-tab .active").text();
+//Next prev in Update Kaizen Detail
+  $('#befMems').fadeOut();
+  $('#nextMems').fadeIn();
+  $('#submitUpdate').fadeIn();
+ var pageTab = 1;
+ if($('#nav-main-tab').click(function(){
+  pageTab = 1;
+  $('#befMems').fadeOut();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeOut();
+  $('#nextTabAdd').fadeIn();
+  $('#submitUpdate').fadeIn();
+ }));
+ if($('#nav-member-tab').click(function(){
+  pageTab = 2;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeIn();
+  $('#nextTabAdd').fadeIn();
+  $('#submitUpdate').fadeIn();
+  
+ }));
+ if($('#nav-detail-tab').click(function(){
+  pageTab = 3;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeIn();
+  $('#prevTabAdd').fadeIn();
+  $('#nextTabAdd').fadeOut();
+  $('#submitUpdate').fadeIn();
+ }));
+ if($('#nav-action-tab').click(function(){
+  pageTab = 4;
+  $('#befMems').fadeIn();
+  $('#nextMems').fadeOut();
+  $('#submitUpdate').fadeOut();
+
+ }));
+
+  $('#nextMems').click(function(){
+    if(pageTab == 1){
+      $('#nav-member-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#nav-detail-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      pageTab = 3;
+    }else if(pageTab == 3){
+      $('#nav-action-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeOut();
+      pageTab = 4;
+    }
+    console.log(pageTab);
+  });
+
+  $('#befMems').click(function(){
+    if(pageTab == 4){
+      $('#nav-detail-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+      pageTab = 3;
+    }else if(pageTab == 3){
+      $('#nav-member-tab').trigger('click');
+      $('#befMems').fadeIn();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#nav-main-tab').trigger('click');
+      pageTab = 1;
+      $('#befMems').fadeOut();
+      $('#nextMems').fadeIn();
+      $('#submitUpdate').fadeIn();
+
+    }
+    console.log(pageTab);
+  });
 
   $('.nav .nav-tab').on('click', function(){
     tabtext = $("#nav-tab .active").text();
   })
- 
-  $('#nextMems').show();
+
+
+  //Pre Kaizen
+  $('#prevTabAdd').fadeOut();
+  $('#nextTabAdd').fadeIn();
   
-
-  $('#nextMem').click(function(){
-    $('#nav-main-tab').removeClass('active');
-    $('#nav-main').removeClass('show active');
-    $('#nav-member-tab').addClass('active');
-    $('#nav-member').addClass('show active');
+  $('#nextTabAdd').click(function(){
+    if(pageTab == 1){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-member-tab').trigger('click');
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeOut();
+      $('#nav-detail-tab').trigger('click');
+      pageTab = 3;
+    }
   });
-  $('#nextMems').click(function(){
-    
-    // $('#nav-member-tab').trigger('click');
-    // $('#nextMems').slideUp().promise();
-    
-    // $('#nextDet').delay(300).fadeIn();
-    // $('#befMain').delay(300).fadeIn();
 
-    // $('.tab-pane').trigger('click');
-    // var a = $('.nav .nav-tabs').find('.active').text();
-    // console.log(a);
-    if(tabtext == "Main"){
-      $('#nextMems').click(function(){
-        $('#nav-member-tab').trigger('click');
-        
-      });
-     }else if(tabtext == "Members"){
-      $('#nextMems').click(function(){
-        $('#nav-detail-tab').trigger('click');
-        
-      });
-     }
-
-     tabtext = $("#nav-tab .active").text();
-
+  $('#prevTabAdd').click(function(){
+    if(pageTab == 3){
+      $('#prevTabAdd').fadeIn();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-member-tab').trigger('click');
+      pageTab = 2;
+    }else if(pageTab == 2){
+      $('#prevTabAdd').fadeOut();
+      $('#nextTabAdd').fadeIn();
+      $('#nav-main-tab').trigger('click');
+      pageTab = 1;
+    }
   });
-  $('#nextDet').click(function(){
-    $('#nav-member-tab').removeClass('active');
-    $('#nav-member').removeClass('show active');
-    $('#nav-detail-tab').addClass('active');
-    $('#nav-detail').addClass('show active');
-    $('#btnSubmit').show();
-  });
-  $('#befMain').click(function(){
-    // $('#nav-member-tab').removeClass('active');
-    // $('#nav-member').removeClass('show active');
-    // $('#nav-main-tab').addClass('active');
-    // $('#nav-main').addClass('show active');
-    $('#nav-main-tab').trigger('click');
-    $('#nextDet').delay(300).fadeOut();
-    $('#befMain').delay(300).fadeOut();
-    $('#nextMems').fadeIn();
-
-  });
-  $('#befMem').click(function(){
-    $('#nav-detail-tab').removeClass('active');
-    $('#nav-detail').removeClass('show active');
-    $('#nav-member-tab').addClass('active');
-    $('#nav-member').addClass('show active');
-  });
+ 
 });
-
-
 
 $('#nav-detail-tab').click(function(){
   $('#btnSubmit').show();

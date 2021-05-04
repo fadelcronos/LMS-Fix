@@ -84,10 +84,6 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group row justify-content-center mt-5">
-                        <!-- <button type="button" id="nextMems" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button> -->
-                      </div>
-                      
                     </div>
                   </div>
                   <div class="tab-pane fade show" id="nav-member" role="tabpanel" aria-labelledby="nav-member-tab">
@@ -138,10 +134,7 @@
                               </tbody>
                             </table>
                           </div>
-                          <div class="form-group row justify-content-center mt-5">
-                            <!-- <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
-                            <button type="button" id="nextDet" class="btn btn-danger justify-content-center">Next <i class="fas fa-chevron-circle-right"></i></button> -->
-                          </div>
+                          
                             <input type="text" id="totRow" name="totRow" hidden value="1">
                         </div>
                       </div>
@@ -286,9 +279,7 @@
                         </div>              
                       </div>
                     </div>
-                    <div class="form-group row justify-content-center mt-5">
-                        <button type="button" id="befMem" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Back</button>
-                      </div>                          
+                                             
                     </div>
                   </div>
                   <div class="tab-pane fade show" id="nav-action" role="tabpanel" aria-labelledby="nav-action-tab">
@@ -375,9 +366,8 @@
                     </a>
                   </div>
                   <div class="col d-flex justify-content-end">
+                    <button type="button" id="befMems" class="btn btn-danger justify-content-center mr-2"><i class="fas fa-chevron-circle-left"></i> Prev</button>
                     <button type="button" id="nextMems" class="btn btn-danger justify-content-center mr-3">Next <i class="fas fa-chevron-circle-right"></i></button>
-                    <button type="button" id="befMain" class="btn btn-danger justify-content-center mr-2" hidden><i class="fas fa-chevron-circle-left"></i> Back</button>
-                    <button type="button" id="nextDet" class="btn btn-danger justify-content-center mr-3" hidden>Next <i class="fas fa-chevron-circle-right"></i></button>
                     @if($acc->kpkNum == '393560')
                       <button id="submitUpdate" type="submit" class="btn btn-primary font2 text-light">
                           Update <i class="fas fa-sync-alt"></i>
@@ -388,7 +378,7 @@
                           Update <i class="fas fa-sync-alt"></i>
                         </button>
                       @else
-                        <button class="btn btn-primary font2 text-light" disabled>
+                        <button id="submitUpdate" class="btn btn-primary font2 text-light" disabled>
                           Update <i class="fas fa-sync-alt"></i>
                         </button>
                       @endif
@@ -647,7 +637,6 @@
             @endforeach
 
             <!-- Edit modal -->
-            
             <div class="modal fade bd-edit-modal-lg" id="editFindingss" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >`
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -727,9 +716,11 @@
                                   <div class="col-md-4">
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">Remarks/Status</label>
                                       <select class="form-control font2" id="selectRemarksUpdate" name="selectRemarksUpdate" required >
-                                          <option value="" hidden></option>
-                                          <option value="On-Going">On-Going</option>
-                                          <option value="Done">Done</option>
+                                        <option value="" hidden>Select Remarks</option>
+                                        <option value="Not Started">Not Started</option>
+                                        <option value="On-Going">On-Going</option>
+                                        <option value="Done">Done</option>
+                                        <option value="Canceled">Canceled</option>
                                       </select>
                                   </div>
                               </div>
@@ -747,7 +738,7 @@
                       </div>
                       <div class="modal-footer">
                         <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Update <i class="fas fa-sync-alt"></i></button>
                       </div>
                     </form>
                 </div>
@@ -818,26 +809,6 @@
               $('#editFID').val(data[10]);
               
             });
-
-            // $('#updateEditBtn').on('submit', function(e){
-            //   e.preventDefault();
-            //   // var fid = $('#editFID').val();
-            //   $.ajax({
-            //     url:"{{ route('editFinding') }}",
-            //     method: "POST",
-            //     data: $('#editFind').serialize(),
-            //     success:function(res){
-            //       console.log(res);
-            //       alert("Finding data updated");
-            //       // location.reload();
-            //     },
-            //     error: function(err){
-            //       console.log(err);
-            //       alert('There is something wrong when edit the data');
-            //     }
-            //   });
-            // });
-
           });
         </script>
         

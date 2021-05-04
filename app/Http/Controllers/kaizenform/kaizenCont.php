@@ -395,7 +395,7 @@ class kaizenCont extends Controller
                                             if($req->session()->has("login")){
     
                                                 if($acc->kpkNum == "393560"){
-                                                    $output .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                    $output .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-success">Edit <i class="fas fa-edit"></i></a>';
                                                 }
                                             }
                                                 $output.=
@@ -645,7 +645,7 @@ class kaizenCont extends Controller
                                                     if($req->session()->has("login")){
     
                                                         if($acc->kpkNum == "393560"){}
-                                                            $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-primary">Update <i class="fas fa-edit"></i></a>';
+                                                            $myoutput .= '<a href="/kaizen-form/update-kaizen/'.$list->Kaizen_ID.'" class="btn btn-success">Edit <i class="fas fa-edit"></i></a>';
                                                     }
                                                         $myoutput.=
                                                     '
