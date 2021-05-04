@@ -2503,6 +2503,7 @@ class kaizenCont extends Controller
             ];
             $KZ_Rplus->insert($dataMembers);
         }
+        
     }
 
     public function deleteFinding($fid){
