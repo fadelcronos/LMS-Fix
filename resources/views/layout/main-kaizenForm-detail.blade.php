@@ -309,8 +309,16 @@
           });
           
         $(".js-example-placeholder-multiple").select2({
+              // placeholder: "Select a Name or KPK",
+              dropdownAutoWidth: true,
+              multiple: true,
+              width: '100%',
+              height: '30px',
               placeholder: "Select a Name or KPK",
           });
+        $('.select2-search__field').css('width', '100%');
+
+          
 
           
           

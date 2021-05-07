@@ -483,7 +483,6 @@
                                     <div class="col-md-6">
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">R+</label>
                                         <select class="js-example-placeholder-multiple js-states form-control" style="width: 100%;" id="nameRplus" name="rplusKpk[]" multiple required>
-                                            <!-- <option value="" hidden>Select KPK</option> -->
                                             @foreach($employee as $emp)
                                               <option value="{{ $emp->KPK }}" class="font2">{{ $emp->Fullname }}- {{ $emp->KPK }}</option>
                                             @endforeach
