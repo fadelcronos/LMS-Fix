@@ -1938,7 +1938,7 @@ class kaizenCont extends Controller
             $acc = User::where('id', '=', $id)->first();
             $totWait = Kaizen_Main::where('Kaizen_status', 'Waiting')->get();
 
-            return view('comingsoon.comingsoon_kaizen', compact('totWait', 'acc'));
+            return view('kaizenform-user.dashboard', compact('totWait', 'acc'));
         }
     }
 
