@@ -118,7 +118,7 @@
 
         <hr class="sidebar-divider my-0">
 
-        @if(Session::has('admin') && $acc->kpkNum == '393560')
+        @if($acc->kpkNum == '393560' || $acc->kpkNum == '918206' || $acc->kpkNum == '918307' || $acc->kpkNum == '918449' || $acc->kpkNum == '918113')
           <li class="nav-item @yield('approvalKaizen')">
             <a class="nav-link notification" href="{{url('/kaizen-form/approval-kaizen')}}">
               <i class="fas fa-check-square"></i>
@@ -130,7 +130,8 @@
             
             </a>
           </li>
-
+          
+          @if($acc->kpkNum == '393560')
           <hr class="sidebar-divider my-0">
           
           <li class="nav-item @yield('attendance')">
@@ -138,7 +139,7 @@
             <i class="fas fa-user-edit"></i>
             <span class="font2">Attendance</span></a>
           </li>
-
+          @endif
           <hr class="sidebar-divider my-0">
         @endif
 

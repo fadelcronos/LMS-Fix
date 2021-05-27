@@ -47,33 +47,34 @@ Route::post('/user/edit','user\detailprofileCont@editImage'); //Update Image rou
 
 //Kaizen 
 Route::get('/kaizen-form/add-kaizen','kaizenform\KaizenCont@userkaipage'); //Add Kai user routing
-Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@store'); //Add Kai user routing
-Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //Add Kai user routing
-Route::get('/kaizen-form/list-kaizen/action','kaizenform\KaizenCont@searchkaizen')->name('actionlist'); //Add Kai user routing
+Route::post('/kaizen-form/add-kaizen','kaizenform\KaizenCont@store'); //
+Route::get('/kaizen-form/list-kaizen','kaizenform\KaizenCont@listkaipage'); //
+Route::get('/kaizen-form/list-kaizen/action','kaizenform\KaizenCont@searchkaizen')->name('actionlist'); //Search fetures in list kaizen page
 
 Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@searchkaizen'); //Add Kai user routing
 // Route::post('/kaizen-form/list-kaizen','kaizenform\KaizenCont@testSearch')->name('livesearch'); //Add Kai user routing
 
 Route::get('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatelist'); //Add Kai user routing
 Route::get('/kaizen-form/update-kaizen/{kzid}','kaizenform\KaizenCont@show'); //Add Kai user routing
-Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata'); //Update existing data routing
+Route::post('/kaizen-form/update-kaizen','kaizenform\KaizenCont@updatedetaildata'); //Update detail kaizen data routing
 
 Route::get('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@listapprove'); //list kaizen to be approved
-Route::get('/kaizen-form/approval-kaizen/action','kaizenform\KaizenCont@searchApprove')->name('actionapproval'); //list kaizen to be approved
-Route::get('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@attendancepage'); //list kaizen to be approved
-Route::get('/kaizen-form/attendance-kaizen/action','kaizenform\KaizenCont@searchData')->name('actionattendance'); //list kaizen to be approved
+Route::get('/kaizen-form/approval-kaizen/action','kaizenform\KaizenCont@searchApprove')->name('actionapproval'); //Search kaizen in approval page
+Route::get('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@attendancepage'); //Attendance page kaizen
+Route::get('/kaizen-form/attendance-kaizen/action','kaizenform\KaizenCont@searchData')->name('actionattendance'); //Search kaizen data on attendance page
 
-Route::get('/kaizen-form/attendance-kaizen/{kzid}','kaizenform\KaizenCont@attendancedetail'); //list kaizen to be approved
+Route::get('/kaizen-form/attendance-kaizen/{kzid}','kaizenform\KaizenCont@attendancedetail'); //get detail of a kaizen attendance
 Route::post('/kaizen-form/attendance-kaizen','kaizenform\KaizenCont@searchData'); //list kaizen to be approved
 Route::post('/kaizen-form/attendance','kaizenform\KaizenCont@attendancesubmit'); //list kaizen to be approved
-Route::get('/kaizen-form/approval-kaizen/{kzid}','kaizenform\KaizenCont@approvalpage'); //approved kaizen
-Route::post('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@approvemail'); //approved kaizen
+Route::get('/kaizen-form/approval-kaizen/{kzid}','kaizenform\KaizenCont@approvalpage'); //approved spesific kaizen and set room for kaizen
+Route::post('/kaizen-form/approval-kaizen','kaizenform\KaizenCont@approvemail'); //approved kaizen to execute mail
 
-Route::get('/kaizen-form/cancel-kaizen/{kzid}','kaizenform\KaizenCont@cancelkaizen'); //approved kaizen
+Route::get('/kaizen-form/cancel-kaizen/{kzid}','kaizenform\KaizenCont@cancelkaizen'); //cancel kaizen route
+Route::get('/kaizen-form/apr-kaizen/{kzid}','kaizenform\KaizenCont@approvekaizen'); //approve kaizen route
 
 
 Route::get('/kaizen-form/test','kaizenform\KaizenCont@testmail'); //approved kaizen
-Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //approved kaizen
+Route::get('/kaizen-form/dashboard','kaizenform\KaizenCont@comingsoon'); //Dashboard Kaizen Page
 
 Route::post('/kaizen-form/add-finding','kaizenform\KaizenCont@addFinding')->name('addFinding'); //list kaizen to be approved
 
