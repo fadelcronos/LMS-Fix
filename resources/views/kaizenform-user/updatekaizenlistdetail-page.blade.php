@@ -426,10 +426,11 @@
                                         <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
                                         <select class="form-control font2" name="selectKPI" id="selectKPI" required>
                                             <option value="" hidden>Select KPI</option>
-                                            <option value="Quality">Quality</option>
-                                            <option value="Cost">Cost</option>
                                             <option value="Safety">Safety</option>
+                                            <option value="Quality">Quality</option>
+                                            <option value="Productivity">Productivity</option>
                                             <option value="Delivery">Delivery</option>
+                                            <option value="Cost">Cost</option>
                                             <option value="Moral">Moral</option>
                                         </select>
                                     </div>
@@ -450,8 +451,8 @@
                                         <select class="form-control font2" id="selectUM" name="selectUM" required>
                                             <option value="" hidden>Select Unit Measurement</option>
                                             <option value="PPM">PPM</option>
-                                            <option value="Cm">CM</option>
-                                            <option value="Cm">Other</option>
+                                            <option value="CM">CM</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -671,10 +672,11 @@
                                       <label for="exampleFormControlTextarea1" class="font2 text-dark font-weight-bold">KPI</label>
                                       <select class="form-control font2" name="selectKPIUpdate" id="selectKPIUpdate" required >
                                           <option value="" selected hidden></option>
-                                          <option value="Quality">Quality</option>
-                                          <option value="Cost">Cost</option>
                                           <option value="Safety">Safety</option>
+                                          <option value="Quality">Quality</option>
+                                          <option value="Productivity">Productivity</option>
                                           <option value="Delivery">Delivery</option>
+                                          <option value="Cost">Cost</option>
                                           <option value="Moral">Moral</option>
                                       </select>
                                   </div>
@@ -695,7 +697,8 @@
                                       <select class="form-control font2" id="selectUMUpdate" name="selectUMUpdate" required >
                                           <option value="" hidden></option>
                                           <option value="PPM">PPM</option>
-                                          <option value="Cm">Cm</option>
+                                          <option value="CM">CM</option>
+                                          <option value="Other">Other</option>
                                       </select>
                                   </div>
                               </div>
